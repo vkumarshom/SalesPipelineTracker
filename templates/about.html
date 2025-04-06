@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+
+{% block title %}About - Celestial Insights Astrology{% endblock %}
+
+{% block content %}
+<!-- About Hero -->
+<section class="py-5 bg-dark text-center">
+    <div class="container">
+        <h1 class="display-4 mb-4">About Celestial Insights</h1>
+        <p class="lead">Discover our journey, philosophy, and the stellar team behind our astrological guidance</p>
+    </div>
+</section>
+
+<!-- Our Story -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 order-lg-2">
+                <div class="about-image p-4 text-center">
+                    <svg width="100%" height="350" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="storyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#6a11cb" />
+                                <stop offset="100%" stop-color="#2575fc" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="100%" height="100%" fill="#1a1d26" rx="10" ry="10" />
+                        <!-- Stars -->
+                        <g fill="#fff">
+                            <circle cx="50" cy="60" r="1.5" />
+                            <circle cx="120" cy="30" r="2" />
+                            <circle cx="200" cy="50" r="1" />
+                            <circle cx="280" cy="90" r="1.8" />
+                            <circle cx="350" cy="40" r="1.2" />
+                            <circle cx="400" cy="110" r="1.5" />
+                            <circle cx="80" cy="150" r="1" />
+                            <circle cx="180" cy="120" r="1.8" />
+                            <circle cx="250" cy="180" r="1.2" />
+                            <circle cx="320" cy="150" r="1" />
+                            <circle cx="420" cy="190" r="1.5" />
+                            <circle cx="100" cy="220" r="1.8" />
+                            <circle cx="150" cy="280" r="1.2" />
+                            <circle cx="220" cy="240" r="1" />
+                            <circle cx="300" cy="260" r="1.5" />
+                            <circle cx="380" cy="230" r="2" />
+                        </g>
+                        <!-- Planets and orbit -->
+                        <circle cx="250" cy="175" r="120" fill="none" stroke="#9993fc" stroke-width="1" stroke-dasharray="5,5" />
+                        <circle cx="250" cy="175" r="70" fill="none" stroke="#9993fc" stroke-width="1" stroke-dasharray="5,5" />
+                        <!-- Sun -->
+                        <circle cx="250" cy="175" r="30" fill="url(#storyGradient)" />
+                        <!-- Planets -->
+                        <circle cx="130" cy="175" r="12" fill="#a3a1dc" />
+                        <circle cx="320" cy="175" r="15" fill="#6eb7ff" />
+                        <circle cx="250" cy="55" r="10" fill="#f6c6ea" />
+                        <circle cx="250" cy="295" r="17" fill="#88b3d9" />
+                    </svg>
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <h2 class="fw-bold mb-4">Our Story</h2>
+                <p>Celestial Insights was founded in 2015 by Julia Starling, a lifelong astrologer with a passion for making cosmic wisdom accessible to everyone seeking guidance. What began as a small consultation practice has grown into a full-service astrology center.</p>
+                <p>Our journey has been guided by the stars themselves, expanding from personal readings to a comprehensive range of services including relationship compatibility, career guidance, and spiritual development through astrological insights.</p>
+                <p>Today, our team of expert astrologers continues the mission of providing clarity and direction through the ancient wisdom of the stars, helping clients navigate life's challenges and opportunities with cosmic awareness.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Philosophy -->
+<section class="py-5 bg-dark">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Our Astrological Philosophy</h2>
+            <p class="text-muted">The principles that guide our practice</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="philosophy-icon mb-3">
+                            <i class="fas fa-balance-scale fa-2x text-primary"></i>
+                        </div>
+                        <h3 class="card-title h4">Empowerment Over Prediction</h3>
+                        <p class="card-text">We believe astrology is not about predicting fixed outcomes, but empowering you with knowledge of cosmic influences so you can make informed choices that align with your highest path.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="philosophy-icon mb-3">
+                            <i class="fas fa-handshake fa-2x text-primary"></i>
+                        </div>
+                        <h3 class="card-title h4">Integration of Traditions</h3>
+                        <p class="card-text">Our approach combines Western, Vedic, and Chinese astrological systems to provide a comprehensive understanding of your cosmic blueprint and life path.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="philosophy-icon mb-3">
+                            <i class="fas fa-lightbulb fa-2x text-primary"></i>
+                        </div>
+                        <h3 class="card-title h4">Practical Application</h3>
+                        <p class="card-text">We translate complex astrological concepts into practical guidance you can apply in your daily life, relationships, and career decisions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Meet Our Team -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Meet Our Astrologers</h2>
+            <p class="text-muted">The stellar team behind Celestial Insights</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card team-card h-100">
+                    <div class="card-body text-center">
+                        <div class="team-avatar mb-3">
+                            <i class="fas fa-user-circle fa-5x text-primary"></i>
+                        </div>
+                        <h3 class="card-title h4">Julia Starling</h3>
+                        <p class="text-muted">Founder & Lead Astrologer</p>
+                        <p class="card-text">With over 25 years of experience, Julia specializes in birth chart analysis and spiritual path readings. Certified by the American Federation of Astrologers.</p>
+                        <div class="social-icons mt-3">
+                            <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="me-2"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card team-card h-100">
+                    <div class="card-body text-center">
+                        <div class="team-avatar mb-3">
+                            <i class="fas fa-user-circle fa-5x text-primary"></i>
+                        </div>
+                        <h3 class="card-title h4">Marcus Orion</h3>
+                        <p class="text-muted">Career & Financial Astrologer</p>
+                        <p class="card-text">Marcus combines traditional astrology with modern financial expertise to provide guidance on career moves and financial planning aligned with planetary influences.</p>
+                        <div class="social-icons mt-3">
+                            <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="me-2"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card team-card h-100">
+                    <div class="card-body text-center">
+                        <div class="team-avatar mb-3">
+                            <i class="fas fa-user-circle fa-5x text-primary"></i>
+                        </div>
+                        <h3 class="card-title h4">Elena Luna</h3>
+                        <p class="text-muted">Relationship & Compatibility Specialist</p>
+                        <p class="card-text">Elena's expertise lies in analyzing relationship dynamics through synastry and composite charts, helping couples understand their cosmic connection.</p>
+                        <div class="social-icons mt-3">
+                            <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="me-2"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Credentials & Approach -->
+<section class="py-5 bg-dark">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="fw-bold mb-4">Our Credentials & Approach</h2>
+                <p>At Celestial Insights, we pride ourselves on a foundation of thorough astrological education and continual learning. All our consultants hold certifications from respected astrological organizations and engage in ongoing professional development.</p>
+                <p>Our readings combine traditional techniques with modern psychological insights, ensuring you receive guidance that's both cosmically aligned and practically applicable. We use state-of-the-art astrological software for precision while maintaining the human touch that brings the stars' messages to life.</p>
+                <p>Each consultation is approached with respect for your free will and personal journey. We see astrology as a tool for empowerment—illuminating potentials and possibilities rather than dictating fixed outcomes.</p>
+            </div>
+            <div class="col-lg-6">
+                <div class="credentials-image p-4">
+                    <svg width="100%" height="300" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="certGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#5145E6" />
+                                <stop offset="100%" stop-color="#7668EC" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="100%" height="100%" fill="#1a1d26" rx="10" ry="10" />
+                        <!-- Certificate design -->
+                        <rect x="50" y="50" width="400" height="200" rx="5" ry="5" fill="#252836" stroke="#6351DD" stroke-width="2" />
+                        <rect x="70" y="70" width="360" height="160" rx="3" ry="3" fill="none" stroke="#9993fc" stroke-width="1" stroke-dasharray="2,2" />
+                        <text x="250" y="110" font-family="Arial" font-size="18" fill="#fff" text-anchor="middle">Certificate of Excellence</text>
+                        <text x="250" y="140" font-family="Arial" font-size="12" fill="#9993fc" text-anchor="middle">International Association of Professional Astrologers</text>
+                        <text x="250" y="170" font-family="Arial" font-size="14" fill="#fff" text-anchor="middle">Celestial Insights Astrology</text>
+                        <text x="250" y="200" font-family="Arial" font-size="10" fill="#9993fc" text-anchor="middle">For outstanding contribution to the field of astrological practice</text>
+                        <circle cx="120" cy="190" r="20" fill="url(#certGradient)" />
+                        <path d="M350,190 l20,0 l-10,-17 z" fill="#e0c463" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="fw-bold mb-4">Begin Your Celestial Journey</h2>
+                <p class="lead mb-4">Ready to discover how the stars can illuminate your path? Book a consultation with one of our expert astrologers today.</p>
+                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                    <a href="{{ url_for('booking') }}" class="btn btn-primary btn-lg">Book a Reading</a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-outline-primary btn-lg">Ask a Question</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

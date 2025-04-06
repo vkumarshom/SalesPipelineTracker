@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}Server Error - Celestial Insights Astrology{% endblock %}
+
+{% block content %}
+<!-- 500 Hero -->
+<section class="py-5 bg-dark text-center">
+    <div class="container">
+        <h1 class="display-4 mb-4">500 - Server Error</h1>
+        <p class="lead">Something went wrong on our cosmic servers</p>
+    </div>
+</section>
+
+<!-- 500 Content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="error-image mb-5">
+                    <svg width="250" height="250" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="errorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#7b68ee" stop-opacity="0.8" />
+                                <stop offset="100%" stop-color="#3a3d4c" stop-opacity="0.2" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="125" cy="125" r="100" fill="url(#errorGradient)" />
+                        <text x="125" y="145" font-family="Arial" font-size="48" fill="#fff" text-anchor="middle">500</text>
+                        <!-- Stars -->
+                        <g fill="#fff">
+                            <circle cx="65" cy="75" r="2" />
+                            <circle cx="40" cy="125" r="1.5" />
+                            <circle cx="90" cy="160" r="1.8" />
+                            <circle cx="160" cy="70" r="1.2" />
+                            <circle cx="180" cy="130" r="2" />
+                            <circle cx="140" cy="175" r="1.5" />
+                            <circle cx="210" cy="105" r="1.8" />
+                        </g>
+                        <!-- Cosmic disturbance -->
+                        <path d="M125,75 Q165,110 125,145 Q85,180 125,215" fill="none" stroke="#e74c3c" stroke-width="3" stroke-dasharray="5,5" />
+                        <circle cx="125" cy="75" r="5" fill="#e74c3c" />
+                        <circle cx="125" cy="215" r="5" fill="#e74c3c" />
+                    </svg>
+                </div>
+                <h2 class="mb-4">Houston, we have a problem!</h2>
+                <p class="lead mb-5">Our cosmic servers encountered an unexpected disturbance. Our technical astrologers have been notified and are working to restore cosmic harmony.</p>
+                <div class="d-flex flex-wrap gap-3 justify-content-center">
+                    <a href="{{ url_for('index') }}" class="btn btn-primary">Return to Home</a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-outline-primary">Report This Issue</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Try These Instead -->
+<section class="py-5 bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h3 class="mb-4">While we fix the issue, you might explore:</h3>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <div class="suggestion-icon mb-3">
+                                    <i class="fas fa-home fa-2x text-primary"></i>
+                                </div>
+                                <h4 class="card-title h5">Homepage</h4>
+                                <p class="card-text small">Return to our cosmic home base</p>
+                                <a href="{{ url_for('index') }}" class="btn btn-sm btn-outline-primary">Go Home</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <div class="suggestion-icon mb-3">
+                                    <i class="fas fa-star fa-2x text-primary"></i>
+                                </div>
+                                <h4 class="card-title h5">About Us</h4>
+                                <p class="card-text small">Learn about our astrology practice</p>
+                                <a href="{{ url_for('about') }}" class="btn btn-sm btn-outline-primary">About Us</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <div class="suggestion-icon mb-3">
+                                    <i class="fas fa-envelope fa-2x text-primary"></i>
+                                </div>
+                                <h4 class="card-title h5">Contact Support</h4>
+                                <p class="card-text small">Get help from our team</p>
+                                <a href="{{ url_for('contact') }}" class="btn btn-sm btn-outline-primary">Contact Us</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

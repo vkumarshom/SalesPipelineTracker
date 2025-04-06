@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - Celestial Insights Astrology{% endblock %}
+
+{% block content %}
+<!-- Admin Header -->
+<div class="bg-dark py-3">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="h3 mb-0">Admin Dashboard</h1>
+            <div>
+                <a href="{{ url_for('index') }}" class="btn btn-outline-light btn-sm me-2">View Site</a>
+                <a href="{{ url_for('admin_logout') }}" class="btn btn-outline-danger btn-sm">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Admin Navigation -->
+<div class="bg-secondary py-2">
+    <div class="container">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link active" href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('admin_blog_posts') }}">Blog Posts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('admin_services') }}">Services</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('admin_bookings') }}">Bookings</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Dashboard Content -->
+<section class="py-4">
+    <div class="container">
+        <!-- Stats Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3 mb-md-0">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-calendar-check fa-2x text-primary mb-3"></i>
+                        <h3 class="card-title h5">Today's Bookings</h3>
+                        <p class="card-text display-6">{{ recent_bookings|selectattr('booking_date', 'eq', now().date())|list|length }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3 mb-md-0">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-shopping-cart fa-2x text-primary mb-3"></i>
+                        <h3 class="card-title h5">Recent Orders</h3>
+                        <p class="card-text display-6">{{ recent_orders|length }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3 mb-md-0">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
+                        <h3 class="card-title h5">Unread Messages</h3>
+                        <p class="card-text display-6">{{ unread_contacts }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-file-alt fa-2x text-primary mb-3"></i>
+                        <h3 class="card-title h5">Blog Posts</h3>
+                        <p class="card-text display-6">{{ blog_posts_count }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Bookings -->
+        <div class="row mb-4">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Recent Bookings</h5>
+                        <a href="{{ url_for('admin_bookings') }}" class="btn btn-sm btn-outline-primary">View All</a>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Service</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for booking in recent_bookings %}
+                                    <tr>
+                                        <td>{{ booking.customer_name }}</td>
+                                        <td>{{ booking.service.name }}</td>
+                                        <td>{{ booking.booking_date.strftime('%m/%d/%Y') }}</td>
+                                        <td>
+                                            <span class="badge bg-{{ 'success' if booking.status == 'confirmed' else 'warning' if booking.status == 'pending' else 'danger' }}">
+                                                {{ booking.status }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="4" class="text-center">No recent bookings</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Orders -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Recent Orders</h5>
+                        <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Order #</th>
+                                        <th>Customer</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for order in recent_orders %}
+                                    <tr>
+                                        <td>{{ order.order_number }}</td>
+                                        <td>{{ order.customer_name }}</td>
+                                        <td>${{ order.total_amount }}</td>
+                                        <td>
+                                            <span class="badge bg-{{ 'success' if order.status == 'paid' else 'warning' if order.status == 'pending' else 'danger' }}">
+                                                {{ order.status }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="4" class="text-center">No recent orders</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Quick Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <a href="{{ url_for('admin_new_post') }}" class="btn btn-outline-primary w-100">
+                                    <i class="fas fa-plus-circle me-2"></i>New Blog Post
+                                </a>
+                            </div>
+                            <div class="col-6">
+                                <a href="{{ url_for('admin_new_service') }}" class="btn btn-outline-primary w-100">
+                                    <i class="fas fa-plus-circle me-2"></i>New Service
+                                </a>
+                            </div>
+                            <div class="col-6">
+                                <a href="#" class="btn btn-outline-primary w-100">
+                                    <i class="fas fa-envelope me-2"></i>View Messages
+                                </a>
+                            </div>
+                            <div class="col-6">
+                                <a href="#" class="btn btn-outline-primary w-100">
+                                    <i class="fas fa-cog me-2"></i>Site Settings
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

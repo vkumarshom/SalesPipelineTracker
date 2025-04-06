@@ -1,0 +1,300 @@
+{% extends 'base.html' %}
+
+{% block title %}Astrology Services - Celestial Insights Astrology{% endblock %}
+
+{% block content %}
+<!-- Services Hero -->
+<section class="py-5 bg-dark text-center">
+    <div class="container">
+        <h1 class="display-4 mb-4">Our Astrology Services</h1>
+        <p class="lead">Discover personalized cosmic guidance for every aspect of your life</p>
+    </div>
+</section>
+
+<!-- Services List -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            {% for service in services %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card service-card h-100">
+                    {% if service.image_url %}
+                    <div class="card-img-top service-img-placeholder" style="height: 200px; display: flex; align-items: center; justify-content: center; background-color: #2a2d3a;">
+                        <i class="fas fa-star fa-3x text-secondary"></i>
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h3 class="card-title h4">{{ service.name }}</h3>
+                        <p class="card-text">{{ service.short_description }}</p>
+                        <div class="service-details d-flex justify-content-between align-items-center mb-3">
+                            <span class="price fw-bold text-primary">${{ service.price }}</span>
+                            <span class="duration"><i class="far fa-clock me-1"></i>{{ service.duration }} min</span>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a href="{{ url_for('service_detail', slug=service.slug) }}" class="btn btn-outline-primary">View Details</a>
+                            <form action="{{ url_for('add_to_cart') }}" method="POST">
+                                <input type="hidden" name="service_id" value="{{ service.id }}">
+                                <button type="submit" class="btn btn-primary w-100">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Service Categories -->
+<section class="py-5 bg-dark">
+    <div class="container">
+        <h2 class="text-center mb-5">Explore By Category</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card category-card h-100">
+                    <div class="card-body text-center">
+                        <div class="category-icon mb-3">
+                            <i class="fas fa-user fa-3x text-primary"></i>
+                        </div>
+                        <h3 class="card-title h4">Personal Readings</h3>
+                        <p class="card-text">Discover your personal cosmic blueprint with birth chart readings, transit forecasts, and soul path analysis.</p>
+                        <a href="#" class="btn btn-outline-light">Explore Personal Readings</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card category-card h-100">
+                    <div class="card-body text-center">
+                        <div class="category-icon mb-3">
+                            <i class="fas fa-heart fa-3x text-primary"></i>
+                        </div>
+                        <h3 class="card-title h4">Relationship Astrology</h3>
+                        <p class="card-text">Understand your romantic, friendship, and professional relationships through synastry and composite readings.</p>
+                        <a href="#" class="btn btn-outline-light">Explore Relationship Readings</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card category-card h-100">
+                    <div class="card-body text-center">
+                        <div class="category-icon mb-3">
+                            <i class="fas fa-briefcase fa-3x text-primary"></i>
+                        </div>
+                        <h3 class="card-title h4">Career & Finance</h3>
+                        <p class="card-text">Gain insight into your professional path, financial patterns, and optimal timing for career moves.</p>
+                        <a href="#" class="btn btn-outline-light">Explore Career Readings</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">How Our Consultations Work</h2>
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="text-center">
+                    <div class="step-circle mx-auto mb-3 d-flex align-items-center justify-content-center">
+                        <span class="fs-4 fw-bold">1</span>
+                    </div>
+                    <h3 class="h5">Choose Your Service</h3>
+                    <p>Select the reading that addresses your questions and interests.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="text-center">
+                    <div class="step-circle mx-auto mb-3 d-flex align-items-center justify-content-center">
+                        <span class="fs-4 fw-bold">2</span>
+                    </div>
+                    <h3 class="h5">Book Your Session</h3>
+                    <p>Purchase and schedule a time that works for your consultation.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="text-center">
+                    <div class="step-circle mx-auto mb-3 d-flex align-items-center justify-content-center">
+                        <span class="fs-4 fw-bold">3</span>
+                    </div>
+                    <h3 class="h5">Provide Your Details</h3>
+                    <p>Share your birth information for an accurate reading.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="text-center">
+                    <div class="step-circle mx-auto mb-3 d-flex align-items-center justify-content-center">
+                        <span class="fs-4 fw-bold">4</span>
+                    </div>
+                    <h3 class="h5">Attend Your Reading</h3>
+                    <p>Connect for your in-person or virtual consultation.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-5 bg-dark">
+    <div class="container">
+        <h2 class="text-center mb-5">What Our Clients Say</h2>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="testimonial-item text-center p-4">
+                                <div class="testimonial-avatar mb-3">
+                                    <i class="fas fa-user-circle fa-3x text-primary"></i>
+                                </div>
+                                <div class="rating mb-3">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                </div>
+                                <p class="testimonial-text fs-5 mb-3">"My birth chart reading was revelatory. The astrologer identified patterns I've been experiencing my whole life but never fully understood. I now have clarity on my life purpose."</p>
+                                <h5 class="testimonial-name mb-0">Jennifer R.</h5>
+                                <p class="small text-muted">Birth Chart Reading</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="testimonial-item text-center p-4">
+                                <div class="testimonial-avatar mb-3">
+                                    <i class="fas fa-user-circle fa-3x text-primary"></i>
+                                </div>
+                                <div class="rating mb-3">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                </div>
+                                <p class="testimonial-text fs-5 mb-3">"The career transit reading helped me time my job transition perfectly. I secured a better position exactly when the astrologer predicted would be optimal. Their guidance was invaluable."</p>
+                                <h5 class="testimonial-name mb-0">Marcus T.</h5>
+                                <p class="small text-muted">Career Transit Reading</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="testimonial-item text-center p-4">
+                                <div class="testimonial-avatar mb-3">
+                                    <i class="fas fa-user-circle fa-3x text-primary"></i>
+                                </div>
+                                <div class="rating mb-3">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                </div>
+                                <p class="testimonial-text fs-5 mb-3">"Our compatibility reading was eye-opening for both of us. We gained insight into our relationship dynamics and have new tools to communicate more effectively. Highly recommended for couples."</p>
+                                <h5 class="testimonial-name mb-0">Sophia & James</h5>
+                                <p class="small text-muted">Relationship Compatibility Reading</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQs -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Frequently Asked Questions</h2>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="accordion" id="servicesFaqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faqOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="true" aria-controls="faqCollapseOne">
+                                Do I need to know my exact birth time?
+                            </button>
+                        </h2>
+                        <div id="faqCollapseOne" class="accordion-collapse collapse show" aria-labelledby="faqOne" data-bs-parent="#servicesFaqAccordion">
+                            <div class="accordion-body">
+                                For the most accurate and detailed birth chart readings, your exact birth time is essential. However, we can still provide valuable insights with just your birth date and location, though some specific details like your rising sign and house placements may not be as precise.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faqTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
+                                What's the difference between a natal chart and transit reading?
+                            </button>
+                        </h2>
+                        <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqTwo" data-bs-parent="#servicesFaqAccordion">
+                            <div class="accordion-body">
+                                A natal (birth) chart reading reveals your inherent personality traits, strengths, challenges, and life path based on the planetary positions at your birth. A transit reading examines how current and upcoming planetary movements interact with your birth chart, highlighting timing for specific life events and opportunities.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faqThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
+                                Can astrology predict my future exactly?
+                            </button>
+                        </h2>
+                        <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqThree" data-bs-parent="#servicesFaqAccordion">
+                            <div class="accordion-body">
+                                Astrology doesn't predict exact events but rather highlights patterns, tendencies, and optimal timing. It shows potential energy patterns and how they might manifest. Free will always plays a crucial role in how these energies express themselves in your life. We focus on empowerment through awareness rather than deterministic predictions.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faqFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFour" aria-expanded="false" aria-controls="faqCollapseFour">
+                                How should I prepare for my consultation?
+                            </button>
+                        </h2>
+                        <div id="faqCollapseFour" class="accordion-collapse collapse" aria-labelledby="faqFour" data-bs-parent="#servicesFaqAccordion">
+                            <div class="accordion-body">
+                                Come with specific questions or areas of life you'd like to explore. Having a focus helps us provide more targeted guidance. Also, approach the reading with an open mind and be willing to participate in the conversation. Many clients find it helpful to record the session (with permission) or take notes to review later.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faqFive">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFive" aria-expanded="false" aria-controls="faqCollapseFive">
+                                How often should I get an astrology reading?
+                            </button>
+                        </h2>
+                        <div id="faqCollapseFive" class="accordion-collapse collapse" aria-labelledby="faqFive" data-bs-parent="#servicesFaqAccordion">
+                            <div class="accordion-body">
+                                This varies by individual needs. Many clients benefit from an annual solar return reading around their birthday to get insights for the coming year. Others prefer quarterly transit updates. For specific life transitions or decisions, targeted readings can be scheduled as needed. We recommend at least 3-6 months between full readings to allow energies to develop.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="fw-bold mb-4">Ready to Discover Your Cosmic Blueprint?</h2>
+                <p class="lead mb-4">Book your personalized astrology reading today and begin your journey to cosmic self-discovery.</p>
+                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                    <a href="{{ url_for('booking') }}" class="btn btn-primary btn-lg">Book Now</a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Cart - Celestial Insights Astrology{% endblock %}
+
+{% block content %}
+<!-- Cart Hero -->
+<section class="py-5 bg-dark text-center">
+    <div class="container">
+        <h1 class="display-4 mb-4">Your Shopping Cart</h1>
+        <p class="lead">Review your selected astrology services</p>
+    </div>
+</section>
+
+<!-- Cart Items -->
+<section class="py-5">
+    <div class="container">
+        {% if cart_items %}
+            <div class="table-responsive mb-4">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">Service</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart_items %}
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="cart-item-img me-3" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; background-color: #2a2d3a; border-radius: 4px;">
+                                        <i class="fas fa-star text-secondary"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-0">{{ item.service.name }}</h5>
+                                        <small class="text-muted">{{ item.service.duration }} minutes</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ format_price(item.service.price) }}</td>
+                            <td>
+                                <form action="{{ url_for('update_cart') }}" method="POST" class="cart-quantity-form">
+                                    <input type="hidden" name="item_id" value="{{ item.id }}">
+                                    <div class="input-group" style="width: 120px;">
+                                        <button class="btn btn-outline-secondary decrease-quantity" type="button">-</button>
+                                        <input type="number" class="form-control text-center quantity-input" name="quantity" value="{{ item.quantity }}" min="1" max="10">
+                                        <button class="btn btn-outline-secondary increase-quantity" type="button">+</button>
+                                    </div>
+                                    <button type="submit" class="btn btn-sm btn-outline-primary mt-2 update-quantity-btn">Update</button>
+                                </form>
+                            </td>
+                            <td>{{ format_price(item.service.price * item.quantity) }}</td>
+                            <td>
+                                <form action="{{ url_for('remove_from_cart', item_id=item.id) }}" method="POST">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 offset-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="mb-3">Cart Summary</h4>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Subtotal:</span>
+                                <span>{{ format_price(total) }}</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="fw-bold">Total:</span>
+                                <span class="fw-bold text-primary">{{ format_price(total) }}</span>
+                            </div>
+                            <div class="d-grid">
+                                <a href="{{ url_for('checkout') }}" class="btn btn-primary btn-lg">Proceed to Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4 text-center">
+                <a href="{{ url_for('services') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-2"></i>Continue Shopping
+                </a>
+            </div>
+        {% else %}
+            <div class="text-center py-5">
+                <div class="empty-cart-icon mb-4">
+                    <i class="fas fa-shopping-cart fa-5x text-secondary"></i>
+                </div>
+                <h2 class="mb-3">Your cart is empty</h2>
+                <p class="mb-4">Looks like you haven't added any astrology services to your cart yet.</p>
+                <a href="{{ url_for('services') }}" class="btn btn-primary btn-lg">Browse Services</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+{% if cart_items %}
+<!-- You May Also Like -->
+<section class="py-5 bg-dark">
+    <div class="container">
+        <h2 class="text-center mb-5">You May Also Like</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="related-img-placeholder mb-3" style="height: 150px; display: flex; align-items: center; justify-content: center; background-color: #2a2d3a;">
+                            <i class="fas fa-moon fa-2x text-secondary"></i>
+                        </div>
+                        <h3 class="card-title h5">Natal Chart Reading</h3>
+                        <p class="card-text">Discover your cosmic blueprint and life path</p>
+                        <p class="text-primary">$95</p>
+                        <a href="#" class="btn btn-outline-light">View Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="related-img-placeholder mb-3" style="height: 150px; display: flex; align-items: center; justify-content: center; background-color: #2a2d3a;">
+                            <i class="fas fa-heart fa-2x text-secondary"></i>
+                        </div>
+                        <h3 class="card-title h5">Relationship Compatibility</h3>
+                        <p class="card-text">Understand your cosmic connection with another</p>
+                        <p class="text-primary">$120</p>
+                        <a href="#" class="btn btn-outline-light">View Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="related-img-placeholder mb-3" style="height: 150px; display: flex; align-items: center; justify-content: center; background-color: #2a2d3a;">
+                            <i class="fas fa-sun fa-2x text-secondary"></i>
+                        </div>
+                        <h3 class="card-title h5">Solar Return Reading</h3>
+                        <p class="card-text">Preview your year ahead with this birthday chart</p>
+                        <p class="text-primary">$85</p>
+                        <a href="#" class="btn btn-outline-light">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+{% endblock %}
