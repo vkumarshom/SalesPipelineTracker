@@ -1,13 +1,14 @@
 /* 
-  Custom CSS for Celestial Insights Astrology
+  Custom CSS for Meta Mystic
   This file contains minimal custom styles that extend the Bootstrap theme
 */
 
 :root {
-  /* Extend the Bootstrap theme with celestial-inspired colors */
-  --celestial-primary: var(--bs-primary);
-  --celestial-purple: #7b68ee;
-  --celestial-dark-purple: #5145E6;
+  /* Extend the Bootstrap theme with dark blue colors */
+  --celestial-primary: #0d47a1;
+  --celestial-blue: #1a237e;
+  --celestial-dark-blue: #0a1232;
+  --celestial-light-blue: #4a69bd;
   --celestial-light: #e1e1e1;
 }
 
@@ -24,14 +25,14 @@ main {
 
 /* Hero section styling */
 .hero {
-  background: linear-gradient(to bottom right, #1a1d26, #2a2d3a);
+  background: linear-gradient(to bottom right, #0a1232, #1a237e);
   padding: 5rem 0;
   position: relative;
   overflow: hidden;
 }
 
 .hero-image {
-  filter: drop-shadow(0 0 10px rgba(123, 104, 238, 0.4));
+  filter: drop-shadow(0 0 10px rgba(26, 35, 126, 0.4));
 }
 
 /* Section styling */
@@ -58,8 +59,8 @@ section {
   justify-content: center;
   border-radius: 50%;
   margin: 0 auto;
-  background-color: rgba(123, 104, 238, 0.1);
-  color: var(--celestial-purple);
+  background-color: rgba(26, 35, 126, 0.1);
+  color: var(--celestial-blue);
 }
 
 /* Testimonial styling */
@@ -71,7 +72,7 @@ section {
   justify-content: center;
   border-radius: 50%;
   margin: 0 auto;
-  color: var(--celestial-purple);
+  color: var(--celestial-blue);
 }
 
 /* Step circles for processes */
@@ -95,12 +96,12 @@ section {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: rgba(123, 104, 238, 0.1);
+  background-color: rgba(26, 35, 126, 0.1);
   transition: background-color 0.3s ease;
 }
 
 .social-icon:hover {
-  background-color: rgba(123, 104, 238, 0.2);
+  background-color: rgba(26, 35, 126, 0.2);
 }
 
 /* Time slots for booking */
@@ -120,7 +121,7 @@ section {
 }
 
 .time-slot:hover {
-  background-color: rgba(123, 104, 238, 0.1);
+  background-color: rgba(26, 35, 126, 0.1);
 }
 
 .time-slot.selected {
@@ -137,8 +138,8 @@ section {
 
 /* Category cards in shop */
 .category-card {
-  background-color: rgba(42, 45, 58, 0.7);
-  border: 1px solid rgba(123, 104, 238, 0.3);
+  background-color: rgba(10, 18, 50, 0.7);
+  border: 1px solid rgba(26, 35, 126, 0.3);
 }
 
 /* Cart quantity input */
@@ -177,7 +178,7 @@ section {
 }
 
 .post-content blockquote {
-  border-left: 4px solid var(--celestial-purple);
+  border-left: 4px solid var(--celestial-blue);
   padding-left: 1rem;
   font-style: italic;
   margin: 1.5rem 0;

@@ -2,8 +2,8 @@
   <defs>
     <!-- Gradient for the celestial elements -->
     <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7b68ee" />
-      <stop offset="100%" stop-color="#5145E6" />
+      <stop offset="0%" stop-color="#1a3a8f" />
+      <stop offset="100%" stop-color="#0d2254" />
     </linearGradient>
     
     <!-- Subtle starry background pattern -->
@@ -27,12 +27,11 @@
   <!-- Star burst -->
   <path d="M25,10 L27,20 L37,20 L29,26 L32,36 L25,30 L18,36 L21,26 L13,20 L23,20 Z" fill="url(#logoGradient)" opacity="0.7" />
   
-  <!-- Text "Celestial Insights" -->
-  <text x="50" y="23" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e1e1e1">CELESTIAL</text>
-  <text x="50" y="38" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e1e1e1">INSIGHTS</text>
+  <!-- Text "Meta Mystic" -->
+  <text x="50" y="30" font-family="Arial, sans-serif" font-size="17" font-weight="bold" fill="#e1e1e1">META MYSTIC</text>
   
   <!-- Subtle orbit line -->
-  <ellipse cx="25" cy="25" rx="20" ry="20" fill="none" stroke="#7b68ee" stroke-width="0.5" stroke-dasharray="2,2" />
+  <ellipse cx="25" cy="25" rx="20" ry="20" fill="none" stroke="#1a3a8f" stroke-width="0.5" stroke-dasharray="2,2" />
   
   <!-- Small stars -->
   <circle cx="155" cy="15" r="1" fill="#e1e1e1" />
