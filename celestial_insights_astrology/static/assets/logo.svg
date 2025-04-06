@@ -1,0 +1,45 @@
+<svg width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient for the celestial elements -->
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7b68ee" />
+      <stop offset="100%" stop-color="#5145E6" />
+    </linearGradient>
+    
+    <!-- Subtle starry background pattern -->
+    <pattern id="starsPattern" x="0" y="0" width="100" height="50" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="0.8" fill="#e1e1e1" opacity="0.4" />
+      <circle cx="25" cy="20" r="0.6" fill="#e1e1e1" opacity="0.3" />
+      <circle cx="40" cy="5" r="0.7" fill="#e1e1e1" opacity="0.5" />
+      <circle cx="60" cy="15" r="0.5" fill="#e1e1e1" opacity="0.3" />
+      <circle cx="75" cy="8" r="0.9" fill="#e1e1e1" opacity="0.4" />
+      <circle cx="90" cy="25" r="0.6" fill="#e1e1e1" opacity="0.5" />
+    </pattern>
+  </defs>
+  
+  <!-- Background with subtle stars -->
+  <rect width="200" height="50" fill="url(#starsPattern)" />
+  
+  <!-- Moon symbol -->
+  <circle cx="25" cy="25" r="15" fill="#2a2d3a" />
+  <circle cx="28" cy="22" r="12" fill="url(#logoGradient)" />
+  
+  <!-- Star burst -->
+  <path d="M25,10 L27,20 L37,20 L29,26 L32,36 L25,30 L18,36 L21,26 L13,20 L23,20 Z" fill="url(#logoGradient)" opacity="0.7" />
+  
+  <!-- Text "Celestial Insights" -->
+  <text x="50" y="23" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e1e1e1">CELESTIAL</text>
+  <text x="50" y="38" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e1e1e1">INSIGHTS</text>
+  
+  <!-- Subtle orbit line -->
+  <ellipse cx="25" cy="25" rx="20" ry="20" fill="none" stroke="#7b68ee" stroke-width="0.5" stroke-dasharray="2,2" />
+  
+  <!-- Small stars -->
+  <circle cx="155" cy="15" r="1" fill="#e1e1e1" />
+  <circle cx="170" cy="25" r="1.5" fill="#e1e1e1" />
+  <circle cx="185" cy="10" r="1" fill="#e1e1e1" />
+  
+  <!-- Astrology symbol -->
+  <circle cx="185" cy="30" r="5" fill="none" stroke="#e1e1e1" stroke-width="1" />
+  <path d="M185,25 L185,35 M180,30 L190,30" stroke="#e1e1e1" stroke-width="1" />
+</svg>

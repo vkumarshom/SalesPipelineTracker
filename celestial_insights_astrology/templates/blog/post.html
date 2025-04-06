@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }} - Celestial Insights Astrology{% endblock %}
+
+{% block content %}
+<!-- Blog Post Header -->
+<section class="py-5 bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="text-center">
+                    <p class="text-muted">{{ post.created_at.strftime('%B %d, %Y') }}</p>
+                    <h1 class="display-4 mb-4">{{ post.title }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Post Content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                {% if post.image_url %}
+                <div class="post-image mb-4">
+                    <div class="post-img-placeholder" style="height: 400px; display: flex; align-items: center; justify-content: center; background-color: #2a2d3a;">
+                        <i class="fas fa-image fa-5x text-secondary"></i>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <div class="post-content">
+                    {{ post.content|safe }}
+                </div>
+                
+                <hr class="my-5">
+                
+                <!-- Share & Tags -->
+                <div class="post-meta d-flex flex-wrap justify-content-between align-items-center">
+                    <div class="post-tags">
+                        <span class="me-2">Tags:</span>
+                        <a href="#" class="badge bg-primary me-1">Astrology</a>
+                        <a href="#" class="badge bg-primary me-1">Planets</a>
+                        <a href="#" class="badge bg-primary">Zodiac</a>
+                    </div>
+                    <div class="post-share">
+                        <span class="me-2">Share:</span>
+                        <a href="#" class="me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="me-2"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Posts -->
+<section class="py-5 bg-dark">
+    <div class="container">
+        <h2 class="text-center mb-5">You Might Also Like</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="card-img-top related-img-placeholder" style="height: 150px; display: flex; align-items: center; justify-content: center; background-color: #2a2d3a; margin-bottom: 1rem;">
+                            <i class="fas fa-image fa-2x text-secondary"></i>
+                        </div>
+                        <h3 class="card-title h5">Understanding Mercury Retrograde</h3>
+                        <p class="card-text small">Navigate communication challenges during this astrological phenomenon.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="card-img-top related-img-placeholder" style="height: 150px; display: flex; align-items: center; justify-content: center; background-color: #2a2d3a; margin-bottom: 1rem;">
+                            <i class="fas fa-image fa-2x text-secondary"></i>
+                        </div>
+                        <h3 class="card-title h5">The Power of Your Rising Sign</h3>
+                        <p class="card-text small">Discover how your ascendant shapes your personality and first impressions.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="card-img-top related-img-placeholder" style="height: 150px; display: flex; align-items: center; justify-content: center; background-color: #2a2d3a; margin-bottom: 1rem;">
+                            <i class="fas fa-image fa-2x text-secondary"></i>
+                        </div>
+                        <h3 class="card-title h5">Full Moon Rituals for Manifestation</h3>
+                        <p class="card-text small">Harness the energy of the full moon to bring your intentions to life.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="fw-bold mb-4">Want Personalized Cosmic Guidance?</h2>
+                <p class="lead mb-4">Book a consultation with one of our expert astrologers to explore how these cosmic forces affect your unique chart.</p>
+                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                    <a href="{{ url_for('booking') }}" class="btn btn-primary btn-lg">Book a Reading</a>
+                    <a href="{{ url_for('services') }}" class="btn btn-outline-primary btn-lg">View All Services</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

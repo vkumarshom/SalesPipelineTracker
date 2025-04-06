@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block title %}Booking Confirmation - Celestial Insights Astrology{% endblock %}
+
+{% block content %}
+<!-- Confirmation Hero -->
+<section class="py-5 bg-dark text-center">
+    <div class="container">
+        <div class="confirmation-icon mb-4">
+            <i class="fas fa-check-circle fa-4x text-success"></i>
+        </div>
+        <h1 class="display-4 mb-3">Thank You for Your Booking!</h1>
+        <p class="lead">Your astrology consultation has been confirmed</p>
+    </div>
+</section>
+
+<!-- Booking Details -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card mb-4">
+                    <div class="card-body p-4">
+                        <h2 class="card-title text-center mb-4">Booking Details</h2>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h5>Service Information</h5>
+                                <p><strong>Service:</strong> {{ booking.service.name }}</p>
+                                <p><strong>Duration:</strong> {{ booking.service.duration }} minutes</p>
+                                <p><strong>Price:</strong> ${{ booking.service.price }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Appointment Details</h5>
+                                <p><strong>Date:</strong> {{ booking.booking_date.strftime('%A, %B %d, %Y') }}</p>
+                                <p><strong>Time:</strong> {{ booking.booking_time.strftime('%I:%M %p') }}</p>
+                                <p><strong>Status:</strong> <span class="badge bg-success">{{ booking.status|capitalize }}</span></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row mb-4">
+                            <div class="col">
+                                <h5>Customer Information</h5>
+                                <p><strong>Name:</strong> {{ booking.customer_name }}</p>
+                                <p><strong>Email:</strong> {{ booking.customer_email }}</p>
+                                {% if booking.customer_phone %}
+                                <p><strong>Phone:</strong> {{ booking.customer_phone }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if booking.notes %}
+                        <div class="row">
+                            <div class="col">
+                                <h5>Additional Notes</h5>
+                                <p>{{ booking.notes }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h3 class="card-title mb-4">What's Next?</h3>
+                        <div class="next-steps">
+                            <div class="d-flex mb-3">
+                                <div class="step-number me-3">
+                                    <span class="badge bg-primary rounded-circle">1</span>
+                                </div>
+                                <div>
+                                    <h5>Confirmation Email</h5>
+                                    <p>We've sent a confirmation email to {{ booking.customer_email }} with all the details of your booking.</p>
+                                </div>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <div class="step-number me-3">
+                                    <span class="badge bg-primary rounded-circle">2</span>
+                                </div>
+                                <div>
+                                    <h5>Prepare Your Information</h5>
+                                    <p>For the most accurate reading, please have your birth date, time, and location ready.</p>
+                                </div>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <div class="step-number me-3">
+                                    <span class="badge bg-primary rounded-circle">3</span>
+                                </div>
+                                <div>
+                                    <h5>Appointment Reminder</h5>
+                                    <p>We'll send you a reminder email 24 hours before your scheduled appointment.</p>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="step-number me-3">
+                                    <span class="badge bg-primary rounded-circle">4</span>
+                                </div>
+                                <div>
+                                    <h5>Connect with Your Astrologer</h5>
+                                    <p>At your scheduled time, your astrologer will connect with you via your preferred method.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('index') }}" class="btn btn-outline-primary me-2">Back to Home</a>
+                    <a href="{{ url_for('services') }}" class="btn btn-primary">Explore More Services</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Need to Change -->
+<section class="py-5 bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="fw-bold mb-4">Need to Change Your Booking?</h2>
+                <p class="lead mb-4">If you need to reschedule or cancel your appointment, please contact us as soon as possible.</p>
+                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                    <a href="mailto:bookings@celestialinsights.com" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-envelope me-2"></i>Email Us
+                    </a>
+                    <a href="tel:+10987654321" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-phone me-2"></i>Call Us
+                    </a>
+                </div>
+                <p class="mt-3 text-muted">Please refer to our cancellation policy. Changes made with less than 24 hours notice may be subject to fees.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+
+{% block title %}Celestial Insights Astrology - Professional Astrology Services{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero py-5 text-center text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 text-lg-start">
+                <h1 class="display-4 mb-4">Discover Your Cosmic Path</h1>
+                <p class="lead mb-4">Personalized astrology readings to guide your journey through life's celestial patterns and energies.</p>
+                <div class="d-flex flex-wrap gap-2 justify-content-lg-start justify-content-center">
+                    <a href="{{ url_for('services') }}" class="btn btn-primary btn-lg">Explore Services</a>
+                    <a href="{{ url_for('booking') }}" class="btn btn-outline-light btn-lg">Book a Reading</a>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <div class="hero-image p-4">
+                    <svg width="100%" height="100%" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <radialGradient id="starsGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                                <stop offset="0%" stop-color="#7b68ee" />
+                                <stop offset="100%" stop-color="#3a3d4c" stop-opacity="0" />
+                            </radialGradient>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#starsGradient)" />
+                        <!-- Stars -->
+                        <g fill="#fff">
+                            <circle cx="50" cy="60" r="1.5" />
+                            <circle cx="120" cy="30" r="2" />
+                            <circle cx="200" cy="50" r="1" />
+                            <circle cx="280" cy="90" r="1.8" />
+                            <circle cx="350" cy="40" r="1.2" />
+                            <circle cx="400" cy="110" r="1.5" />
+                            <circle cx="80" cy="150" r="1" />
+                            <circle cx="180" cy="120" r="1.8" />
+                            <circle cx="250" cy="180" r="1.2" />
+                            <circle cx="320" cy="150" r="1" />
+                            <circle cx="420" cy="190" r="1.5" />
+                            <circle cx="100" cy="220" r="1.8" />
+                            <circle cx="150" cy="280" r="1.2" />
+                            <circle cx="220" cy="240" r="1" />
+                            <circle cx="300" cy="260" r="1.5" />
+                            <circle cx="380" cy="230" r="2" />
+                            <circle cx="70" cy="320" r="1" />
+                            <circle cx="150" cy="350" r="1.5" />
+                            <circle cx="250" cy="330" r="1.8" />
+                            <circle cx="330" cy="360" r="1.2" />
+                            <circle cx="400" cy="330" r="1" />
+                        </g>
+                        <!-- Moon -->
+                        <circle cx="250" cy="200" r="80" fill="#e1e1e1" />
+                        <circle cx="220" cy="170" r="15" fill="#c4c4c4" />
+                        <circle cx="270" cy="230" r="20" fill="#c4c4c4" />
+                        <circle cx="290" cy="180" r="12" fill="#c4c4c4" />
+                        <!-- Zodiac symbol -->
+                        <path d="M230,200 A20,20 0 1,0 270,200 A20,20 0 1,0 230,200 Z" fill="none" stroke="#7b68ee" stroke-width="3" />
+                        <path d="M250,180 L250,160 M250,220 L250,240 M230,200 L210,200 M270,200 L290,200" stroke="#7b68ee" stroke-width="3" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Preview -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Our Astrology Services</h2>
+            <p class="text-muted">Explore the cosmic guidance we offer</p>
+        </div>
+        <div class="row g-4">
+            {% for service in services %}
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="service-icon mb-3">
+                            <i class="fas fa-star fa-2x text-primary"></i>
+                        </div>
+                        <h3 class="card-title">{{ service.name }}</h3>
+                        <p class="card-text">{{ service.short_description }}</p>
+                        <p class="text-primary fw-bold">${{ service.price }}</p>
+                        <a href="{{ url_for('service_detail', slug=service.slug) }}" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ url_for('services') }}" class="btn btn-primary">View All Services</a>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="py-5 bg-dark">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Why Choose Celestial Insights</h2>
+            <p class="text-muted">What sets our astrology services apart</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-user-graduate fa-3x text-primary"></i>
+                    </div>
+                    <h3>Expert Astrologers</h3>
+                    <p>Our team consists of certified astrologers with years of experience in providing accurate readings.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-magic fa-3x text-primary"></i>
+                    </div>
+                    <h3>Personalized Approach</h3>
+                    <p>We create customized readings based on your unique birth chart and specific questions.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-heart fa-3x text-primary"></i>
+                    </div>
+                    <h3>Compassionate Guidance</h3>
+                    <p>Receive insights delivered with empathy and practical advice for your life journey.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">What Our Clients Say</h2>
+            <p class="text-muted">Stories from those who've experienced our cosmic guidance</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="testimonial-item text-center p-4">
+                                <div class="testimonial-avatar mb-3">
+                                    <i class="fas fa-user-circle fa-3x text-primary"></i>
+                                </div>
+                                <p class="testimonial-text fs-5 mb-3">"The birth chart reading was incredibly accurate and provided me with clarity during a challenging time. I've gained new insights about my path forward."</p>
+                                <h5 class="testimonial-name mb-0">Sarah J.</h5>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="testimonial-item text-center p-4">
+                                <div class="testimonial-avatar mb-3">
+                                    <i class="fas fa-user-circle fa-3x text-primary"></i>
+                                </div>
+                                <p class="testimonial-text fs-5 mb-3">"I was skeptical at first, but my career reading was so spot-on that I've become a regular client. The guidance has helped me make better professional decisions."</p>
+                                <h5 class="testimonial-name mb-0">Michael T.</h5>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="testimonial-item text-center p-4">
+                                <div class="testimonial-avatar mb-3">
+                                    <i class="fas fa-user-circle fa-3x text-primary"></i>
+                                </div>
+                                <p class="testimonial-text fs-5 mb-3">"The relationship compatibility reading helped my partner and I understand each other better. We now have tools to navigate our differences with compassion."</p>
+                                <h5 class="testimonial-name mb-0">Elena & David</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Recent Blog Posts -->
+<section class="py-5 bg-dark">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Cosmic Insights Blog</h2>
+            <p class="text-muted">Latest articles and astrological wisdom</p>
+        </div>
+        <div class="row g-4">
+            {% for post in recent_posts %}
+            <div class="col-md-4">
+                <div class="card h-100">
+                    {% if post.image_url %}
+                    <div class="card-img-top blog-img-placeholder" style="height: 200px; display: flex; align-items: center; justify-content: center; background-color: #2a2d3a;">
+                        <i class="fas fa-image fa-3x text-secondary"></i>
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <p class="small text-muted">{{ post.created_at.strftime('%B %d, %Y') }}</p>
+                        <h3 class="card-title h5">{{ post.title }}</h3>
+                        <p class="card-text">{{ post.summary }}</p>
+                        <a href="{{ url_for('blog_post', slug=post.slug) }}" class="btn btn-sm btn-outline-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ url_for('blog') }}" class="btn btn-primary">View All Articles</a>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="fw-bold mb-4">Ready to Discover Your Cosmic Path?</h2>
+                <p class="lead mb-4">Book your personalized astrology reading today and unlock the celestial wisdom that awaits you.</p>
+                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                    <a href="{{ url_for('booking') }}" class="btn btn-primary btn-lg">Book a Reading</a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-outline-primary btn-lg">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

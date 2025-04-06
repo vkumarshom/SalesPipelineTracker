@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}Page Not Found - Celestial Insights Astrology{% endblock %}
+
+{% block content %}
+<!-- 404 Hero -->
+<section class="py-5 bg-dark text-center">
+    <div class="container">
+        <h1 class="display-4 mb-4">404 - Page Not Found</h1>
+        <p class="lead">The stars couldn't align to find the page you were looking for</p>
+    </div>
+</section>
+
+<!-- 404 Content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="error-image mb-5">
+                    <svg width="250" height="250" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="errorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#7b68ee" stop-opacity="0.8" />
+                                <stop offset="100%" stop-color="#3a3d4c" stop-opacity="0.2" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="125" cy="125" r="100" fill="url(#errorGradient)" />
+                        <text x="125" y="145" font-family="Arial" font-size="48" fill="#fff" text-anchor="middle">404</text>
+                        <!-- Stars -->
+                        <g fill="#fff">
+                            <circle cx="65" cy="75" r="2" />
+                            <circle cx="40" cy="125" r="1.5" />
+                            <circle cx="90" cy="160" r="1.8" />
+                            <circle cx="160" cy="70" r="1.2" />
+                            <circle cx="180" cy="130" r="2" />
+                            <circle cx="140" cy="175" r="1.5" />
+                            <circle cx="210" cy="105" r="1.8" />
+                        </g>
+                        <!-- Lost planet orbit -->
+                        <circle cx="125" cy="125" r="120" fill="none" stroke="#7b68ee" stroke-width="1" stroke-dasharray="5,5" />
+                        <circle cx="230" cy="125" r="10" fill="#e1e1e1" />
+                    </svg>
+                </div>
+                <h2 class="mb-4">Oops! You seem to be lost in the cosmos.</h2>
+                <p class="lead mb-5">The page you're looking for may have moved, been renamed, or doesn't exist in this dimension.</p>
+                <div class="d-flex flex-wrap gap-3 justify-content-center">
+                    <a href="{{ url_for('index') }}" class="btn btn-primary">Return to Home</a>
+                    <a href="{{ url_for('services') }}" class="btn btn-outline-primary">Explore Services</a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-outline-primary">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Suggestions -->
+<section class="py-5 bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h3 class="mb-4">Perhaps you'd like to explore these cosmic paths</h3>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <div class="suggestion-icon mb-3">
+                                    <i class="fas fa-star fa-2x text-primary"></i>
+                                </div>
+                                <h4 class="card-title h5">Astrology Services</h4>
+                                <p class="card-text small">Discover our range of personalized readings</p>
+                                <a href="{{ url_for('services') }}" class="btn btn-sm btn-outline-primary">Explore Services</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <div class="suggestion-icon mb-3">
+                                    <i class="fas fa-book-open fa-2x text-primary"></i>
+                                </div>
+                                <h4 class="card-title h5">Astrology Blog</h4>
+                                <p class="card-text small">Read our latest cosmic insights</p>
+                                <a href="{{ url_for('blog') }}" class="btn btn-sm btn-outline-primary">Read Blog</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <div class="suggestion-icon mb-3">
+                                    <i class="fas fa-calendar-alt fa-2x text-primary"></i>
+                                </div>
+                                <h4 class="card-title h5">Book a Reading</h4>
+                                <p class="card-text small">Schedule your personal consultation</p>
+                                <a href="{{ url_for('booking') }}" class="btn btn-sm btn-outline-primary">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

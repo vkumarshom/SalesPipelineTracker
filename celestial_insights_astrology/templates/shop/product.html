@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ service.name }} - Celestial Insights Astrology{% endblock %}
+
+{% block content %}
+<!-- Product Hero -->
+<section class="py-5 bg-dark">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('services') }}">Services</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ service.name }}</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Product Details -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 mb-4 mb-md-0">
+                {% if service.image_url %}
+                <div class="product-image">
+                    <div class="product-img-placeholder" style="height: 400px; display: flex; align-items: center; justify-content: center; background-color: #2a2d3a; border-radius: 8px;">
+                        <i class="fas fa-star fa-5x text-secondary"></i>
+                    </div>
+                </div>
+                {% else %}
+                <div class="product-image">
+                    <div class="product-img-placeholder" style="height: 400px; display: flex; align-items: center; justify-content: center; background-color: #2a2d3a; border-radius: 8px;">
+                        <svg width="80%" height="80%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="serviceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7b68ee" stop-opacity="0.8" />
+                                    <stop offset="100%" stop-color="#3a3d4c" stop-opacity="0.2" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="100" cy="100" r="80" fill="url(#serviceGradient)" />
+                            <circle cx="100" cy="100" r="60" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="2,2" />
+                            <path d="M100,50 L100,150 M50,100 L150,100" stroke="#fff" stroke-width="2" />
+                            <circle cx="100" cy="100" r="15" fill="#7b68ee" />
+                        </svg>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-md-7">
+                <h1 class="mb-3">{{ service.name }}</h1>
+                <div class="mb-3">
+                    <span class="fs-3 text-primary">${{ service.price }}</span>
+                    <span class="ms-3"><i class="far fa-clock me-1"></i>{{ service.duration }} minutes</span>
+                </div>
+                <div class="mb-4">
+                    <p>{{ service.short_description }}</p>
+                </div>
+                <hr class="my-4">
+                <form action="{{ url_for('add_to_cart') }}" method="POST" class="mb-4">
+                    <input type="hidden" name="service_id" value="{{ service.id }}">
+                    <div class="d-grid d-md-block">
+                        <button type="submit" class="btn btn-primary btn-lg">Add to Cart</button>
+                        <a href="{{ url_for('booking') }}?service={{ service.id }}" class="btn btn-outline-primary btn-lg ms-md-2">Book Now</a>
+                    </div>
+                </form>
+                <div class="service-meta">
+                    <p><strong>Service Type:</strong> Astrology Consultation</p>
+                    <p><strong>Availability:</strong> {% if service.is_available %}In Stock{% else %}Currently Unavailable{% endif %}</p>
+                    <p><strong>Format:</strong> Online or In-Person</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Product Description -->
+<section class="py-5 bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <h2 class="mb-4">Service Description</h2>
+                <div class="service-description mb-5">
+                    {{ service.description|safe }}
+                </div>
+                
+                <h3 class="mb-3">What to Expect</h3>
+                <div class="row mb-5">
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <div class="mb-3">
+                                    <i class="fas fa-user-check fa-2x text-primary"></i>
+                                </div>
+                                <h4 class="card-title h5">Before Your Session</h4>
+                                <p class="card-text">You'll provide your birth details and questions you'd like to explore during the reading.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <div class="mb-3">
+                                    <i class="fas fa-star fa-2x text-primary"></i>
+                                </div>
+                                <h4 class="card-title h5">During Your Session</h4>
+                                <p class="card-text">Your astrologer will interpret your chart and provide insights tailored to your questions.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <div class="mb-3">
+                                    <i class="fas fa-file-alt fa-2x text-primary"></i>
+                                </div>
+                                <h4 class="card-title h5">After Your Session</h4>
+                                <p class="card-text">You'll receive a recording of your session and any follow-up resources mentioned.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="mb-3">Client Testimonials</h3>
+                <div class="testimonials mb-5">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="testimonial-avatar me-3">
+                                    <i class="fas fa-user-circle fa-2x text-primary"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-0">Sarah M.</h5>
+                                    <div class="text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-text">"This reading provided me with exactly the clarity I needed during a major life transition. The insights about my career path were spot-on and helped me make a confident decision."</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="testimonial-avatar me-3">
+                                    <i class="fas fa-user-circle fa-2x text-primary"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-0">James T.</h5>
+                                    <div class="text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-text">"I was amazed by how accurate and detailed this reading was. The astrologer identified patterns in my life that I hadn't even shared with them. I highly recommend this service to anyone seeking guidance."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Products -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">You Might Also Like</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="related-img-placeholder mb-3" style="height: 150px; display: flex; align-items: center; justify-content: center; background-color: #2a2d3a;">
+                            <i class="fas fa-moon fa-2x text-secondary"></i>
+                        </div>
+                        <h3 class="card-title h5">Natal Chart Reading</h3>
+                        <p class="card-text">Discover your cosmic blueprint and life path</p>
+                        <p class="text-primary">$95</p>
+                        <a href="#" class="btn btn-outline-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="related-img-placeholder mb-3" style="height: 150px; display: flex; align-items: center; justify-content: center; background-color: #2a2d3a;">
+                            <i class="fas fa-heart fa-2x text-secondary"></i>
+                        </div>
+                        <h3 class="card-title h5">Relationship Compatibility</h3>
+                        <p class="card-text">Understand your cosmic connection with another</p>
+                        <p class="text-primary">$120</p>
+                        <a href="#" class="btn btn-outline-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="related-img-placeholder mb-3" style="height: 150px; display: flex; align-items: center; justify-content: center; background-color: #2a2d3a;">
+                            <i class="fas fa-sun fa-2x text-secondary"></i>
+                        </div>
+                        <h3 class="card-title h5">Solar Return Reading</h3>
+                        <p class="card-text">Preview your year ahead with this birthday chart</p>
+                        <p class="text-primary">$85</p>
+                        <a href="#" class="btn btn-outline-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="fw-bold mb-4">Questions About This Service?</h2>
+                <p class="lead mb-4">Contact us for more information or to discuss how we can tailor this reading to your specific needs.</p>
+                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                    <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">Contact Us</a>
+                    <a href="{{ url_for('services') }}" class="btn btn-outline-light btn-lg">Browse All Services</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

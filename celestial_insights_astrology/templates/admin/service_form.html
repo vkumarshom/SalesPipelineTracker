@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ 'Edit' if is_edit else 'New' }} Service - Celestial Insights Astrology{% endblock %}
+
+{% block extra_css %}
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<!-- Admin Header -->
+<div class="bg-dark py-3">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="h3 mb-0">{{ 'Edit' if is_edit else 'New' }} Service</h1>
+            <div>
+                <a href="{{ url_for('admin_services') }}" class="btn btn-outline-light btn-sm">Back to Services</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Admin Navigation -->
+<div class="bg-secondary py-2">
+    <div class="container">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('admin_blog_posts') }}">Blog Posts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="{{ url_for('admin_services') }}">Services</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('admin_bookings') }}">Bookings</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Service Form -->
+<section class="py-4">
+    <div class="container">
+        <div class="card">
+            <div class="card-body p-4">
+                <form method="POST" action="{{ url_for('admin_edit_service', service_id=service.id) if is_edit else url_for('admin_new_service') }}">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <label for="{{ form.name.id }}" class="form-label">Service Name</label>
+                                {{ form.name(class="form-control" + (" is-invalid" if form.name.errors else ""), placeholder="Enter service name") }}
+                                {% if form.name.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.name.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.slug.id }}" class="form-label">Slug</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">/services/</span>
+                                    {{ form.slug(class="form-control" + (" is-invalid" if form.slug.errors else ""), placeholder="service-slug") }}
+                                </div>
+                                {% if form.slug.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.slug.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="form-text">URL-friendly version of the name. Use hyphens instead of spaces.</div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.short_description.id }}" class="form-label">Short Description</label>
+                                {{ form.short_description(class="form-control" + (" is-invalid" if form.short_description.errors else ""), placeholder="Brief description (shown in listings)", rows="2") }}
+                                {% if form.short_description.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.short_description.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="form-text">Keep it concise and compelling, max 200 characters.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="{{ form.price.id }}" class="form-label">Price ($)</label>
+                                {{ form.price(class="form-control" + (" is-invalid" if form.price.errors else ""), placeholder="99.99") }}
+                                {% if form.price.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.price.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.duration.id }}" class="form-label">Duration (minutes)</label>
+                                {{ form.duration(class="form-select" + (" is-invalid" if form.duration.errors else "")) }}
+                                {% if form.duration.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.duration.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.image_url.id }}" class="form-label">Image URL</label>
+                                {{ form.image_url(class="form-control" + (" is-invalid" if form.image_url.errors else ""), placeholder="https://example.com/image.jpg") }}
+                                {% if form.image_url.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.image_url.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="form-text">Enter a link to an image for this service (optional).</div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    {{ form.is_available(class="form-check-input") }}
+                                    <label class="form-check-label" for="{{ form.is_available.id }}">Available for Booking</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="{{ form.description.id }}" class="form-label">Full Description</label>
+                        {{ form.description(class="form-control richtext-editor" + (" is-invalid" if form.description.errors else ""), rows="15") }}
+                        {% if form.description.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.description.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('admin_services') }}" class="btn btn-outline-secondary">Cancel</a>
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Auto-generate slug from name
+        const nameInput = document.getElementById('{{ form.name.id }}');
+        const slugInput = document.getElementById('{{ form.slug.id }}');
+        
+        if (nameInput && slugInput) {
+            nameInput.addEventListener('blur', function() {
+                // Only auto-generate if slug is empty or hasn't been manually edited
+                if (!slugInput.value || slugInput._autoGenerated) {
+                    const slug = nameInput.value
+                        .toLowerCase()
+                        .replace(/[^\w\s-]/g, '') // Remove special characters
+                        .replace(/\s+/g, '-')     // Replace spaces with hyphens
+                        .replace(/-+/g, '-')      // Replace multiple hyphens with single hyphen
+                        .trim();
+                    
+                    slugInput.value = slug;
+                    slugInput._autoGenerated = true;
+                }
+            });
+            
+            // Mark when slug has been manually edited
+            slugInput.addEventListener('input', function() {
+                slugInput._autoGenerated = false;
+            });
+        }
+        
+        // Initialize rich text editor
+        $('.richtext-editor').summernote({
+            height: 300,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    });
+</script>
+{% endblock %}

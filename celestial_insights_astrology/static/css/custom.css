@@ -1,0 +1,227 @@
+/* 
+  Custom CSS for Celestial Insights Astrology
+  This file contains minimal custom styles that extend the Bootstrap theme
+*/
+
+:root {
+  /* Extend the Bootstrap theme with celestial-inspired colors */
+  --celestial-primary: var(--bs-primary);
+  --celestial-purple: #7b68ee;
+  --celestial-dark-purple: #5145E6;
+  --celestial-light: #e1e1e1;
+}
+
+/* General styles */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+/* Hero section styling */
+.hero {
+  background: linear-gradient(to bottom right, #1a1d26, #2a2d3a);
+  padding: 5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image {
+  filter: drop-shadow(0 0 10px rgba(123, 104, 238, 0.4));
+}
+
+/* Section styling */
+section {
+  position: relative;
+}
+
+/* Card hover effects */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Feature and service icons */
+.feature-icon, .service-icon, .category-icon, .contact-icon, .philosophy-icon {
+  height: 60px;
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto;
+  background-color: rgba(123, 104, 238, 0.1);
+  color: var(--celestial-purple);
+}
+
+/* Testimonial styling */
+.testimonial-avatar {
+  height: 60px;
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto;
+  color: var(--celestial-purple);
+}
+
+/* Step circles for processes */
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--bs-secondary);
+  color: var(--bs-light);
+}
+
+.step-circle.active {
+  background-color: var(--bs-primary);
+}
+
+/* Social media icons */
+.social-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(123, 104, 238, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.social-icon:hover {
+  background-color: rgba(123, 104, 238, 0.2);
+}
+
+/* Time slots for booking */
+.time-slots-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.time-slot {
+  border: 1px solid var(--bs-secondary);
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.time-slot:hover {
+  background-color: rgba(123, 104, 238, 0.1);
+}
+
+.time-slot.selected {
+  background-color: var(--bs-primary);
+  color: white;
+  border-color: var(--bs-primary);
+}
+
+.time-slot.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Category cards in shop */
+.category-card {
+  background-color: rgba(42, 45, 58, 0.7);
+  border: 1px solid rgba(123, 104, 238, 0.3);
+}
+
+/* Cart quantity input */
+.cart-quantity-form .input-group {
+  margin: 0 auto;
+}
+
+.cart-quantity-form .quantity-input {
+  text-align: center;
+}
+
+/* Admin dashboard styles */
+.admin-stat-card {
+  border-left: 4px solid var(--bs-primary);
+}
+
+/* Blog post content styling */
+.post-content h2 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.post-content p {
+  margin-bottom: 1rem;
+}
+
+.post-content ul, .post-content ol {
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+}
+
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
+}
+
+.post-content blockquote {
+  border-left: 4px solid var(--celestial-purple);
+  padding-left: 1rem;
+  font-style: italic;
+  margin: 1.5rem 0;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 767.98px) {
+  .feature-icon, .service-icon, .category-icon, .contact-icon, .philosophy-icon {
+    height: 50px;
+    width: 50px;
+  }
+  
+  .hero {
+    padding: 3rem 0;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .card {
+    margin-bottom: 1rem;
+  }
+  
+  .booking-step .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  .d-flex.flex-wrap.gap-2 {
+    justify-content: center !important;
+  }
+  
+  .step-circle {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+}
