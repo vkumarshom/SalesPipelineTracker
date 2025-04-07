@@ -1,30 +1,42 @@
 {% extends 'base.html' %}
 
-{% block title %}About - Meta Mystic{% endblock %}
+{% block title %}About - MetaMystic{% endblock %}
 
 {% block content %}
 <!-- About Hero -->
-<section class="py-5 bg-dark text-center">
+<section class="hero-section text-center">
     <div class="container">
-        <h1 class="display-4 mb-4">About Meta Mystic</h1>
-        <p class="lead">Discover our journey, philosophy, and the stellar team behind our astrological guidance</p>
+        <h1 class="hero-title mb-4">About MetaMystic</h1>
+        <p class="hero-subtitle">Discover our journey, philosophy, and the stellar team behind our astrological guidance</p>
     </div>
 </section>
 
 <!-- Our Story -->
-<section class="py-5">
+<section class="py-5 chakra-bg">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 order-lg-2">
                 <div class="about-image p-4 text-center">
                     <svg width="100%" height="350" xmlns="http://www.w3.org/2000/svg">
                         <defs>
-                            <linearGradient id="storyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#0a1232" />
-                                <stop offset="100%" stop-color="#1a237e" />
+                            <!-- Chakra gradients -->
+                            <linearGradient id="chakrasGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#FF0000" /> <!-- Root Chakra -->
+                                <stop offset="16.67%" stop-color="#FF7F00" /> <!-- Sacral Chakra -->
+                                <stop offset="33.33%" stop-color="#FFFF00" /> <!-- Solar Plexus Chakra -->
+                                <stop offset="50%" stop-color="#00FF00" /> <!-- Heart Chakra -->
+                                <stop offset="66.67%" stop-color="#00FFFF" /> <!-- Throat Chakra -->
+                                <stop offset="83.33%" stop-color="#0000FF" /> <!-- Third Eye Chakra -->
+                                <stop offset="100%" stop-color="#8B00FF" /> <!-- Crown Chakra -->
                             </linearGradient>
+                            <radialGradient id="energyCenter" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                                <stop offset="0%" stop-color="#0000FF" stop-opacity="0.6" />
+                                <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+                            </radialGradient>
                         </defs>
-                        <rect width="100%" height="100%" fill="#1a1d26" rx="10" ry="10" />
+                        <rect width="100%" height="100%" fill="#121212" rx="10" ry="10" />
+                        <!-- Energy field background -->
+                        <circle cx="250" cy="175" r="150" fill="url(#energyCenter)" />
                         <!-- Stars -->
                         <g fill="#fff">
                             <circle cx="50" cy="60" r="1.5" />
@@ -44,22 +56,30 @@
                             <circle cx="300" cy="260" r="1.5" />
                             <circle cx="380" cy="230" r="2" />
                         </g>
-                        <!-- Planets and orbit -->
-                        <circle cx="250" cy="175" r="120" fill="none" stroke="#9993fc" stroke-width="1" stroke-dasharray="5,5" />
-                        <circle cx="250" cy="175" r="70" fill="none" stroke="#9993fc" stroke-width="1" stroke-dasharray="5,5" />
-                        <!-- Sun -->
-                        <circle cx="250" cy="175" r="30" fill="url(#storyGradient)" />
-                        <!-- Planets -->
-                        <circle cx="130" cy="175" r="12" fill="#a3a1dc" />
-                        <circle cx="320" cy="175" r="15" fill="#6eb7ff" />
-                        <circle cx="250" cy="55" r="10" fill="#f6c6ea" />
-                        <circle cx="250" cy="295" r="17" fill="#88b3d9" />
+                        <!-- Chakra orbit paths -->
+                        <circle cx="250" cy="175" r="120" fill="none" stroke="url(#chakrasGradient)" stroke-width="1" stroke-dasharray="5,5" />
+                        <circle cx="250" cy="175" r="70" fill="none" stroke="url(#chakrasGradient)" stroke-width="1" stroke-dasharray="5,5" />
+                        <!-- Chakra energy center -->
+                        <circle cx="250" cy="175" r="30" fill="#121212" stroke="url(#chakrasGradient)" stroke-width="2" />
+                        <!-- Seven chakra symbols -->
+                        <circle cx="250" cy="175" r="25" fill="none" stroke="#FFFFFF" stroke-width="0.5" />
+                        <circle cx="250" cy="175" r="20" fill="none" stroke="#FFFFFF" stroke-width="0.5" />
+                        <circle cx="250" cy="175" r="15" fill="none" stroke="#FFFFFF" stroke-width="0.5" />
+                        <circle cx="250" cy="175" r="10" fill="none" stroke="#FFFFFF" stroke-width="0.5" />
+                        <circle cx="250" cy="175" r="5" fill="none" stroke="#FFFFFF" stroke-width="0.5" />
+                        <!-- Planets represented as chakra colors -->
+                        <circle cx="130" cy="175" r="12" fill="#FF0000" opacity="0.8" /> <!-- Root -->
+                        <circle cx="320" cy="175" r="15" fill="#00FFFF" opacity="0.8" /> <!-- Throat -->
+                        <circle cx="250" cy="55" r="10" fill="#8B00FF" opacity="0.8" /> <!-- Crown -->
+                        <circle cx="250" cy="295" r="17" fill="#00FF00" opacity="0.8" /> <!-- Heart -->
                     </svg>
                 </div>
             </div>
             <div class="col-lg-6 order-lg-1">
-                <h2 class="fw-bold mb-4">Our Story</h2>
-                <p>Meta Mystic was founded in 2015 by Julia Starling, a lifelong astrologer with a passion for making cosmic wisdom accessible to everyone seeking guidance. What began as a small consultation practice has grown into a full-service astrology center.</p>
+                <div class="section-header text-lg-start">
+                    <h2>Our Story</h2>
+                </div>
+                <p>MetaMystic was founded in 2015 by Julia Starling, a lifelong astrologer with a passion for making cosmic wisdom accessible to everyone seeking guidance. What began as a small consultation practice has grown into a full-service astrology center.</p>
                 <p>Our journey has been guided by the stars themselves, expanding from personal readings to a comprehensive range of services including relationship compatibility, career guidance, and spiritual development through astrological insights.</p>
                 <p>Today, our team of expert astrologers continues the mission of providing clarity and direction through the ancient wisdom of the stars, helping clients navigate life's challenges and opportunities with cosmic awareness.</p>
             </div>
@@ -68,10 +88,10 @@
 </section>
 
 <!-- Our Philosophy -->
-<section class="py-5 bg-dark">
+<section class="py-5">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold">Our Astrological Philosophy</h2>
+        <div class="section-header">
+            <h2>Our Astrological Philosophy</h2>
             <p class="text-muted">The principles that guide our practice</p>
         </div>
         <div class="row g-4">
@@ -79,7 +99,8 @@
                 <div class="card h-100">
                     <div class="card-body text-center">
                         <div class="philosophy-icon mb-3">
-                            <i class="fas fa-balance-scale fa-2x text-primary"></i>
+                            <span class="chakra-symbol chakra-crown-symbol" style="width: 30px; height: 30px;"></span>
+                            <i class="fas fa-balance-scale fa-2x mt-2" style="color: var(--chakra-crown);"></i>
                         </div>
                         <h3 class="card-title h4">Empowerment Over Prediction</h3>
                         <p class="card-text">We believe astrology is not about predicting fixed outcomes, but empowering you with knowledge of cosmic influences so you can make informed choices that align with your highest path.</p>
@@ -90,7 +111,8 @@
                 <div class="card h-100">
                     <div class="card-body text-center">
                         <div class="philosophy-icon mb-3">
-                            <i class="fas fa-handshake fa-2x text-primary"></i>
+                            <span class="chakra-symbol chakra-throat-symbol" style="width: 30px; height: 30px;"></span>
+                            <i class="fas fa-handshake fa-2x mt-2" style="color: var(--chakra-throat);"></i>
                         </div>
                         <h3 class="card-title h4">Integration of Traditions</h3>
                         <p class="card-text">Our approach combines Western, Vedic, and Chinese astrological systems to provide a comprehensive understanding of your cosmic blueprint and life path.</p>
@@ -101,7 +123,8 @@
                 <div class="card h-100">
                     <div class="card-body text-center">
                         <div class="philosophy-icon mb-3">
-                            <i class="fas fa-lightbulb fa-2x text-primary"></i>
+                            <span class="chakra-symbol chakra-solar-symbol" style="width: 30px; height: 30px;"></span>
+                            <i class="fas fa-lightbulb fa-2x mt-2" style="color: var(--chakra-solar);"></i>
                         </div>
                         <h3 class="card-title h4">Practical Application</h3>
                         <p class="card-text">We translate complex astrological concepts into practical guidance you can apply in your daily life, relationships, and career decisions.</p>
@@ -112,27 +135,102 @@
     </div>
 </section>
 
+<!-- Chakra Insights Section -->
+<section class="py-5 chakra-bg">
+    <div class="container">
+        <div class="section-header">
+            <h2>The Seven Chakras in Astrology</h2>
+            <p class="text-muted">How energy centers connect with cosmic forces</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <span class="chakra-symbol chakra-root-symbol" style="width: 40px; height: 40px;"></span>
+                        <h3 class="h5 mt-3" style="color: var(--chakra-root);">Root Chakra</h3>
+                        <p class="card-text small">Connects to Mars energy, providing grounding, stability, and survival instincts in your astrological reading.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <span class="chakra-symbol chakra-sacral-symbol" style="width: 40px; height: 40px;"></span>
+                        <h3 class="h5 mt-3" style="color: var(--chakra-sacral);">Sacral Chakra</h3>
+                        <p class="card-text small">Relates to Venus and the Moon, influencing creativity, emotion, and relationships in your cosmic chart.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <span class="chakra-symbol chakra-solar-symbol" style="width: 40px; height: 40px;"></span>
+                        <h3 class="h5 mt-3" style="color: var(--chakra-solar);">Solar Plexus Chakra</h3>
+                        <p class="card-text small">Connected to the Sun and Jupiter, representing personal power, confidence and self-expression in astrological terms.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <span class="chakra-symbol chakra-heart-symbol" style="width: 40px; height: 40px;"></span>
+                        <h3 class="h5 mt-3" style="color: var(--chakra-heart);">Heart Chakra</h3>
+                        <p class="card-text small">Linked to Venus and the Sun, influencing love, compassion, and healing in your birth chart analysis.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <span class="chakra-symbol chakra-throat-symbol" style="width: 40px; height: 40px;"></span>
+                        <h3 class="h5 mt-3" style="color: var(--chakra-throat);">Throat Chakra</h3>
+                        <p class="card-text small">Corresponds to Mercury, affecting communication and self-expression patterns revealed in your astrological profile.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <span class="chakra-symbol chakra-third-eye-symbol" style="width: 40px; height: 40px;"></span>
+                        <h3 class="h5 mt-3" style="color: var(--chakra-third-eye);">Third Eye Chakra</h3>
+                        <p class="card-text small">Connected to Neptune and Uranus, enhancing intuition, vision, and psychic abilities in your celestial reading.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <span class="chakra-symbol chakra-crown-symbol" style="width: 40px; height: 40px;"></span>
+                        <h3 class="h5 mt-3" style="color: var(--chakra-crown);">Crown Chakra</h3>
+                        <p class="card-text small">Associated with Saturn and Pluto, representing spiritual connection, divine wisdom, and higher consciousness in your cosmic journey.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Meet Our Team -->
 <section class="py-5">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold">Meet Our Astrologers</h2>
-            <p class="text-muted">The stellar team behind Celestial Insights</p>
+        <div class="section-header">
+            <h2>Meet Our Astrologers</h2>
+            <p class="text-muted">The stellar team behind MetaMystic</p>
         </div>
         <div class="row g-4">
             <div class="col-md-4">
                 <div class="card team-card h-100">
                     <div class="card-body text-center">
                         <div class="team-avatar mb-3">
-                            <i class="fas fa-user-circle fa-5x text-primary"></i>
+                            <i class="fas fa-user-circle fa-5x" style="color: var(--chakra-crown);"></i>
                         </div>
                         <h3 class="card-title h4">Julia Starling</h3>
                         <p class="text-muted">Founder & Lead Astrologer</p>
                         <p class="card-text">With over 25 years of experience, Julia specializes in birth chart analysis and spiritual path readings. Certified by the American Federation of Astrologers.</p>
                         <div class="social-icons mt-3">
-                            <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="me-2"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="me-2 text-white-50 hover-effect"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="me-2 text-white-50 hover-effect"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-white-50 hover-effect"><i class="fab fa-linkedin"></i></a>
                         </div>
                     </div>
                 </div>
@@ -141,15 +239,15 @@
                 <div class="card team-card h-100">
                     <div class="card-body text-center">
                         <div class="team-avatar mb-3">
-                            <i class="fas fa-user-circle fa-5x text-primary"></i>
+                            <i class="fas fa-user-circle fa-5x" style="color: var(--chakra-throat);"></i>
                         </div>
                         <h3 class="card-title h4">Marcus Orion</h3>
                         <p class="text-muted">Career & Financial Astrologer</p>
                         <p class="card-text">Marcus combines traditional astrology with modern financial expertise to provide guidance on career moves and financial planning aligned with planetary influences.</p>
                         <div class="social-icons mt-3">
-                            <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="me-2"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="me-2 text-white-50 hover-effect"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="me-2 text-white-50 hover-effect"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-white-50 hover-effect"><i class="fab fa-linkedin"></i></a>
                         </div>
                     </div>
                 </div>
@@ -158,15 +256,15 @@
                 <div class="card team-card h-100">
                     <div class="card-body text-center">
                         <div class="team-avatar mb-3">
-                            <i class="fas fa-user-circle fa-5x text-primary"></i>
+                            <i class="fas fa-user-circle fa-5x" style="color: var(--chakra-heart);"></i>
                         </div>
                         <h3 class="card-title h4">Elena Luna</h3>
                         <p class="text-muted">Relationship & Compatibility Specialist</p>
                         <p class="card-text">Elena's expertise lies in analyzing relationship dynamics through synastry and composite charts, helping couples understand their cosmic connection.</p>
                         <div class="social-icons mt-3">
-                            <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="me-2"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="me-2 text-white-50 hover-effect"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="me-2 text-white-50 hover-effect"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-white-50 hover-effect"><i class="fab fa-linkedin"></i></a>
                         </div>
                     </div>
                 </div>
@@ -176,12 +274,14 @@
 </section>
 
 <!-- Credentials & Approach -->
-<section class="py-5 bg-dark">
+<section class="py-5 chakra-bg">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <h2 class="fw-bold mb-4">Our Credentials & Approach</h2>
-                <p>At Meta Mystic, we pride ourselves on a foundation of thorough astrological education and continual learning. All our consultants hold certifications from respected astrological organizations and engage in ongoing professional development.</p>
+                <div class="section-header text-lg-start">
+                    <h2>Our Credentials & Approach</h2>
+                </div>
+                <p>At MetaMystic, we pride ourselves on a foundation of thorough astrological education and continual learning. All our consultants hold certifications from respected astrological organizations and engage in ongoing professional development.</p>
                 <p>Our readings combine traditional techniques with modern psychological insights, ensuring you receive guidance that's both cosmically aligned and practically applicable. We use state-of-the-art astrological software for precision while maintaining the human touch that brings the stars' messages to life.</p>
                 <p>Each consultation is approached with respect for your free will and personal journey. We see astrology as a tool for empowerment—illuminating potentials and possibilities rather than dictating fixed outcomes.</p>
             </div>
@@ -190,20 +290,20 @@
                     <svg width="100%" height="300" xmlns="http://www.w3.org/2000/svg">
                         <defs>
                             <linearGradient id="certGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#0d47a1" />
-                                <stop offset="100%" stop-color="#1a237e" />
+                                <stop offset="0%" stop-color="#0000FF" />
+                                <stop offset="100%" stop-color="#8B00FF" />
                             </linearGradient>
                         </defs>
-                        <rect width="100%" height="100%" fill="#1a1d26" rx="10" ry="10" />
+                        <rect width="100%" height="100%" fill="#121212" rx="10" ry="10" />
                         <!-- Certificate design -->
-                        <rect x="50" y="50" width="400" height="200" rx="5" ry="5" fill="#252836" stroke="#1a237e" stroke-width="2" />
-                        <rect x="70" y="70" width="360" height="160" rx="3" ry="3" fill="none" stroke="#4a69bd" stroke-width="1" stroke-dasharray="2,2" />
-                        <text x="250" y="110" font-family="Arial" font-size="18" fill="#fff" text-anchor="middle">Certificate of Excellence</text>
-                        <text x="250" y="140" font-family="Arial" font-size="12" fill="#4a69bd" text-anchor="middle">International Association of Professional Astrologers</text>
-                        <text x="250" y="170" font-family="Arial" font-size="14" fill="#fff" text-anchor="middle">Meta Mystic</text>
-                        <text x="250" y="200" font-family="Arial" font-size="10" fill="#4a69bd" text-anchor="middle">For outstanding contribution to the field of astrological practice</text>
+                        <rect x="50" y="50" width="400" height="200" rx="5" ry="5" fill="#1a1a1a" stroke="url(#chakrasGradient)" stroke-width="2" />
+                        <rect x="70" y="70" width="360" height="160" rx="3" ry="3" fill="none" stroke="#00FFFF" stroke-width="1" stroke-dasharray="2,2" />
+                        <text x="250" y="110" font-family="Arial" font-size="18" fill="#FFF" text-anchor="middle">Certificate of Excellence</text>
+                        <text x="250" y="140" font-family="Arial" font-size="12" fill="#00FFFF" text-anchor="middle">International Association of Professional Astrologers</text>
+                        <text x="250" y="170" font-family="Arial" font-size="14" fill="#FFF" text-anchor="middle">MetaMystic</text>
+                        <text x="250" y="200" font-family="Arial" font-size="10" fill="#00FFFF" text-anchor="middle">For outstanding contribution to the field of astrological practice</text>
                         <circle cx="120" cy="190" r="20" fill="url(#certGradient)" />
-                        <path d="M350,190 l20,0 l-10,-17 z" fill="#e0c463" />
+                        <path d="M350,190 l20,0 l-10,-17 z" fill="#FFFF00" />
                     </svg>
                 </div>
             </div>
@@ -212,15 +312,15 @@
 </section>
 
 <!-- Call to Action -->
-<section class="py-5">
+<section class="py-5 hero-section">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
-                <h2 class="fw-bold mb-4">Begin Your Mystical Journey</h2>
-                <p class="lead mb-4">Ready to discover how the stars can illuminate your path? Book a consultation with one of our expert astrologers today.</p>
+                <h2 class="hero-title mb-4">Begin Your Mystical Journey</h2>
+                <p class="hero-subtitle mb-4">Ready to discover how the stars can illuminate your path? Book a consultation with one of our expert astrologers today.</p>
                 <div class="d-flex flex-wrap gap-2 justify-content-center">
                     <a href="{{ url_for('booking') }}" class="btn btn-primary btn-lg">Book a Reading</a>
-                    <a href="{{ url_for('contact') }}" class="btn btn-outline-primary btn-lg">Ask a Question</a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-accent btn-lg">Ask a Question</a>
                 </div>
             </div>
         </div>

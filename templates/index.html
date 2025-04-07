@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 
-{% block title %}Meta Mystic - Professional Astrology Services{% endblock %}
+{% block title %}MetaMystic - Professional Astrology Services{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero py-5 text-center text-white">
+<section class="hero-section text-center text-white">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 text-lg-start">
-                <h1 class="display-4 mb-4">Discover Your Cosmic Path</h1>
-                <p class="lead mb-4">Personalized astrology readings to guide your journey through life's celestial patterns and energies.</p>
+                <h1 class="hero-title display-4">Discover Your Cosmic Path</h1>
+                <p class="hero-subtitle lead mb-4">Personalized astrology readings to guide your journey through life's celestial patterns and energies.</p>
                 <div class="d-flex flex-wrap gap-2 justify-content-lg-start justify-content-center">
                     <a href="{{ url_for('services') }}" class="btn btn-primary btn-lg">Explore Services</a>
-                    <a href="{{ url_for('booking') }}" class="btn btn-outline-light btn-lg">Book a Reading</a>
+                    <a href="{{ url_for('booking') }}" class="btn btn-accent btn-lg">Book a Reading</a>
                 </div>
             </div>
             <div class="col-lg-6 mt-5 mt-lg-0">
@@ -20,8 +20,12 @@
                     <svg width="100%" height="100%" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
                         <defs>
                             <radialGradient id="starsGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                                <stop offset="0%" stop-color="#1a237e" />
+                                <stop offset="0%" stop-color="#0000FF" />
                                 <stop offset="100%" stop-color="#0a1232" stop-opacity="0" />
+                            </radialGradient>
+                            <radialGradient id="chakraGlow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                                <stop offset="0%" stop-color="#8B00FF" />
+                                <stop offset="100%" stop-color="#0000FF" stop-opacity="0" />
                             </radialGradient>
                         </defs>
                         <rect width="100%" height="100%" fill="url(#starsGradient)" />
@@ -54,9 +58,19 @@
                         <circle cx="220" cy="170" r="15" fill="#c4c4c4" />
                         <circle cx="270" cy="230" r="20" fill="#c4c4c4" />
                         <circle cx="290" cy="180" r="12" fill="#c4c4c4" />
+                        <!-- Chakra symbols around the moon -->
+                        <circle cx="250" cy="100" r="10" fill="#FF0000" opacity="0.8" />
+                        <circle cx="350" cy="200" r="10" fill="#FF7F00" opacity="0.8" />
+                        <circle cx="250" cy="300" r="10" fill="#FFFF00" opacity="0.8" />
+                        <circle cx="150" cy="200" r="10" fill="#00FF00" opacity="0.8" />
+                        <circle cx="180" cy="130" r="10" fill="#00FFFF" opacity="0.8" />
+                        <circle cx="320" cy="130" r="10" fill="#0000FF" opacity="0.8" />
+                        <circle cx="320" cy="270" r="10" fill="#8B00FF" opacity="0.8" />
+                        <circle cx="180" cy="270" r="10" fill="#FF0000" opacity="0.8" />
                         <!-- Zodiac symbol -->
-                        <path d="M230,200 A20,20 0 1,0 270,200 A20,20 0 1,0 230,200 Z" fill="none" stroke="#1a237e" stroke-width="3" />
-                        <path d="M250,180 L250,160 M250,220 L250,240 M230,200 L210,200 M270,200 L290,200" stroke="#1a237e" stroke-width="3" />
+                        <circle cx="250" cy="200" r="30" fill="url(#chakraGlow)" opacity="0.6" />
+                        <path d="M230,200 A20,20 0 1,0 270,200 A20,20 0 1,0 230,200 Z" fill="none" stroke="#FFFFFF" stroke-width="2" />
+                        <path d="M250,180 L250,160 M250,220 L250,240 M230,200 L210,200 M270,200 L290,200" stroke="#FFFFFF" stroke-width="2" />
                     </svg>
                 </div>
             </div>
@@ -67,21 +81,21 @@
 <!-- Services Preview -->
 <section class="py-5">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold">Our Astrology Services</h2>
+        <div class="section-header">
+            <h2>Our Astrology Services</h2>
             <p class="text-muted">Explore the cosmic guidance we offer</p>
         </div>
         <div class="row g-4">
             {% for service in services %}
             <div class="col-md-4">
-                <div class="card h-100">
+                <div class="card service-card h-100">
                     <div class="card-body text-center">
                         <div class="service-icon mb-3">
-                            <i class="fas fa-star fa-2x text-primary"></i>
+                            <i class="fas fa-star fa-2x"></i>
                         </div>
                         <h3 class="card-title">{{ service.name }}</h3>
                         <p class="card-text">{{ service.short_description }}</p>
-                        <p class="text-primary fw-bold">${{ service.price }}</p>
+                        <p class="fw-bold">${{ service.price }}</p>
                         <a href="{{ url_for('service_detail', slug=service.slug) }}" class="btn btn-outline-primary">Learn More</a>
                     </div>
                 </div>
@@ -95,38 +109,47 @@
 </section>
 
 <!-- Why Choose Us -->
-<section class="py-5 bg-dark">
+<section class="py-5 chakra-bg">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold">Why Choose Meta Mystic</h2>
+        <div class="section-header">
+            <h2>Why Choose MetaMystic</h2>
             <p class="text-muted">What sets our astrology services apart</p>
         </div>
         <div class="row g-4">
             <div class="col-md-4">
-                <div class="text-center">
-                    <div class="feature-icon mb-3">
-                        <i class="fas fa-user-graduate fa-3x text-primary"></i>
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="feature-icon mb-3">
+                            <span class="chakra-symbol chakra-crown-symbol" style="width: 30px; height: 30px;"></span>
+                            <i class="fas fa-user-graduate fa-2x mt-2" style="color: var(--chakra-crown);"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Expert Astrologers</h3>
+                        <p>Our team consists of certified astrologers with years of experience in providing accurate readings.</p>
                     </div>
-                    <h3>Expert Astrologers</h3>
-                    <p>Our team consists of certified astrologers with years of experience in providing accurate readings.</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="text-center">
-                    <div class="feature-icon mb-3">
-                        <i class="fas fa-magic fa-3x text-primary"></i>
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="feature-icon mb-3">
+                            <span class="chakra-symbol chakra-throat-symbol" style="width: 30px; height: 30px;"></span>
+                            <i class="fas fa-magic fa-2x mt-2" style="color: var(--chakra-throat);"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Personalized Approach</h3>
+                        <p>We create customized readings based on your unique birth chart and specific questions.</p>
                     </div>
-                    <h3>Personalized Approach</h3>
-                    <p>We create customized readings based on your unique birth chart and specific questions.</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="text-center">
-                    <div class="feature-icon mb-3">
-                        <i class="fas fa-heart fa-3x text-primary"></i>
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="feature-icon mb-3">
+                            <span class="chakra-symbol chakra-heart-symbol" style="width: 30px; height: 30px;"></span>
+                            <i class="fas fa-heart fa-2x mt-2" style="color: var(--chakra-heart);"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Compassionate Guidance</h3>
+                        <p>Receive insights delivered with empathy and practical advice for your life journey.</p>
                     </div>
-                    <h3>Compassionate Guidance</h3>
-                    <p>Receive insights delivered with empathy and practical advice for your life journey.</p>
                 </div>
             </div>
         </div>
@@ -136,8 +159,8 @@
 <!-- Testimonials -->
 <section class="py-5">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold">What Our Clients Say</h2>
+        <div class="section-header">
+            <h2>What Our Clients Say</h2>
             <p class="text-muted">Stories from those who've experienced our cosmic guidance</p>
         </div>
         <div class="row">
@@ -145,30 +168,36 @@
                 <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <div class="testimonial-item text-center p-4">
-                                <div class="testimonial-avatar mb-3">
-                                    <i class="fas fa-user-circle fa-3x text-primary"></i>
+                            <div class="card testimonial-card">
+                                <div class="card-body text-center p-4">
+                                    <div class="testimonial-avatar mb-3">
+                                        <i class="fas fa-user-circle fa-3x" style="color: var(--chakra-throat);"></i>
+                                    </div>
+                                    <p class="testimonial-text fs-5 mb-3">"The birth chart reading was incredibly accurate and provided me with clarity during a challenging time. I've gained new insights about my path forward."</p>
+                                    <h5 class="testimonial-name mb-0">Sarah J.</h5>
                                 </div>
-                                <p class="testimonial-text fs-5 mb-3">"The birth chart reading was incredibly accurate and provided me with clarity during a challenging time. I've gained new insights about my path forward."</p>
-                                <h5 class="testimonial-name mb-0">Sarah J.</h5>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <div class="testimonial-item text-center p-4">
-                                <div class="testimonial-avatar mb-3">
-                                    <i class="fas fa-user-circle fa-3x text-primary"></i>
+                            <div class="card testimonial-card">
+                                <div class="card-body text-center p-4">
+                                    <div class="testimonial-avatar mb-3">
+                                        <i class="fas fa-user-circle fa-3x" style="color: var(--chakra-solar);"></i>
+                                    </div>
+                                    <p class="testimonial-text fs-5 mb-3">"I was skeptical at first, but my career reading was so spot-on that I've become a regular client. The guidance has helped me make better professional decisions."</p>
+                                    <h5 class="testimonial-name mb-0">Michael T.</h5>
                                 </div>
-                                <p class="testimonial-text fs-5 mb-3">"I was skeptical at first, but my career reading was so spot-on that I've become a regular client. The guidance has helped me make better professional decisions."</p>
-                                <h5 class="testimonial-name mb-0">Michael T.</h5>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <div class="testimonial-item text-center p-4">
-                                <div class="testimonial-avatar mb-3">
-                                    <i class="fas fa-user-circle fa-3x text-primary"></i>
+                            <div class="card testimonial-card">
+                                <div class="card-body text-center p-4">
+                                    <div class="testimonial-avatar mb-3">
+                                        <i class="fas fa-user-circle fa-3x" style="color: var(--chakra-heart);"></i>
+                                    </div>
+                                    <p class="testimonial-text fs-5 mb-3">"The relationship compatibility reading helped my partner and I understand each other better. We now have tools to navigate our differences with compassion."</p>
+                                    <h5 class="testimonial-name mb-0">Elena & David</h5>
                                 </div>
-                                <p class="testimonial-text fs-5 mb-3">"The relationship compatibility reading helped my partner and I understand each other better. We now have tools to navigate our differences with compassion."</p>
-                                <h5 class="testimonial-name mb-0">Elena & David</h5>
                             </div>
                         </div>
                     </div>
@@ -187,19 +216,19 @@
 </section>
 
 <!-- Recent Blog Posts -->
-<section class="py-5 bg-dark">
+<section class="py-5 chakra-bg">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold">Cosmic Insights Blog</h2>
+        <div class="section-header">
+            <h2>Cosmic Insights Blog</h2>
             <p class="text-muted">Latest articles and astrological wisdom</p>
         </div>
         <div class="row g-4">
             {% for post in recent_posts %}
             <div class="col-md-4">
-                <div class="card h-100">
+                <div class="card blog-card h-100">
                     {% if post.image_url %}
-                    <div class="card-img-top blog-img-placeholder" style="height: 200px; display: flex; align-items: center; justify-content: center; background-color: #2a2d3a;">
-                        <i class="fas fa-image fa-3x text-secondary"></i>
+                    <div class="card-img-top blog-img-placeholder" style="height: 200px; display: flex; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.3);">
+                        <i class="fas fa-image fa-3x" style="color: var(--chakra-throat);"></i>
                     </div>
                     {% endif %}
                     <div class="card-body">
@@ -219,15 +248,15 @@
 </section>
 
 <!-- Call to Action -->
-<section class="py-5">
+<section class="py-5 hero-section">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
-                <h2 class="fw-bold mb-4">Ready to Discover Your Cosmic Path?</h2>
-                <p class="lead mb-4">Book your personalized astrology reading today and unlock the celestial wisdom that awaits you.</p>
+                <h2 class="hero-title mb-4">Ready to Discover Your Cosmic Path?</h2>
+                <p class="hero-subtitle lead mb-4">Book your personalized astrology reading today and unlock the celestial wisdom that awaits you.</p>
                 <div class="d-flex flex-wrap gap-2 justify-content-center">
                     <a href="{{ url_for('booking') }}" class="btn btn-primary btn-lg">Book a Reading</a>
-                    <a href="{{ url_for('contact') }}" class="btn btn-outline-primary btn-lg">Contact Us</a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-accent btn-lg">Contact Us</a>
                 </div>
             </div>
         </div>

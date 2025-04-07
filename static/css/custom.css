@@ -1,15 +1,25 @@
 /* 
-  Custom CSS for Meta Mystic
-  This file contains minimal custom styles that extend the Bootstrap theme
+  Custom CSS for MetaMystic
+  This file contains styles with the vibrant Seven Chakras theme
 */
 
 :root {
-  /* Extend the Bootstrap theme with dark blue colors */
-  --celestial-primary: #0d47a1;
-  --celestial-blue: #1a237e;
-  --celestial-dark-blue: #0a1232;
-  --celestial-light-blue: #4a69bd;
-  --celestial-light: #e1e1e1;
+  /* Seven Chakras Colors */
+  --chakra-root: #FF0000;      /* Red - Root/Muladhara Chakra */
+  --chakra-sacral: #FF7F00;    /* Orange - Sacral/Svadhisthana Chakra */
+  --chakra-solar: #FFFF00;     /* Yellow - Solar Plexus/Manipura Chakra */
+  --chakra-heart: #00FF00;     /* Green - Heart/Anahata Chakra */
+  --chakra-throat: #00FFFF;    /* Blue - Throat/Vishuddha Chakra */
+  --chakra-third-eye: #0000FF; /* Indigo - Third Eye/Ajna Chakra */
+  --chakra-crown: #8B00FF;     /* Violet - Crown/Sahasrara Chakra */
+  
+  /* Theme colors derived from chakras */
+  --metamystic-primary: var(--chakra-third-eye);
+  --metamystic-secondary: var(--chakra-crown);
+  --metamystic-accent: var(--chakra-throat);
+  --metamystic-highlight: var(--chakra-sacral);
+  --metamystic-light: #e1e1e1;
+  --metamystic-dark: #121212;
 }
 
 /* General styles */
@@ -17,212 +27,340 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: var(--metamystic-dark);
+  color: var(--metamystic-light);
+  background-image: linear-gradient(to bottom right, rgba(0, 0, 255, 0.1), rgba(139, 0, 255, 0.1));
 }
 
 main {
   flex: 1;
 }
 
-/* Hero section styling */
-.hero {
-  background: linear-gradient(to bottom right, #0a1232, #1a237e);
-  padding: 5rem 0;
+.footer {
+  margin-top: auto;
+  padding: 2rem 0;
+  background-color: rgba(0, 0, 0, 0.8);
   position: relative;
   overflow: hidden;
 }
 
-.hero-image {
-  filter: drop-shadow(0 0 10px rgba(26, 35, 126, 0.4));
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, 
+    var(--chakra-root), 
+    var(--chakra-sacral), 
+    var(--chakra-solar), 
+    var(--chakra-heart), 
+    var(--chakra-throat), 
+    var(--chakra-third-eye), 
+    var(--chakra-crown));
 }
 
-/* Section styling */
-section {
+/* Navbar styling */
+.navbar {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-brand {
+  font-weight: 700;
   position: relative;
 }
 
-/* Card hover effects */
+.navbar-brand::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to right, 
+    var(--chakra-root), 
+    var(--chakra-sacral), 
+    var(--chakra-solar), 
+    var(--chakra-heart), 
+    var(--chakra-throat), 
+    var(--chakra-third-eye), 
+    var(--chakra-crown));
+}
+
+.nav-link {
+  color: var(--metamystic-light) !important;
+  transition: all 0.3s ease;
+  margin: 0 5px;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: var(--chakra-throat) !important;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(to right, var(--chakra-throat), var(--chakra-third-eye));
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link.active {
+  color: var(--chakra-solar) !important;
+}
+
+.nav-link.active::after {
+  width: 100%;
+  background: linear-gradient(to right, var(--chakra-solar), var(--chakra-sacral));
+}
+
+/* Button styling */
+.btn-primary {
+  background-color: var(--chakra-third-eye);
+  border-color: var(--chakra-third-eye);
+}
+
+.btn-primary:hover {
+  background-color: var(--chakra-crown);
+  border-color: var(--chakra-crown);
+}
+
+.btn-secondary {
+  background-color: var(--chakra-throat);
+  border-color: var(--chakra-throat);
+}
+
+.btn-secondary:hover {
+  background-color: var(--chakra-third-eye);
+  border-color: var(--chakra-third-eye);
+}
+
+.btn-accent {
+  background-color: var(--chakra-sacral);
+  border-color: var(--chakra-sacral);
+  color: var(--metamystic-light);
+}
+
+.btn-accent:hover {
+  background-color: var(--chakra-root);
+  border-color: var(--chakra-root);
+  color: var(--metamystic-light);
+}
+
+/* Card styling */
 .card {
+  background-color: rgba(18, 18, 18, 0.8);
+  border: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, 
+    var(--chakra-throat), 
+    var(--chakra-third-eye), 
+    var(--chakra-crown));
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
 }
 
-/* Feature and service icons */
-.feature-icon, .service-icon, .category-icon, .contact-icon, .philosophy-icon {
-  height: 60px;
-  width: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  margin: 0 auto;
-  background-color: rgba(26, 35, 126, 0.1);
-  color: var(--celestial-blue);
+/* Service cards */
+.service-card .card-title {
+  color: var(--chakra-solar);
 }
 
-/* Testimonial styling */
-.testimonial-avatar {
-  height: 60px;
-  width: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  margin: 0 auto;
-  color: var(--celestial-blue);
+/* Blog cards */
+.blog-card .card-title {
+  color: var(--chakra-throat);
 }
 
-/* Step circles for processes */
-.step-circle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: var(--bs-secondary);
-  color: var(--bs-light);
+/* Testimonial cards */
+.testimonial-card .card-body {
+  position: relative;
 }
 
-.step-circle.active {
-  background-color: var(--bs-primary);
+.testimonial-card .card-body::before {
+  content: """;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 60px;
+  color: var(--chakra-sacral);
+  opacity: 0.2;
 }
 
-/* Social media icons */
-.social-icon {
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background-color: rgba(26, 35, 126, 0.1);
-  transition: background-color 0.3s ease;
+/* Hero section */
+.hero-section {
+  position: relative;
+  padding: 100px 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
 }
 
-.social-icon:hover {
-  background-color: rgba(26, 35, 126, 0.2);
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(0, 0, 255, 0.2), transparent 60%);
+  z-index: -1;
 }
 
-/* Time slots for booking */
-.time-slots-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 10px;
+.hero-title {
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(to right, 
+    var(--chakra-throat), 
+    var(--chakra-third-eye), 
+    var(--chakra-crown));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
 }
 
-.time-slot {
-  border: 1px solid var(--bs-secondary);
-  border-radius: 5px;
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.hero-subtitle {
+  color: var(--chakra-sacral);
+  margin-bottom: 2rem;
 }
 
-.time-slot:hover {
-  background-color: rgba(26, 35, 126, 0.1);
-}
-
-.time-slot.selected {
-  background-color: var(--bs-primary);
-  color: white;
-  border-color: var(--bs-primary);
-}
-
-.time-slot.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-/* Category cards in shop */
-.category-card {
-  background-color: rgba(10, 18, 50, 0.7);
-  border: 1px solid rgba(26, 35, 126, 0.3);
-}
-
-/* Cart quantity input */
-.cart-quantity-form .input-group {
-  margin: 0 auto;
-}
-
-.cart-quantity-form .quantity-input {
+/* Section headers */
+.section-header {
   text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
 }
 
-/* Admin dashboard styles */
-.admin-stat-card {
-  border-left: 4px solid var(--bs-primary);
-}
-
-/* Blog post content styling */
-.post-content h2 {
-  margin-top: 1.5rem;
+.section-header h2 {
+  display: inline-block;
+  background: linear-gradient(to right, 
+    var(--chakra-throat), 
+    var(--chakra-third-eye));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
   margin-bottom: 1rem;
 }
 
-.post-content p {
-  margin-bottom: 1rem;
+.section-header::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  margin: 15px auto;
+  background: linear-gradient(to right, 
+    var(--chakra-throat), 
+    var(--chakra-third-eye), 
+    var(--chakra-crown));
 }
 
-.post-content ul, .post-content ol {
-  margin-bottom: 1rem;
-  padding-left: 2rem;
+/* Form styling */
+.form-control {
+  background-color: rgba(30, 30, 30, 0.8);
+  border: 1px solid rgba(78, 78, 78, 0.5);
+  color: var(--metamystic-light);
 }
 
-.post-content img {
-  max-width: 100%;
-  height: auto;
-  margin: 1.5rem 0;
+.form-control:focus {
+  background-color: rgba(40, 40, 40, 0.8);
+  border-color: var(--chakra-throat);
+  box-shadow: 0 0 0 0.25rem rgba(0, 255, 255, 0.25);
+  color: var(--metamystic-light);
 }
 
-.post-content blockquote {
-  border-left: 4px solid var(--celestial-blue);
-  padding-left: 1rem;
-  font-style: italic;
-  margin: 1.5rem 0;
+/* Table styling */
+.table {
+  color: var(--metamystic-light);
 }
 
-/* Custom animations */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: rgba(30, 30, 30, 0.4);
 }
 
-.fade-in {
-  animation: fadeIn 1s ease-in-out;
+/* Chakra symbol elements */
+.chakra-symbol {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 8px;
 }
 
-/* Media Queries for Responsive Design */
-@media (max-width: 767.98px) {
-  .feature-icon, .service-icon, .category-icon, .contact-icon, .philosophy-icon {
-    height: 50px;
-    width: 50px;
-  }
-  
-  .hero {
-    padding: 3rem 0;
-  }
+.chakra-root-symbol { background-color: var(--chakra-root); }
+.chakra-sacral-symbol { background-color: var(--chakra-sacral); }
+.chakra-solar-symbol { background-color: var(--chakra-solar); }
+.chakra-heart-symbol { background-color: var(--chakra-heart); }
+.chakra-throat-symbol { background-color: var(--chakra-throat); }
+.chakra-third-eye-symbol { background-color: var(--chakra-third-eye); }
+.chakra-crown-symbol { background-color: var(--chakra-crown); }
+
+/* Animation for chakra elements */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.7; }
 }
 
-@media (max-width: 575.98px) {
-  .card {
-    margin-bottom: 1rem;
-  }
-  
-  .booking-step .btn {
-    width: 100%;
-    margin-bottom: 0.5rem;
-  }
-  
-  .d-flex.flex-wrap.gap-2 {
-    justify-content: center !important;
-  }
-  
-  .step-circle {
-    width: 35px;
-    height: 35px;
-    font-size: 0.9rem;
-  }
+.chakra-symbol {
+  animation: pulse 3s infinite ease-in-out;
+}
+
+.chakra-symbol:nth-child(1) { animation-delay: 0s; }
+.chakra-symbol:nth-child(2) { animation-delay: 0.5s; }
+.chakra-symbol:nth-child(3) { animation-delay: 1s; }
+.chakra-symbol:nth-child(4) { animation-delay: 1.5s; }
+.chakra-symbol:nth-child(5) { animation-delay: 2s; }
+.chakra-symbol:nth-child(6) { animation-delay: 2.5s; }
+.chakra-symbol:nth-child(7) { animation-delay: 3s; }
+
+/* Chakra background effect */
+.chakra-bg {
+  position: relative;
+}
+
+.chakra-bg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 0, 0, 0.05),
+    rgba(255, 127, 0, 0.05),
+    rgba(255, 255, 0, 0.05),
+    rgba(0, 255, 0, 0.05),
+    rgba(0, 255, 255, 0.05),
+    rgba(0, 0, 255, 0.05),
+    rgba(139, 0, 255, 0.05)
+  );
+  z-index: -1;
+  opacity: 0.5;
+  pointer-events: none;
 }
