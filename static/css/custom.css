@@ -1,366 +1,421 @@
-/* 
-  Custom CSS for MetaMystic
-  This file contains styles with the vibrant Seven Chakras theme
-*/
+/* Custom CSS for MetaMystic Astrology Consultancy */
 
+/* Chakra Colors */
 :root {
-  /* Seven Chakras Colors */
-  --chakra-root: #FF0000;      /* Red - Root/Muladhara Chakra */
-  --chakra-sacral: #FF7F00;    /* Orange - Sacral/Svadhisthana Chakra */
-  --chakra-solar: #FFFF00;     /* Yellow - Solar Plexus/Manipura Chakra */
-  --chakra-heart: #00FF00;     /* Green - Heart/Anahata Chakra */
-  --chakra-throat: #00FFFF;    /* Blue - Throat/Vishuddha Chakra */
-  --chakra-third-eye: #0000FF; /* Indigo - Third Eye/Ajna Chakra */
-  --chakra-crown: #8B00FF;     /* Violet - Crown/Sahasrara Chakra */
-  
-  /* Theme colors derived from chakras */
-  --metamystic-primary: var(--chakra-third-eye);
-  --metamystic-secondary: var(--chakra-crown);
-  --metamystic-accent: var(--chakra-throat);
-  --metamystic-highlight: var(--chakra-sacral);
-  --metamystic-light: #e1e1e1;
-  --metamystic-dark: #121212;
+    --chakra-1-color: #ff0000; /* Root - Red */
+    --chakra-2-color: #ff8000; /* Sacral - Orange */
+    --chakra-3-color: #ffff00; /* Solar Plexus - Yellow */
+    --chakra-4-color: #00ff00; /* Heart - Green */
+    --chakra-5-color: #00ffff; /* Throat - Blue */
+    --chakra-6-color: #0000ff; /* Third Eye - Indigo */
+    --chakra-7-color: #8000ff; /* Crown - Violet */
 }
 
-/* General styles */
+/* General Styles */
 body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--metamystic-dark);
-  color: var(--metamystic-light);
-  background-image: linear-gradient(to bottom right, rgba(0, 0, 255, 0.1), rgba(139, 0, 255, 0.1));
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #f8f9fa;
 }
 
-main {
-  flex: 1;
+.section-title {
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
 }
 
-.footer {
-  margin-top: auto;
-  padding: 2rem 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  position: relative;
-  overflow: hidden;
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(to right, 
+        var(--chakra-1-color), 
+        var(--chakra-2-color), 
+        var(--chakra-3-color), 
+        var(--chakra-4-color), 
+        var(--chakra-5-color), 
+        var(--chakra-6-color), 
+        var(--chakra-7-color));
 }
 
-.footer::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(to right, 
-    var(--chakra-root), 
-    var(--chakra-sacral), 
-    var(--chakra-solar), 
-    var(--chakra-heart), 
-    var(--chakra-throat), 
-    var(--chakra-third-eye), 
-    var(--chakra-crown));
-}
-
-/* Navbar styling */
+/* Navigation */
 .navbar {
-  background-color: rgba(0, 0, 0, 0.8) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    background-color: rgba(18, 18, 18, 0.95);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-brand {
-  font-weight: 700;
-  position: relative;
+    font-weight: 700;
+    font-size: 1.5rem;
 }
 
-.navbar-brand::after {
-  content: "";
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(to right, 
-    var(--chakra-root), 
-    var(--chakra-sacral), 
-    var(--chakra-solar), 
-    var(--chakra-heart), 
-    var(--chakra-throat), 
-    var(--chakra-third-eye), 
-    var(--chakra-crown));
+.navbar-brand i {
+    color: var(--chakra-7-color);
 }
 
 .nav-link {
-  color: var(--metamystic-light) !important;
-  transition: all 0.3s ease;
-  margin: 0 5px;
-  position: relative;
-}
-
-.nav-link:hover {
-  color: var(--chakra-throat) !important;
+    font-weight: 500;
+    position: relative;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease;
 }
 
 .nav-link::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background: linear-gradient(to right, var(--chakra-throat), var(--chakra-third-eye));
-  transition: width 0.3s ease;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(to right, 
+        var(--chakra-1-color), 
+        var(--chakra-4-color), 
+        var(--chakra-7-color));
+    transition: width 0.3s ease;
 }
 
-.nav-link:hover::after {
-  width: 100%;
+.nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
 }
 
-.nav-link.active {
-  color: var(--chakra-solar) !important;
-}
-
-.nav-link.active::after {
-  width: 100%;
-  background: linear-gradient(to right, var(--chakra-solar), var(--chakra-sacral));
-}
-
-/* Button styling */
-.btn-primary {
-  background-color: var(--chakra-third-eye);
-  border-color: var(--chakra-third-eye);
-}
-
-.btn-primary:hover {
-  background-color: var(--chakra-crown);
-  border-color: var(--chakra-crown);
-}
-
-.btn-secondary {
-  background-color: var(--chakra-throat);
-  border-color: var(--chakra-throat);
-}
-
-.btn-secondary:hover {
-  background-color: var(--chakra-third-eye);
-  border-color: var(--chakra-third-eye);
-}
-
-.btn-accent {
-  background-color: var(--chakra-sacral);
-  border-color: var(--chakra-sacral);
-  color: var(--metamystic-light);
-}
-
-.btn-accent:hover {
-  background-color: var(--chakra-root);
-  border-color: var(--chakra-root);
-  color: var(--metamystic-light);
-}
-
-/* Card styling */
-.card {
-  background-color: rgba(18, 18, 18, 0.8);
-  border: none;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin-bottom: 1.5rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(to right, 
-    var(--chakra-throat), 
-    var(--chakra-third-eye), 
-    var(--chakra-crown));
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-}
-
-/* Service cards */
-.service-card .card-title {
-  color: var(--chakra-solar);
-}
-
-/* Blog cards */
-.blog-card .card-title {
-  color: var(--chakra-throat);
-}
-
-/* Testimonial cards */
-.testimonial-card .card-body {
-  position: relative;
-}
-
-.testimonial-card .card-body::before {
-  content: """;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 60px;
-  color: var(--chakra-sacral);
-  opacity: 0.2;
-}
-
-/* Hero section */
+/* Hero Section */
 .hero-section {
-  position: relative;
-  padding: 100px 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  overflow: hidden;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/static/assets/hero-bg.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 150px 0;
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at center, rgba(0, 0, 255, 0.2), transparent 60%);
-  z-index: -1;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+        rgba(255, 0, 0, 0.1), 
+        rgba(255, 128, 0, 0.1), 
+        rgba(255, 255, 0, 0.1), 
+        rgba(0, 255, 0, 0.1), 
+        rgba(0, 255, 255, 0.1), 
+        rgba(0, 0, 255, 0.1), 
+        rgba(128, 0, 255, 0.1));
+    animation: chakraGlow 10s infinite alternate;
 }
 
-.hero-title {
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  background: linear-gradient(to right, 
-    var(--chakra-throat), 
-    var(--chakra-third-eye), 
-    var(--chakra-crown));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  display: inline-block;
+@keyframes chakraGlow {
+    0% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0.7;
+        transform: scale(1.05);
+    }
 }
 
-.hero-subtitle {
-  color: var(--chakra-sacral);
-  margin-bottom: 2rem;
+/* About Hero Section */
+.about-hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/static/assets/about-hero.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 100px 0;
 }
 
-/* Section headers */
-.section-header {
-  text-align: center;
-  margin-bottom: 3rem;
-  position: relative;
+/* Services Cards */
+.service-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    background-color: #1e1e1e;
 }
 
-.section-header h2 {
-  display: inline-block;
-  background: linear-gradient(to right, 
-    var(--chakra-throat), 
-    var(--chakra-third-eye));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  font-weight: 700;
-  margin-bottom: 1rem;
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.section-header::after {
-  content: "";
-  display: block;
-  width: 80px;
-  height: 3px;
-  margin: 15px auto;
-  background: linear-gradient(to right, 
-    var(--chakra-throat), 
-    var(--chakra-third-eye), 
-    var(--chakra-crown));
+.service-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, rgba(40, 40, 40, 1) 0%, rgba(30, 30, 30, 1) 100%);
+    box-shadow: 0 0 15px rgba(var(--chakra-7-color), 0.3);
 }
 
-/* Form styling */
+.service-icon i {
+    background: linear-gradient(to right, 
+        var(--chakra-1-color), 
+        var(--chakra-4-color), 
+        var(--chakra-7-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Testimonial Cards */
+.testimonial-card {
+    border: none;
+    background-color: #1e1e1e;
+    transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+}
+
+.testimonial-author {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+/* Blog Cards */
+.blog-card {
+    border: none;
+    background-color: #1e1e1e;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+}
+
+.blog-card img {
+    transition: transform 0.5s ease;
+}
+
+.blog-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Chakra Cards */
+.chakra-card {
+    border: none;
+    color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chakra-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.chakra-root {
+    background-color: #3a0000;
+}
+.chakra-sacral {
+    background-color: #3a2000;
+}
+.chakra-solar {
+    background-color: #3a3a00;
+}
+.chakra-heart {
+    background-color: #003a00;
+}
+.chakra-throat {
+    background-color: #003a3a;
+}
+.chakra-third-eye {
+    background-color: #00003a;
+}
+.chakra-crown {
+    background-color: #2a003a;
+}
+
+.chakra-symbol {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.chakra-1 {
+    background-color: var(--chakra-1-color);
+    box-shadow: 0 0 15px var(--chakra-1-color);
+}
+.chakra-2 {
+    background-color: var(--chakra-2-color);
+    box-shadow: 0 0 15px var(--chakra-2-color);
+}
+.chakra-3 {
+    background-color: var(--chakra-3-color);
+    box-shadow: 0 0 15px var(--chakra-3-color);
+}
+.chakra-4 {
+    background-color: var(--chakra-4-color);
+    box-shadow: 0 0 15px var(--chakra-4-color);
+}
+.chakra-5 {
+    background-color: var(--chakra-5-color);
+    box-shadow: 0 0 15px var(--chakra-5-color);
+}
+.chakra-6 {
+    background-color: var(--chakra-6-color);
+    box-shadow: 0 0 15px var(--chakra-6-color);
+}
+.chakra-7 {
+    background-color: var(--chakra-7-color);
+    box-shadow: 0 0 15px var(--chakra-7-color);
+}
+
+/* Team Cards */
+.team-card {
+    border: none;
+    background-color: #1e1e1e;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+}
+
+.team-card img {
+    transition: transform 0.5s ease;
+}
+
+.team-card:hover img {
+    transform: scale(1.05);
+}
+
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background-color: #333;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(to right, 
+        var(--chakra-1-color), 
+        var(--chakra-7-color));
+}
+
+/* CTA Section */
+.cta-section {
+    background: linear-gradient(45deg, #1a0033, #330033);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+        rgba(255, 0, 0, 0.1), 
+        rgba(255, 128, 0, 0.1), 
+        rgba(255, 255, 0, 0.1), 
+        rgba(0, 255, 0, 0.1), 
+        rgba(0, 255, 255, 0.1), 
+        rgba(0, 0, 255, 0.1), 
+        rgba(128, 0, 255, 0.1));
+    animation: chakraGlow 10s infinite alternate;
+}
+
+/* Footer */
+footer {
+    background-color: #121212;
+}
+
+footer .social-icons a {
+    background-color: #333;
+}
+
+footer .social-icons a:hover {
+    background: linear-gradient(to right, 
+        var(--chakra-1-color), 
+        var(--chakra-7-color));
+}
+
+/* Contact Form */
+.contact-form {
+    background-color: #1e1e1e;
+    padding: 30px;
+    border-radius: 10px;
+}
+
 .form-control {
-  background-color: rgba(30, 30, 30, 0.8);
-  border: 1px solid rgba(78, 78, 78, 0.5);
-  color: var(--metamystic-light);
+    background-color: #333;
+    border: 1px solid #444;
+    color: #fff;
 }
 
 .form-control:focus {
-  background-color: rgba(40, 40, 40, 0.8);
-  border-color: var(--chakra-throat);
-  box-shadow: 0 0 0 0.25rem rgba(0, 255, 255, 0.25);
-  color: var(--metamystic-light);
+    background-color: #333;
+    border-color: var(--chakra-7-color);
+    box-shadow: 0 0 0 0.25rem rgba(128, 0, 255, 0.25);
+    color: #fff;
 }
 
-/* Table styling */
-.table {
-  color: var(--metamystic-light);
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(to right, #6a0dad, #8a2be2);
+    border: none;
 }
 
-.table-striped > tbody > tr:nth-of-type(odd) {
-  background-color: rgba(30, 30, 30, 0.4);
+.btn-primary:hover, .btn-primary:focus {
+    background: linear-gradient(to right, #8a2be2, #9b30ff);
+    border: none;
 }
 
-/* Chakra symbol elements */
-.chakra-symbol {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  margin-right: 8px;
+.btn-outline-primary {
+    border-color: #8a2be2;
+    color: #8a2be2;
 }
 
-.chakra-root-symbol { background-color: var(--chakra-root); }
-.chakra-sacral-symbol { background-color: var(--chakra-sacral); }
-.chakra-solar-symbol { background-color: var(--chakra-solar); }
-.chakra-heart-symbol { background-color: var(--chakra-heart); }
-.chakra-throat-symbol { background-color: var(--chakra-throat); }
-.chakra-third-eye-symbol { background-color: var(--chakra-third-eye); }
-.chakra-crown-symbol { background-color: var(--chakra-crown); }
-
-/* Animation for chakra elements */
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 0.7; }
-  50% { transform: scale(1.1); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.7; }
+.btn-outline-primary:hover {
+    background-color: #8a2be2;
+    border-color: #8a2be2;
 }
 
-.chakra-symbol {
-  animation: pulse 3s infinite ease-in-out;
+/* Custom Animations */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
 }
 
-.chakra-symbol:nth-child(1) { animation-delay: 0s; }
-.chakra-symbol:nth-child(2) { animation-delay: 0.5s; }
-.chakra-symbol:nth-child(3) { animation-delay: 1s; }
-.chakra-symbol:nth-child(4) { animation-delay: 1.5s; }
-.chakra-symbol:nth-child(5) { animation-delay: 2s; }
-.chakra-symbol:nth-child(6) { animation-delay: 2.5s; }
-.chakra-symbol:nth-child(7) { animation-delay: 3s; }
-
-/* Chakra background effect */
-.chakra-bg {
-  position: relative;
+.floating {
+    animation: float 5s ease-in-out infinite;
 }
 
-.chakra-bg::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(
-    circle at center,
-    rgba(255, 0, 0, 0.05),
-    rgba(255, 127, 0, 0.05),
-    rgba(255, 255, 0, 0.05),
-    rgba(0, 255, 0, 0.05),
-    rgba(0, 255, 255, 0.05),
-    rgba(0, 0, 255, 0.05),
-    rgba(139, 0, 255, 0.05)
-  );
-  z-index: -1;
-  opacity: 0.5;
-  pointer-events: none;
+/* Media Queries */
+@media (max-width: 767.98px) {
+    .hero-section, .about-hero-section {
+        padding: 100px 0;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
 }

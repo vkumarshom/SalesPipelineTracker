@@ -14,4 +14,10 @@ dependencies = [
     "wtforms>=3.2.1",
     "flask-wtf>=1.2.2",
     "sqlalchemy>=2.0.40",
+    "django-crispy-forms>=2.3",
+    "django-allauth>=65.7.0",
+    "django>=5.2",
+    "djangorestframework>=3.16.0",
+    "pillow>=11.1.0",
+    "crispy-bootstrap5>=2025.4",
 ]

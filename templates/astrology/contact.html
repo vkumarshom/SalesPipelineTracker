@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Contact MetaMystic - Astrology Consultancy{% endblock %}
+
+{% block content %}
+<!-- Contact Hero Section -->
+<section class="contact-hero-section py-5 text-center text-white">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <h1 class="display-4 fw-bold mb-4">Get In Touch</h1>
+                <p class="lead mb-0">Have questions about our services or want to schedule a consultation?</p>
+                <p class="lead">We'd love to hear from you!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Content Section -->
+<section class="contact-content-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 mb-4 mb-lg-0">
+                <h2 class="section-title">Contact Information</h2>
+                <p>Reach out to us for any questions about our astrological services, booking information, or general inquiries.</p>
+                
+                <div class="contact-info mt-4">
+                    <div class="d-flex align-items-start mb-3">
+                        <div class="contact-icon me-3">
+                            <i class="fas fa-map-marker-alt fa-fw"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">Address</h5>
+                            <p class="mb-0">123 Cosmic Avenue, Starlight City<br>Universe, 54321</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex align-items-start mb-3">
+                        <div class="contact-icon me-3">
+                            <i class="fas fa-phone fa-fw"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">Phone</h5>
+                            <p class="mb-0">(555) 123-4567</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex align-items-start mb-3">
+                        <div class="contact-icon me-3">
+                            <i class="fas fa-envelope fa-fw"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">Email</h5>
+                            <p class="mb-0">info@metamystic.in</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex align-items-start">
+                        <div class="contact-icon me-3">
+                            <i class="fas fa-clock fa-fw"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">Business Hours</h5>
+                            <p class="mb-0">Monday - Friday: 10am - 7pm<br>Saturday: 10am - 5pm<br>Sunday: Closed</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="social-media mt-4">
+                    <h5>Connect With Us</h5>
+                    <div class="social-icons mt-3">
+                        <a href="#" class="me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="me-2"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-7">
+                <div class="contact-form">
+                    <h2 class="section-title">Send Us a Message</h2>
+                    <p class="mb-4">Fill out the form below, and we'll get back to you as soon as possible.</p>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section (Optional) -->
+<section class="map-section py-5 bg-dark">
+    <div class="container">
+        <div class="row text-center mb-4">
+            <div class="col-12">
+                <h2 class="section-title text-white">Find Us</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <!-- Placeholder for map -->
+                <div class="map-container bg-secondary" style="height: 400px; border-radius: 10px;">
+                    <div class="d-flex align-items-center justify-content-center h-100">
+                        <p class="text-white mb-0">Interactive map would be displayed here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="text-muted">Have questions? We've got answers.</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="accordion" id="contactFAQ">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                How do I schedule an astrological reading?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#contactFAQ">
+                            <div class="accordion-body">
+                                You can schedule a reading by using our online booking system on the "Book Now" page, or by contacting us directly via phone, email, or this contact form. For personalized consultations, we recommend booking at least 1-2 weeks in advance.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                What information do I need to provide for a reading?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#contactFAQ">
+                            <div class="accordion-body">
+                                For most astrological readings, we'll need your date of birth, exact time of birth, and place of birth. For relationship compatibility readings, we'll need this information for both individuals. Don't worry if you don't have your exact birth time – we can still provide valuable insights, though some details may be limited.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                How are consultations conducted?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#contactFAQ">
+                            <div class="accordion-body">
+                                We offer consultations in-person at our office, via video call (Zoom, Skype, etc.), or by phone. You can select your preferred method when booking. All consultations are private and confidential.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                What is your cancellation policy?
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#contactFAQ">
+                            <div class="accordion-body">
+                                We understand that life can be unpredictable. You can reschedule or cancel your appointment up to 24 hours before your scheduled time without penalty. For cancellations with less than 24 hours' notice, a 50% fee may apply.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

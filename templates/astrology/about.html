@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About MetaMystic - Astrology Consultancy{% endblock %}
+
+{% block content %}
+<!-- About Hero Section -->
+<section class="about-hero-section py-5 text-center text-white">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <h1 class="display-4 fw-bold mb-4">Our Astrological Journey</h1>
+                <p class="lead mb-5">Dedicated to illuminating your path with the wisdom of the cosmos</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Content Section -->
+<section class="about-content-section py-5">
+    <div class="container">
+        <div class="row align-items-center mb-5">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <img src="{% static 'assets/about-image.jpg' %}" class="img-fluid rounded-3 shadow" alt="About MetaMystic">
+            </div>
+            <div class="col-md-6">
+                <h2 class="section-title mb-4">Our Story</h2>
+                <p>MetaMystic was born from a passion for astrology and a deep commitment to helping others discover the power of cosmic guidance in their lives. Founded in 2022, our consultancy has grown from a small practice to a trusted source of astrological wisdom and insight.</p>
+                <p>With decades of combined experience in various astrological traditions, our team of expert astrologers brings depth and accuracy to every reading and consultation we provide.</p>
+                <p>We believe that astrology is not just about predicting the future—it's about understanding yourself more deeply and making conscious choices that align with your highest potential.</p>
+            </div>
+        </div>
+        
+        <div class="row my-5">
+            <div class="col-12 text-center">
+                <h2 class="section-title mb-5">Our Approach</h2>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="approach-icon mb-3">
+                            <i class="fas fa-balance-scale fa-3x"></i>
+                        </div>
+                        <h3 class="card-title">Precision & Integrity</h3>
+                        <p class="card-text">We combine traditional astrological wisdom with modern techniques to provide accurate and insightful readings.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="approach-icon mb-3">
+                            <i class="fas fa-user fa-3x"></i>
+                        </div>
+                        <h3 class="card-title">Personalized Guidance</h3>
+                        <p class="card-text">Every consultation is tailored to your specific needs, questions, and astrological profile.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="approach-icon mb-3">
+                            <i class="fas fa-lightbulb fa-3x"></i>
+                        </div>
+                        <h3 class="card-title">Empowerment</h3>
+                        <p class="card-text">We focus on empowering you with knowledge and insights that help you make informed decisions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Seven Chakras Section -->
+<section class="chakras-section py-5 bg-dark text-white">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="section-title">The Seven Chakras in Astrology</h2>
+                <p>Understanding the connection between energy centers and planetary influences</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card chakra-card chakra-root">
+                    <div class="card-body text-center">
+                        <div class="chakra-icon mb-3">
+                            <div class="chakra-symbol chakra-1"></div>
+                        </div>
+                        <h3 class="card-title">Root Chakra</h3>
+                        <p class="card-text">Connected to Saturn, the Root Chakra grounds us and provides stability and security.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card chakra-card chakra-sacral">
+                    <div class="card-body text-center">
+                        <div class="chakra-icon mb-3">
+                            <div class="chakra-symbol chakra-2"></div>
+                        </div>
+                        <h3 class="card-title">Sacral Chakra</h3>
+                        <p class="card-text">Ruled by Mars and Venus, the Sacral Chakra governs creativity, emotion, and pleasure.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card chakra-card chakra-solar">
+                    <div class="card-body text-center">
+                        <div class="chakra-icon mb-3">
+                            <div class="chakra-symbol chakra-3"></div>
+                        </div>
+                        <h3 class="card-title">Solar Plexus</h3>
+                        <p class="card-text">Influenced by the Sun, the Solar Plexus Chakra relates to personal power and self-confidence.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card chakra-card chakra-heart">
+                    <div class="card-body text-center">
+                        <div class="chakra-icon mb-3">
+                            <div class="chakra-symbol chakra-4"></div>
+                        </div>
+                        <h3 class="card-title">Heart Chakra</h3>
+                        <p class="card-text">Connected to Venus, the Heart Chakra represents love, compassion, and harmony.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card chakra-card chakra-throat">
+                    <div class="card-body text-center">
+                        <div class="chakra-icon mb-3">
+                            <div class="chakra-symbol chakra-5"></div>
+                        </div>
+                        <h3 class="card-title">Throat Chakra</h3>
+                        <p class="card-text">Ruled by Mercury, the Throat Chakra facilitates communication and self-expression.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card chakra-card chakra-third-eye">
+                    <div class="card-body text-center">
+                        <div class="chakra-icon mb-3">
+                            <div class="chakra-symbol chakra-6"></div>
+                        </div>
+                        <h3 class="card-title">Third Eye Chakra</h3>
+                        <p class="card-text">Associated with Neptune and the Moon, the Third Eye governs intuition and insight.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4 mb-4">
+                <div class="card chakra-card chakra-crown">
+                    <div class="card-body text-center">
+                        <div class="chakra-icon mb-3">
+                            <div class="chakra-symbol chakra-7"></div>
+                        </div>
+                        <h3 class="card-title">Crown Chakra</h3>
+                        <p class="card-text">Connected to Uranus and Jupiter, the Crown Chakra represents spiritual consciousness and enlightenment.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Meet Our Team Section -->
+<section class="team-section py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="section-title">Meet Our Astrologers</h2>
+                <p class="text-muted">Our team of experienced astrological consultants</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card team-card h-100">
+                    <img src="{% static 'assets/astrologer1.jpg' %}" class="card-img-top" alt="Maya Celestia">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">Maya Celestia</h4>
+                        <p class="text-muted">Founder & Lead Astrologer</p>
+                        <p class="card-text">With over 15 years of experience in Vedic and Western astrology, Maya specializes in birth chart analysis and relationship compatibility.</p>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card team-card h-100">
+                    <img src="{% static 'assets/astrologer2.jpg' %}" class="card-img-top" alt="Julian Starr">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">Julian Starr</h4>
+                        <p class="text-muted">Senior Astrologer</p>
+                        <p class="card-text">Julian brings a modern approach to traditional astrology with expertise in predictive techniques and transit forecasting.</p>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card team-card h-100">
+                    <img src="{% static 'assets/astrologer3.jpg' %}" class="card-img-top" alt="Sophia Luna">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">Sophia Luna</h4>
+                        <p class="text-muted">Astrologer & Spiritual Coach</p>
+                        <p class="card-text">Combining astrology with spiritual coaching, Sophia helps clients navigate life transitions and personal growth with cosmic guidance.</p>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5 bg-primary text-white text-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="mb-4">Begin your astrological journey today</h2>
+                <p class="lead mb-4">Book a consultation with one of our expert astrologers and discover what the stars have in store for you.</p>
+                <a href="{% url 'astrology:booking' %}" class="btn btn-light btn-lg">Book Your Reading Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

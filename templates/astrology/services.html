@@ -1,0 +1,357 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Services - MetaMystic Astrology{% endblock %}
+
+{% block content %}
+<!-- Services Hero Section -->
+<section class="services-hero-section py-5 text-center text-white">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <h1 class="display-4 fw-bold mb-4">Our Astrological Services</h1>
+                <p class="lead mb-0">Discover the cosmic guidance that's right for your journey</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services List Section -->
+<section class="services-list-section py-5">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="section-title">Personalized Astrological Readings</h2>
+                <p class="text-muted">Expert consultations tailored to your specific needs and questions</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            {% if services %}
+                {% for service in services %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 service-card">
+                        {% if service.image %}
+                        <img src="{{ service.image.url }}" class="card-img-top" alt="{{ service.name }}">
+                        {% else %}
+                        <img src="{% static 'assets/placeholder.jpg' %}" class="card-img-top" alt="Service">
+                        {% endif %}
+                        <div class="card-body">
+                            <h3 class="card-title">{{ service.name }}</h3>
+                            <div class="service-meta d-flex justify-content-between mb-3">
+                                <span class="service-duration"><i class="far fa-clock me-1"></i> {{ service.duration }} min</span>
+                                <span class="service-price">${{ service.price }}</span>
+                            </div>
+                            <p class="card-text">{{ service.short_description }}</p>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-between mt-4">
+                                <a href="{% url 'astrology:service_detail' service.slug %}" class="btn btn-outline-primary">View Details</a>
+                                <a href="{% url 'astrology:booking' %}?service={{ service.id }}" class="btn btn-primary">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center">
+                    <p>No services available at the moment. Please check back soon!</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- Service Categories Section -->
+<section class="service-categories-section py-5 bg-dark text-white">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="section-title">Our Specialties</h2>
+                <p class="text-muted">Areas of astrological expertise</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="card category-card bg-transparent border-light">
+                    <div class="card-body text-center">
+                        <div class="category-icon mb-3">
+                            <i class="fas fa-user-circle fa-3x"></i>
+                        </div>
+                        <h3 class="card-title">Personal Astrology</h3>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="fas fa-check text-success me-2"></i> Birth Chart Analysis</li>
+                            <li><i class="fas fa-check text-success me-2"></i> Personal Year Forecast</li>
+                            <li><i class="fas fa-check text-success me-2"></i> Career Guidance</li>
+                            <li><i class="fas fa-check text-success me-2"></i> Life Purpose Reading</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="card category-card bg-transparent border-light">
+                    <div class="card-body text-center">
+                        <div class="category-icon mb-3">
+                            <i class="fas fa-heart fa-3x"></i>
+                        </div>
+                        <h3 class="card-title">Relationship Astrology</h3>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="fas fa-check text-success me-2"></i> Compatibility Analysis</li>
+                            <li><i class="fas fa-check text-success me-2"></i> Relationship Timing</li>
+                            <li><i class="fas fa-check text-success me-2"></i> Romance Forecast</li>
+                            <li><i class="fas fa-check text-success me-2"></i> Family Dynamics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="card category-card bg-transparent border-light">
+                    <div class="card-body text-center">
+                        <div class="category-icon mb-3">
+                            <i class="fas fa-chart-line fa-3x"></i>
+                        </div>
+                        <h3 class="card-title">Predictive Astrology</h3>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="fas fa-check text-success me-2"></i> Transit Analysis</li>
+                            <li><i class="fas fa-check text-success me-2"></i> Solar Return Reading</li>
+                            <li><i class="fas fa-check text-success me-2"></i> Predictive Techniques</li>
+                            <li><i class="fas fa-check text-success me-2"></i> Timing Major Life Events</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="card category-card bg-transparent border-light">
+                    <div class="card-body text-center">
+                        <div class="category-icon mb-3">
+                            <i class="fas fa-brain fa-3x"></i>
+                        </div>
+                        <h3 class="card-title">Spiritual Astrology</h3>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="fas fa-check text-success me-2"></i> Karmic Astrology</li>
+                            <li><i class="fas fa-check text-success me-2"></i> Soul Purpose Analysis</li>
+                            <li><i class="fas fa-check text-success me-2"></i> Spiritual Path Reading</li>
+                            <li><i class="fas fa-check text-success me-2"></i> Past Life Indicators</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Process Section -->
+<section class="process-section py-5">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="section-title">Our Reading Process</h2>
+                <p class="text-muted">What to expect when you book a reading with us</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3 mb-4 mb-md-0">
+                <div class="process-step text-center">
+                    <div class="process-number">1</div>
+                    <h3 class="mt-4 mb-3">Book Your Reading</h3>
+                    <p>Choose the service that resonates with your needs and select a convenient time for your consultation.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-4 mb-md-0">
+                <div class="process-step text-center">
+                    <div class="process-number">2</div>
+                    <h3 class="mt-4 mb-3">Chart Preparation</h3>
+                    <p>We'll prepare your astrological charts and analyze the cosmic configurations relevant to your questions.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-4 mb-md-0">
+                <div class="process-step text-center">
+                    <div class="process-number">3</div>
+                    <h3 class="mt-4 mb-3">Consultation</h3>
+                    <p>Engage in a personalized session with your astrologer to explore insights and receive guidance.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="process-step text-center">
+                    <div class="process-number">4</div>
+                    <h3 class="mt-4 mb-3">Follow-Up</h3>
+                    <p>Receive a summary of your reading and additional resources to help you integrate the cosmic wisdom.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section py-5 bg-dark">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="section-title text-white">What Our Clients Say</h2>
+                <p class="text-muted">Experiences and feedback from those who've embarked on their cosmic journey with us</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card testimonial-card">
+                    <div class="card-body">
+                        <div class="testimonial-rating mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="card-text">"The birth chart reading was incredibly accurate and provided me with valuable insights that helped me make important life decisions."</p>
+                        <div class="testimonial-author">
+                            <h5 class="mb-0">Sarah J.</h5>
+                            <small class="text-muted">Birth Chart Reading</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card testimonial-card">
+                    <div class="card-body">
+                        <div class="testimonial-rating mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="card-text">"The compatibility analysis helped me understand my partner better and improved our relationship significantly. Highly recommended!"</p>
+                        <div class="testimonial-author">
+                            <h5 class="mb-0">Michael R.</h5>
+                            <small class="text-muted">Relationship Compatibility</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card testimonial-card">
+                    <div class="card-body">
+                        <div class="testimonial-rating mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star-half-alt text-warning"></i>
+                        </div>
+                        <p class="card-text">"The transit forecast was spot on and helped me navigate a challenging period. I feel much more prepared for what's ahead."</p>
+                        <div class="testimonial-author">
+                            <h5 class="mb-0">Emily T.</h5>
+                            <small class="text-muted">Transit Forecast</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="text-muted">Common questions about our astrological services</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="accordion" id="servicesFAQ">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Do I need to know my birth time for a reading?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#servicesFAQ">
+                            <div class="accordion-body">
+                                For the most accurate and detailed reading, knowing your birth time is important. It allows us to determine your Ascendant/Rising sign and house placements accurately. However, if you don't know your exact birth time, we can still provide valuable insights based on your sun and moon signs and planetary positions.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                How often should I get an astrological reading?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#servicesFAQ">
+                            <div class="accordion-body">
+                                This varies based on individual needs. Some clients benefit from seasonal readings (4 times a year), while others prefer annual updates. For specific life questions or decisions, you might want a focused reading. Many clients find that a combination of an in-depth birth chart reading followed by periodic transit updates works well.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Can astrology predict my future exactly?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#servicesFAQ">
+                            <div class="accordion-body">
+                                Astrology is not about predicting exact events but rather about understanding patterns and potentials. It reveals the energies and influences at play in your life, helping you make more informed choices. Free will always plays a crucial role in how these energies manifest in your life. Think of astrology as a cosmic weather forecast - it can tell you if it might rain, but you decide whether to carry an umbrella.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                Do you offer emergency readings?
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#servicesFAQ">
+                            <div class="accordion-body">
+                                Yes, we understand that life sometimes presents unexpected challenges or decisions. We reserve a limited number of slots each week for urgent consultations. Please contact us directly if you need an emergency reading, and we'll do our best to accommodate your request as soon as possible.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFive">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                What's the difference between Western and Vedic astrology?
+                            </button>
+                        </h2>
+                        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#servicesFAQ">
+                            <div class="accordion-body">
+                                Western astrology (which we primarily use) is based on the tropical zodiac, which follows the seasons. Vedic astrology uses the sidereal zodiac, which tracks the actual positions of constellations. This creates a difference of about 23 degrees between the two systems. Western astrology often focuses more on psychological insights and personality, while Vedic astrology tends to be more predictive and fate-oriented. We can provide readings in either system based on your preference.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5 bg-primary text-white text-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="mb-4">Ready to discover what the stars have in store for you?</h2>
+                <p class="lead mb-4">Book your personalized astrological reading today and begin your cosmic journey.</p>
+                <a href="{% url 'astrology:booking' %}" class="btn btn-light btn-lg">Book Your Reading Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

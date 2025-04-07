@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
@@ -10,14 +11,14 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="{{ url_for('index') }}">
+            <a class="navbar-brand" href="{% url 'astrology:index' %}">
                 <i class="fas fa-moon"></i> MetaMystic
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,25 +27,25 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == url_for('index') %}active{% endif %}" href="{{ url_for('index') }}">Home</a>
+                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'astrology:index' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == url_for('about') %}active{% endif %}" href="{{ url_for('about') }}">About</a>
+                        <a class="nav-link {% if request.path == '/about/' %}active{% endif %}" href="{% url 'astrology:about' %}">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if '/services' in request.path %}active{% endif %}" href="{{ url_for('services') }}">Services</a>
+                        <a class="nav-link {% if '/services' in request.path %}active{% endif %}" href="{% url 'astrology:services' %}">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if '/blog' in request.path %}active{% endif %}" href="{{ url_for('blog') }}">Blog</a>
+                        <a class="nav-link {% if '/blog' in request.path %}active{% endif %}" href="{% url 'astrology:blog' %}">Blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == url_for('booking') %}active{% endif %}" href="{{ url_for('booking') }}">Book Now</a>
+                        <a class="nav-link {% if request.path == '/booking/' %}active{% endif %}" href="{% url 'astrology:booking' %}">Book Now</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == url_for('contact') %}active{% endif %}" href="{{ url_for('contact') }}">Contact</a>
+                        <a class="nav-link {% if request.path == '/contact/' %}active{% endif %}" href="{% url 'astrology:contact' %}">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('cart') }}">
+                        <a class="nav-link" href="{% url 'astrology:cart' %}">
                             <i class="fas fa-shopping-cart"></i>
                         </a>
                     </li>
@@ -53,19 +54,17 @@
         </div>
     </nav>
 
-    <!-- Flash Messages -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div class="container mt-3">
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category if category != 'error' else 'danger' }} alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
+    <!-- Django Messages -->
+    {% if messages %}
+        <div class="container mt-3">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
     <!-- Main Content -->
     <main>
@@ -79,11 +78,11 @@
                 <div class="col-md-4 mb-4 mb-md-0">
                     <h5>Quick Links</h5>
                     <ul class="list-unstyled">
-                        <li><a href="{{ url_for('index') }}" class="text-decoration-none text-white-50">Home</a></li>
-                        <li><a href="{{ url_for('about') }}" class="text-decoration-none text-white-50">About</a></li>
-                        <li><a href="{{ url_for('services') }}" class="text-decoration-none text-white-50">Services</a></li>
-                        <li><a href="{{ url_for('blog') }}" class="text-decoration-none text-white-50">Blog</a></li>
-                        <li><a href="{{ url_for('contact') }}" class="text-decoration-none text-white-50">Contact</a></li>
+                        <li><a href="{% url 'astrology:index' %}" class="text-decoration-none text-white-50">Home</a></li>
+                        <li><a href="{% url 'astrology:about' %}" class="text-decoration-none text-white-50">About</a></li>
+                        <li><a href="{% url 'astrology:services' %}" class="text-decoration-none text-white-50">Services</a></li>
+                        <li><a href="{% url 'astrology:blog' %}" class="text-decoration-none text-white-50">Blog</a></li>
+                        <li><a href="{% url 'astrology:contact' %}" class="text-decoration-none text-white-50">Contact</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4 mb-md-0">
@@ -109,7 +108,7 @@
             <hr class="my-4">
             <div class="row">
                 <div class="col-12">
-                    <p class="small text-white-50 mb-0">&copy; {{ current_year }} MetaMystic. All Rights Reserved.</p>
+                    <p class="small text-white-50 mb-0">&copy; {% now "Y" %} MetaMystic. All Rights Reserved.</p>
                 </div>
             </div>
         </div>
@@ -120,7 +119,7 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Custom JS -->
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

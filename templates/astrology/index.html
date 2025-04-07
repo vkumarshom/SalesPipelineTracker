@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}MetaMystic - Astrology Consultancy{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section py-5 text-center text-white">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <h1 class="display-4 fw-bold mb-4">Discover Your Cosmic Journey</h1>
+                <p class="lead mb-5">Unlock the secrets written in the stars and transform your life with professional astrological guidance.</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                    <a href="{% url 'astrology:services' %}" class="btn btn-primary btn-lg px-4 me-md-2">Our Services</a>
+                    <a href="{% url 'astrology:booking' %}" class="btn btn-outline-light btn-lg px-4">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Overview Section -->
+<section class="services-section py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="section-title">Our Astrological Services</h2>
+                <p class="text-muted">Expert astrology readings and consultations tailored to your needs</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 service-card">
+                    <div class="card-body text-center">
+                        <div class="service-icon mb-3">
+                            <i class="fas fa-star fa-3x"></i>
+                        </div>
+                        <h3 class="card-title">Birth Chart Analysis</h3>
+                        <p class="card-text">Discover your unique cosmic blueprint with a comprehensive birth chart reading.</p>
+                        <a href="{% url 'astrology:services' %}" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 service-card">
+                    <div class="card-body text-center">
+                        <div class="service-icon mb-3">
+                            <i class="fas fa-moon fa-3x"></i>
+                        </div>
+                        <h3 class="card-title">Relationship Compatibility</h3>
+                        <p class="card-text">Understand your relationship dynamics with synastry and composite chart analysis.</p>
+                        <a href="{% url 'astrology:services' %}" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 service-card">
+                    <div class="card-body text-center">
+                        <div class="service-icon mb-3">
+                            <i class="fas fa-compass fa-3x"></i>
+                        </div>
+                        <h3 class="card-title">Transit Forecast</h3>
+                        <p class="card-text">Navigate upcoming cosmic energies with personalized transit predictions.</p>
+                        <a href="{% url 'astrology:services' %}" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section py-5 bg-dark">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="section-title text-white">Client Testimonials</h2>
+                <p class="text-muted">What our clients say about their astrological journey</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card testimonial-card">
+                    <div class="card-body">
+                        <div class="testimonial-rating mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="card-text">"The birth chart reading was incredibly accurate and provided me with valuable insights that helped me make important life decisions."</p>
+                        <div class="testimonial-author">
+                            <h5 class="mb-0">Sarah J.</h5>
+                            <small class="text-muted">Birth Chart Reading</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card testimonial-card">
+                    <div class="card-body">
+                        <div class="testimonial-rating mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="card-text">"The compatibility analysis helped me understand my partner better and improved our relationship significantly. Highly recommended!"</p>
+                        <div class="testimonial-author">
+                            <h5 class="mb-0">Michael R.</h5>
+                            <small class="text-muted">Relationship Compatibility</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card testimonial-card">
+                    <div class="card-body">
+                        <div class="testimonial-rating mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star-half-alt text-warning"></i>
+                        </div>
+                        <p class="card-text">"The transit forecast was spot on and helped me navigate a challenging period. I feel much more prepared for what's ahead."</p>
+                        <div class="testimonial-author">
+                            <h5 class="mb-0">Emily T.</h5>
+                            <small class="text-muted">Transit Forecast</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Latest Blog Posts Section -->
+<section class="blog-section py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="section-title">Latest From Our Blog</h2>
+                <p class="text-muted">Cosmic insights and astrological wisdom</p>
+            </div>
+        </div>
+        <div class="row">
+            {% if blog_posts %}
+                {% for post in blog_posts %}
+                <div class="col-md-4 mb-4">
+                    <div class="card blog-card h-100">
+                        {% if post.image %}
+                        <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
+                        {% else %}
+                        <img src="{% static 'assets/placeholder.jpg' %}" class="card-img-top" alt="Placeholder">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text text-muted small">{{ post.created_at|date:"F d, Y" }}</p>
+                            <p class="card-text">{{ post.summary }}</p>
+                            <a href="{% url 'astrology:blog_detail' post.slug %}" class="btn btn-link p-0">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center">
+                    <p>No blog posts available yet. Check back soon!</p>
+                </div>
+            {% endif %}
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <a href="{% url 'astrology:blog' %}" class="btn btn-outline-primary">View All Posts</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5 bg-primary text-white text-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="mb-4">Ready to discover your cosmic journey?</h2>
+                <p class="lead mb-4">Book your astrological consultation today and unlock the wisdom of the stars.</p>
+                <a href="{% url 'astrology:booking' %}" class="btn btn-light btn-lg">Book Your Reading Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
