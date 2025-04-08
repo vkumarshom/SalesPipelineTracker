@@ -2,7 +2,7 @@
 {% load static %}
 {% load widget_tweaks %}
 
-{% block title %}Book a Consultation - MetaMystic Astrology{% endblock %}
+{% block title %}Book a Consultation - MetaMystic Astrology{% endblock extra_css %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -45,7 +45,7 @@
         color: white;
     }
 </style>
-{% endblock %}
+{% endblock extra_css %}
         display: inline-block;
         padding: 10px 15px;
         margin: 5px;
@@ -83,7 +83,7 @@
         color: white;
     }
 </style>
-{% endblock %}
+{% endblock extra_css %}
 
 {% block content %}
 <!-- Booking Hero -->
@@ -859,4 +859,4 @@
         }
     });
 </script>
-{% endblock %}
+{% endblock extra_css %}
