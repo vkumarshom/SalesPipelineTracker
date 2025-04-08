@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.formfields import PhoneNumberField
 import random
@@ -97,3 +98,22 @@ class CouponForm(forms.Form):
     """
     code = forms.CharField(max_length=20, label=_('Coupon Code'),
                           widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+class CustomLoginForm(AuthenticationForm):
+    """
+    Custom login form with styled widgets
+    """
+    username = forms.CharField(
+        label=_('Username or Email'),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username or Email'})
+    )
+    password = forms.CharField(
+        label=_('Password'),
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'})
+    )
+    remember_me = forms.BooleanField(
+        required=False,
+        initial=False,
+        label=_('Remember Me'),
+        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
+    )

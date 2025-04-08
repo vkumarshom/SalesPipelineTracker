@@ -9,6 +9,11 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
     
+    # Authentication
+    path('register/', views.register, name='register'),
+    path('login/', views.user_login, name='login'),
+    path('logout/', views.user_logout, name='logout'),
+    
     # Services
     path('services/', views.services, name='services'),
     path('services/<slug:slug>/', views.service_detail, name='service_detail'),

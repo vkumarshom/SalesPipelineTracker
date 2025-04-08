@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Login | MetaMystic{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Sign In</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary">Sign In</button>
+                        </div>
+                    </form>
+                    
+                    <hr class="my-4" />
+                    
+                    <div class="text-center">
+                        <p>Don't have an account? <a href="{% url 'astrology:register' %}">Register</a></p>
+                        <p><a href="#">Forgot your password?</a></p>
+                    </div>
+                    
+                    <div class="social-login mt-4">
+                        <p class="text-center mb-3">Or sign in with</p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="#" class="btn btn-outline-primary">
+                                <i class="bi bi-google"></i> Google
+                            </a>
+                            <a href="#" class="btn btn-outline-primary">
+                                <i class="bi bi-facebook"></i> Facebook
+                            </a>
+                            <a href="#" class="btn btn-outline-primary">
+                                <i class="bi bi-instagram"></i> Instagram
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

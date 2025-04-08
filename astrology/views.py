@@ -2,13 +2,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.utils import timezone
 from django.core.paginator import Paginator
 from django.db.models import Q, Sum
 from django.conf import settings
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 import random
 import string
 import uuid
@@ -24,7 +25,7 @@ from .models import (
 )
 from .forms import (
     OTPVerificationForm, ContactForm, BookingForm, CouponForm,
-    CustomRegisterForm
+    CustomRegisterForm, CustomLoginForm
 )
 
 # OTP Generation and Verification
@@ -612,3 +613,107 @@ def paypal_cancel(request):
     """PayPal payment cancel view"""
     messages.warning(request, "PayPal payment was cancelled.")
     return redirect('astrology:checkout')
+
+# Authentication Views
+def register(request):
+    """User registration view"""
+    if request.user.is_authenticated:
+        return redirect('astrology:profile')
+        
+    if request.method == 'POST':
+        form = CustomRegisterForm(request.POST)
+        if form.is_valid():
+            # Create user
+            user = User.objects.create_user(
+                username=form.cleaned_data['username'],
+                email=form.cleaned_data['email'],
+                password=form.cleaned_data['password1'],
+                first_name=form.cleaned_data['first_name'],
+                last_name=form.cleaned_data['last_name']
+            )
+            
+            # Create profile with phone number
+            profile = Profile.objects.create(
+                user=user,
+                phone_number=form.cleaned_data['phone_number']
+            )
+            
+            # Generate and send OTP
+            otp_code = generate_otp()
+            OTP.objects.create(
+                user=user,
+                otp_code=otp_code,
+                expires_at=timezone.now() + timedelta(minutes=5)
+            )
+            
+            # Log the user in
+            user = authenticate(request, username=form.cleaned_data['username'], 
+                              password=form.cleaned_data['password1'])
+            if user is not None:
+                login(request, user)
+                
+            # Send OTP
+            send_otp(user, otp_code)
+            
+            messages.success(request, "Registration successful! Please verify your phone number.")
+            return redirect('astrology:verify_otp')
+    else:
+        form = CustomRegisterForm()
+    
+    return render(request, 'astrology/register.html', {'form': form})
+
+def user_login(request):
+    """User login view"""
+    if request.user.is_authenticated:
+        return redirect('astrology:profile')
+        
+    if request.method == 'POST':
+        form = CustomLoginForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            remember_me = form.cleaned_data.get('remember_me')
+            
+            # Try to authenticate with username
+            user = authenticate(username=username, password=password)
+            
+            # If authentication fails, try with email
+            if user is None:
+                try:
+                    user_obj = User.objects.get(email=username)
+                    user = authenticate(username=user_obj.username, password=password)
+                except User.DoesNotExist:
+                    user = None
+            
+            if user is not None:
+                login(request, user)
+                
+                # Remember me functionality
+                if not remember_me:
+                    request.session.set_expiry(0)  # Session expires when browser closes
+                else:
+                    # Session lasts for 2 weeks
+                    request.session.set_expiry(60 * 60 * 24 * 14)
+                
+                # Check if phone verification is required
+                if hasattr(user, 'profile') and not user.profile.is_phone_verified:
+                    return redirect('astrology:verify_otp')
+                
+                # Redirect to next URL if provided
+                next_url = request.GET.get('next')
+                if next_url:
+                    return redirect(next_url)
+                    
+                return redirect('astrology:profile')
+            else:
+                messages.error(request, "Invalid username/email or password")
+    else:
+        form = CustomLoginForm()
+    
+    return render(request, 'astrology/login.html', {'form': form})
+
+def user_logout(request):
+    """User logout view"""
+    logout(request)
+    messages.success(request, "You have been logged out successfully.")
+    return redirect('astrology:index')
