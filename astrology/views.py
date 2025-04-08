@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages, auth
 from django.utils import timezone
 from django.core.paginator import Paginator
@@ -598,6 +599,57 @@ def stripe_cancel(request):
     """Stripe payment cancel view"""
     messages.warning(request, "Payment was cancelled.")
     return redirect('astrology:checkout')
+
+@csrf_exempt
+def stripe_webhook(request):
+    """Handle Stripe webhooks"""
+    import stripe
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
+    
+    payload = request.body
+    sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
+    event = None
+
+    try:
+        if endpoint_secret:
+            event = stripe.Webhook.construct_event(
+                payload, sig_header, endpoint_secret
+            )
+        else:
+            # Without the webhook secret we can't validate the signature,
+            # but we can still parse the event for testing
+            event = json.loads(payload)
+    except (ValueError, stripe.error.SignatureVerificationError) as e:
+        # Invalid payload or signature
+        return HttpResponse(status=400)
+
+    # Handle the event
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+        
+        # Retrieve the metadata from the session
+        order_number = session.get('metadata', {}).get('order_number')
+        if order_number:
+            # Find the order or create it if it doesn't exist
+            try:
+                order = Order.objects.get(order_number=order_number)
+                order.payment_id = session.get('payment_intent')
+                order.status = 'paid'
+                order.save()
+                
+                # Empty the cart associated with the order
+                try:
+                    cart_items = CartItem.objects.filter(session_id=session.get('client_reference_id'))
+                    cart_items.delete()
+                except Exception as e:
+                    # Log the error but continue
+                    print(f"Error clearing cart: {str(e)}")
+            except Order.DoesNotExist:
+                # Order doesn't exist - log this as an error
+                print(f"Order {order_number} not found for webhook event")
+    
+    return HttpResponse(status=200)
 
 def paypal_checkout(request):
     """Redirect to PayPal Checkout"""

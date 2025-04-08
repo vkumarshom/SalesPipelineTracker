@@ -110,8 +110,8 @@
                 <h2 class="fw-bold mb-4">Want Personalized Cosmic Guidance?</h2>
                 <p class="lead mb-4">Book a consultation with one of our expert astrologers to explore how these cosmic forces affect your unique chart.</p>
                 <div class="d-flex flex-wrap gap-2 justify-content-center">
-                    <a href="{{ url_for('booking') }}" class="btn btn-primary btn-lg">Book a Reading</a>
-                    <a href="{{ url_for('services') }}" class="btn btn-outline-primary btn-lg">View All Services</a>
+                    <a href="{% url 'astrology:booking' %}" class="btn btn-primary btn-lg">Book a Reading</a>
+                    <a href="{% url 'astrology:services' %}" class="btn btn-outline-primary btn-lg">View All Services</a>
                 </div>
             </div>
         </div>

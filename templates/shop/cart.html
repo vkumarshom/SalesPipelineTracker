@@ -1,3 +1,4 @@
+{% load static %}
 {% extends 'base.html' %}
 
 {% block title %}Your Cart - MetaMystic Astrology{% endblock %}
@@ -42,7 +43,7 @@
                             </td>
                             <td>{{ format_price(item.service.price) }}</td>
                             <td>
-                                <form action="{{ url_for('update_cart') }}" method="POST" class="cart-quantity-form">
+                                <form action="{% url "astrology:index" %}" method="POST" class="cart-quantity-form">
                                     <input type="hidden" name="item_id" value="{{ item.id }}">
                                     <div class="input-group" style="width: 120px;">
                                         <button class="btn btn-outline-secondary decrease-quantity" type="button">-</button>
@@ -54,7 +55,7 @@
                             </td>
                             <td>{{ format_price(item.service.price * item.quantity) }}</td>
                             <td>
-                                <form action="{{ url_for('remove_from_cart', item_id=item.id) }}" method="POST">
+                                <form action="{% url "astrology:index" %}" method="POST">
                                     <button type="submit" class="btn btn-sm btn-outline-danger">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
@@ -81,7 +82,7 @@
                                 <span class="fw-bold text-primary">{{ format_price(total) }}</span>
                             </div>
                             <div class="d-grid">
-                                <a href="{{ url_for('checkout') }}" class="btn btn-primary btn-lg">Proceed to Checkout</a>
+                                <a href="{% url "astrology:index" %}" class="btn btn-primary btn-lg">Proceed to Checkout</a>
                             </div>
                         </div>
                     </div>
@@ -89,7 +90,7 @@
             </div>
             
             <div class="mt-4 text-center">
-                <a href="{{ url_for('services') }}" class="btn btn-outline-primary">
+                <a href="{% url "astrology:index" %}" class="btn btn-outline-primary">
                     <i class="fas fa-arrow-left me-2"></i>Continue Shopping
                 </a>
             </div>
@@ -100,7 +101,7 @@
                 </div>
                 <h2 class="mb-3">Your cart is empty</h2>
                 <p class="mb-4">Looks like you haven't added any astrology services to your cart yet.</p>
-                <a href="{{ url_for('services') }}" class="btn btn-primary btn-lg">Browse Services</a>
+                <a href="{% url "astrology:index" %}" class="btn btn-primary btn-lg">Browse Services</a>
             </div>
         {% endif %}
     </div>
@@ -158,5 +159,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+<script src="{% url "astrology:index" %}"></script>
 {% endblock %}

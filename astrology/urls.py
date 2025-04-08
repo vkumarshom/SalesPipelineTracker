@@ -34,6 +34,7 @@ urlpatterns = [
     path('stripe-checkout/', views.stripe_checkout, name='stripe_checkout'),
     path('stripe-success/', views.stripe_success, name='stripe_success'),
     path('stripe-cancel/', views.stripe_cancel, name='stripe_cancel'),
+    path('stripe-webhook/', views.stripe_webhook, name='stripe_webhook'),
     path('paypal-checkout/', views.paypal_checkout, name='paypal_checkout'),
     path('paypal-success/', views.paypal_success, name='paypal_success'),
     path('paypal-cancel/', views.paypal_cancel, name='paypal_cancel'),

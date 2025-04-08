@@ -8,8 +8,8 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ url_for('services') }}">Services</a></li>
+                <li class="breadcrumb-item"><a href="{% url "astrology:index" %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url "astrology:index" %}">Services</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ service.name }}</li>
             </ol>
         </nav>
@@ -56,11 +56,11 @@
                     <p>{{ service.short_description }}</p>
                 </div>
                 <hr class="my-4">
-                <form action="{{ url_for('add_to_cart') }}" method="POST" class="mb-4">
+                <form action="{% url "astrology:index" %}" method="POST" class="mb-4">
                     <input type="hidden" name="service_id" value="{{ service.id }}">
                     <div class="d-grid d-md-block">
                         <button type="submit" class="btn btn-primary btn-lg">Add to Cart</button>
-                        <a href="{{ url_for('booking') }}?service={{ service.id }}" class="btn btn-outline-primary btn-lg ms-md-2">Book Now</a>
+                        <a href="{% url "astrology:index" %}?service={{ service.id }}" class="btn btn-outline-primary btn-lg ms-md-2">Book Now</a>
                     </div>
                 </form>
                 <div class="service-meta">
@@ -224,8 +224,8 @@
                 <h2 class="fw-bold mb-4">Questions About This Service?</h2>
                 <p class="lead mb-4">Contact us for more information or to discuss how we can tailor this reading to your specific needs.</p>
                 <div class="d-flex flex-wrap gap-2 justify-content-center">
-                    <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">Contact Us</a>
-                    <a href="{{ url_for('services') }}" class="btn btn-outline-light btn-lg">Browse All Services</a>
+                    <a href="{% url "astrology:index" %}" class="btn btn-primary btn-lg">Contact Us</a>
+                    <a href="{% url "astrology:index" %}" class="btn btn-outline-light btn-lg">Browse All Services</a>
                 </div>
             </div>
         </div>

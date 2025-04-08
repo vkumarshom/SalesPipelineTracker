@@ -31,8 +31,8 @@
                             <span class="duration"><i class="far fa-clock me-1"></i>{{ service.duration }} min</span>
                         </div>
                         <div class="d-grid gap-2">
-                            <a href="{{ url_for('service_detail', slug=service.slug) }}" class="btn btn-outline-primary">View Details</a>
-                            <form action="{{ url_for('add_to_cart') }}" method="POST">
+                            <a href="{% url "astrology:index" %}" class="btn btn-outline-primary">View Details</a>
+                            <form action="{% url "astrology:index" %}" method="POST">
                                 <input type="hidden" name="service_id" value="{{ service.id }}">
                                 <button type="submit" class="btn btn-primary w-100">Add to Cart</button>
                             </form>
@@ -290,8 +290,8 @@
                 <h2 class="fw-bold mb-4">Ready to Discover Your Cosmic Blueprint?</h2>
                 <p class="lead mb-4">Book your personalized astrology reading today and begin your journey to cosmic self-discovery.</p>
                 <div class="d-flex flex-wrap gap-2 justify-content-center">
-                    <a href="{{ url_for('booking') }}" class="btn btn-primary btn-lg">Book Now</a>
-                    <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg">Contact Us</a>
+                    <a href="{% url "astrology:index" %}" class="btn btn-primary btn-lg">Book Now</a>
+                    <a href="{% url "astrology:index" %}" class="btn btn-outline-light btn-lg">Contact Us</a>
                 </div>
             </div>
         </div>

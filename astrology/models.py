@@ -75,7 +75,8 @@ class Service(models.Model):
     image = models.ImageField(upload_to='service_images/', blank=True, null=True)
     is_available = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    # updated_at field removed temporarily until migration is created
+    # updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return self.name

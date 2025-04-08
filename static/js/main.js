@@ -1,100 +1,104 @@
-// Main JavaScript for MetaMystic
+// MetaMystic - Main JavaScript file
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('MetaMystic JS initialized');
-    
-    // Initialize tooltips
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
+  // Enable tooltips and popovers from Bootstrap
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+  
+  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+  var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl);
+  });
+  
+  // Auto close alerts after 5 seconds
+  setTimeout(function() {
+    var alerts = document.querySelectorAll('.alert:not(.alert-permanent)');
+    alerts.forEach(function(alert) {
+      var bsAlert = new bootstrap.Alert(alert);
+      bsAlert.close();
+    });
+  }, 5000);
+  
+  // Animate on scroll initialization
+  const animateElements = document.querySelectorAll('.animate-on-scroll');
+  
+  function checkIfInView() {
+    animateElements.forEach(element => {
+      const elementTop = element.getBoundingClientRect().top;
+      const elementVisible = 150;
+      
+      if (elementTop < window.innerHeight - elementVisible) {
+        element.classList.add('animate__animated');
+        element.classList.add(element.dataset.animation || 'animate__fadeIn');
+      }
+    });
+  }
+  
+  // Initial check on load
+  checkIfInView();
+  
+  // Check on scroll
+  window.addEventListener('scroll', checkIfInView);
+  
+  // Handle navbar transparency on scroll
+  const navbar = document.querySelector('.navbar');
+  if (navbar) {
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 50) {
+        navbar.classList.add('navbar-scrolled');
+      } else {
+        navbar.classList.remove('navbar-scrolled');
+      }
+    });
+  }
+  
+  // Handle form submissions with validation
+  const forms = document.querySelectorAll('.needs-validation');
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      form.classList.add('was-validated');
+    }, false);
+  });
+  
+  // Back to top button
+  const backToTopButton = document.getElementById('back-to-top');
+  if (backToTopButton) {
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 300) {
+        backToTopButton.classList.add('show');
+      } else {
+        backToTopButton.classList.remove('show');
+      }
     });
     
-    // Add smooth scrolling for all links that point to an ID
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        });
+    backToTopButton.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     });
-    
-    // Add animation on scroll
-    function animateOnScroll() {
-        const elements = document.querySelectorAll('.animate-on-scroll');
-        
-        elements.forEach(element => {
-            const elementPosition = element.getBoundingClientRect().top;
-            const windowHeight = window.innerHeight;
-            
-            if (elementPosition < windowHeight - 50) {
-                element.classList.add('animated');
-            }
-        });
-    }
-    
-    // Run once on page load
-    animateOnScroll();
-    
-    // Add scroll event listener
-    window.addEventListener('scroll', animateOnScroll);
-    
-    // Handle the subscription form
-    const subscriptionForm = document.querySelector('.newsletter form');
-    if (subscriptionForm) {
-        subscriptionForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const emailInput = this.querySelector('input[type="email"]');
-            const email = emailInput.value.trim();
-            
-            if (email) {
-                // Here you would normally send the email to your server
-                console.log('Subscription requested for:', email);
-                
-                // Show success message
-                const button = this.querySelector('button');
-                const originalText = button.textContent;
-                button.textContent = 'Subscribed!';
-                button.classList.add('btn-success');
-                button.classList.remove('btn-outline-light');
-                
-                // Clear the input
-                emailInput.value = '';
-                
-                // Reset after 3 seconds
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.classList.remove('btn-success');
-                    button.classList.add('btn-outline-light');
-                }, 3000);
-            }
-        });
-    }
-    
-    // Add chakra hover effects
-    const chakraCards = document.querySelectorAll('.chakra-card');
-    chakraCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            const symbol = this.querySelector('.chakra-symbol');
-            if (symbol) {
-                symbol.style.transform = 'scale(1.2)';
-                symbol.style.transition = 'transform 0.3s ease';
-            }
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            const symbol = this.querySelector('.chakra-symbol');
-            if (symbol) {
-                symbol.style.transform = 'scale(1)';
-            }
-        });
+  }
+  
+  // Dark mode toggle
+  const darkModeToggle = document.getElementById('dark-mode-toggle');
+  if (darkModeToggle) {
+    darkModeToggle.addEventListener('click', function() {
+      document.documentElement.setAttribute('data-bs-theme', 
+        document.documentElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark'
+      );
+      localStorage.setItem('theme', document.documentElement.getAttribute('data-bs-theme'));
     });
+  }
+  
+  // Check for saved theme preference
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    document.documentElement.setAttribute('data-bs-theme', savedTheme);
+  }
 });
