@@ -1,11 +1,89 @@
+{% extends "base.html" %}
 {% load static %}
-{% extends 'base.html' %}
+{% load widget_tweaks %}
 
-{% block title %}Book a Consultation - MetaMystic Astrology{% endblock %}
+{% block title %}Book a Consultation - MetaMystic Astrology{% endblock extra_css %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-{% endblock %}
+<style>
+    .time-slot {
+        display: inline-block;
+        padding: 10px 15px;
+        margin: 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+        background-color: #f8f9fa;
+        transition: all 0.2s;
+    }
+    .time-slot:hover {
+        background-color: #e9ecef;
+    }
+    .time-slot.selected {
+        background-color: var(--bs-primary);
+        color: white;
+        border-color: var(--bs-primary);
+    }
+    .time-slots-container {
+        margin-bottom: 15px;
+        max-height: 200px;
+        overflow-y: auto;
+        padding: 10px;
+        border: 1px solid #eee;
+        border-radius: 5px;
+    }
+    .step-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #e9ecef;
+        color: #6c757d;
+    }
+    .step-circle.active {
+        background-color: var(--bs-primary);
+        color: white;
+    }
+</style>
+{% endblock extra_css %}
+        display: inline-block;
+        padding: 10px 15px;
+        margin: 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+        background-color: #f8f9fa;
+        transition: all 0.2s;
+    }
+    .time-slot:hover {
+        background-color: #e9ecef;
+    }
+    .time-slot.selected {
+        background-color: var(--bs-primary);
+        color: white;
+        border-color: var(--bs-primary);
+    }
+    .time-slots-container {
+        margin-bottom: 15px;
+        max-height: 200px;
+        overflow-y: auto;
+        padding: 10px;
+        border: 1px solid #eee;
+        border-radius: 5px;
+    }
+    .step-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #e9ecef;
+        color: #6c757d;
+    }
+    .step-circle.active {
+        background-color: var(--bs-primary);
+        color: white;
+    }
+</style>
+{% endblock extra_css %}
 
 {% block content %}
 <!-- Booking Hero -->
@@ -56,114 +134,15 @@
                             <div class="booking-step" id="step1">
                                 <h3 class="mb-4">Select a Service</h3>
                                 <div class="mb-4">
-                                    <label for="{{ form.service_id.id }}" class="form-label">Choose an Astrology Service</label>
-                                    {{ form.service_id(class="form-select" + (" is-invalid" if form.service_id.errors else "")) }}
-                                    {% if form.service_id.errors %}
+                                    <label for="{{ form.service.id_for_label }}" class="form-label">Choose an Astrology Service</label>
+                                    {{ form.service|add_class:"form-select" }}
+                                    {% if form.service.errors %}
                                         <div class="invalid-feedback">
-                                            {% for error in form.service_id.errors %}
+                                            {% for error in form.service.errors %}
                                                 {{ error }}
                                             {% endfor %}
                                         </div>
                                     {% endif %}
-                                </div>
-                                <div class="service-details mb-4 d-none" id="serviceDetails">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title" id="serviceName">Service Name</h5>
-                                            <div class="d-flex justify-content-between">
-                                                <span id="serviceDuration"><i class="far fa-clock me-1"></i>Duration</span>
-                                                <span class="text-primary" id="servicePrice">Price</span>
-                                            </div>
-                                            <p class="card-text mt-2" id="serviceDescription">Service description will appear here.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-grid">
-                                    <button type="button" class="btn btn-primary" id="nextToStep2">Continue to Date & Time</button>
-                                </div>
-                            </div>
-                            
-                            <!-- Step 2: Date and Time Selection -->
-                            <div class="booking-step d-none" id="step2">
-                                <h3 class="mb-4">Select Date & Time</h3>
-                                <div class="mb-4">
-                                    <label for="{{ form.booking_date.id }}" class="form-label">Date</label>
-                                    {{ form.booking_date(class="form-control" + (" is-invalid" if form.booking_date.errors else ""), id="datePicker") }}
-                                    {% if form.booking_date.errors %}
-                                        <div class="invalid-feedback">
-                                            {% for error in form.booking_date.errors %}
-                                                {{ error }}
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                <div class="mb-4">
-                                    <label for="{{ form.booking_time.id }}" class="form-label">Available Time Slots</label>
-                                    <div id="timeSlots" class="time-slots-container">
-                                        <p class="text-muted">Please select a date to view available time slots.</p>
-                                    </div>
-                                    {{ form.booking_time(class="d-none" + (" is-invalid" if form.booking_time.errors else "")) }}
-                                    {% if form.booking_time.errors %}
-                                        <div class="invalid-feedback">
-                                            {% for error in form.booking_time.errors %}
-                                                {{ error }}
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <button type="button" class="btn btn-outline-primary" id="backToStep1">Back</button>
-                                    <button type="button" class="btn btn-primary" id="nextToStep3">Continue to Your Details</button>
-                                </div>
-                            </div>
-                            
-                            <!-- Step 3: Personal Information -->
-                            <div class="booking-step d-none" id="step3">
-                                <h3 class="mb-4">Your Information</h3>
-                                <div class="mb-3">
-                                    <label for="{{ form.customer_name.id }}" class="form-label">Full Name</label>
-                                    {{ form.customer_name(class="form-control" + (" is-invalid" if form.customer_name.errors else ""), placeholder="Enter your full name") }}
-                                    {% if form.customer_name.errors %}
-                                        <div class="invalid-feedback">
-                                            {% for error in form.customer_name.errors %}
-                                                {{ error }}
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                <div class="mb-3">
-                                    <label for="{{ form.customer_email.id }}" class="form-label">Email Address</label>
-                                    {{ form.customer_email(class="form-control" + (" is-invalid" if form.customer_email.errors else ""), placeholder="Enter your email") }}
-                                    {% if form.customer_email.errors %}
-                                        <div class="invalid-feedback">
-                                            {% for error in form.customer_email.errors %}
-                                                {{ error }}
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                <div class="mb-3">
-                                    <label for="{{ form.customer_phone.id }}" class="form-label">Phone Number (Optional)</label>
-                                    {{ form.customer_phone(class="form-control" + (" is-invalid" if form.customer_phone.errors else ""), placeholder="Enter your phone number") }}
-                                    {% if form.customer_phone.errors %}
-                                        <div class="invalid-feedback">
-                                            {% for error in form.customer_phone.errors %}
-                                                {{ error }}
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                <div class="mb-4">
-                                    <label for="{{ form.notes.id }}" class="form-label">Notes (Optional)</label>
-                                    {{ form.notes(class="form-control" + (" is-invalid" if form.notes.errors else ""), rows="3", placeholder="Any specific topics or questions you'd like to address in your reading?") }}
-                                    {% if form.notes.errors %}
-                                        <div class="invalid-feedback">
-                                            {% for error in form.notes.errors %}
-                                                {{ error }}
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-                                </div>
                                 <div class="booking-summary mb-4">
                                     <h4 class="mb-3">Booking Summary</h4>
                                     <div class="card">
@@ -195,7 +174,407 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <button type="button" class="btn btn-outline-primary" id="backToStep2">Back</button>
-                                    {{ form.submit(class="btn btn-primary", id="confirmBooking", disabled="disabled") }}
+                                    <button type="submit" class="btn btn-primary" id="confirmBooking" disabled="disabled">Book Appointment</button>
+                                </div>
+                                </div>
+                                <div class="service-details mb-4 d-none" id="serviceDetails">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title" id="serviceName">Service Name</h5>
+                                            <div class="d-flex justify-content-between">
+                                                <span id="serviceDuration"><i class="far fa-clock me-1"></i>Duration</span>
+                                                <span class="text-primary" id="servicePrice">Price</span>
+                                            </div>
+                                            <p class="card-text mt-2" id="serviceDescription">Service description will appear here.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="button" class="btn btn-primary" id="nextToStep2">Continue to Date & Time</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2: Date and Time Selection -->
+                            <div class="booking-step d-none" id="step2">
+                                <h3 class="mb-4">Select Date & Time</h3>
+                                <div class="mb-4">
+                                    <label for="{{ form.date.id_for_label }}" class="form-label">Date</label>
+                                    {{ form.date|add_class:"form-control" }}
+                                    {% if form.date.errors %}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.date.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                <div class="booking-summary mb-4">
+                                    <h4 class="mb-3">Booking Summary</h4>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Service:</span>
+                                                <span id="summaryService">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Date:</span>
+                                                <span id="summaryDate">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Time:</span>
+                                                <span id="summaryTime">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span>Price:</span>
+                                                <span class="text-primary" id="summaryPrice">-</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check mb-4">
+                                    <input class="form-check-input" type="checkbox" id="termsCheck">
+                                    <label class="form-check-label" for="termsCheck">
+                                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Cancellation Policy</a>.
+                                    </label>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-outline-primary" id="backToStep2">Back</button>
+                                    <button type="submit" class="btn btn-primary" id="confirmBooking" disabled="disabled">Book Appointment</button>
+                                </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Available Time Slots</label>
+                                    <div id="timeSlots" class="time-slots-container">
+                                        <p class="text-muted">Please select a date to view available time slots.</p>
+                                    </div>
+                                    {{ form.time|add_class:"form-control d-none" }}
+                                    {% if form.time.errors %}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.time.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                <div class="booking-summary mb-4">
+                                    <h4 class="mb-3">Booking Summary</h4>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Service:</span>
+                                                <span id="summaryService">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Date:</span>
+                                                <span id="summaryDate">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Time:</span>
+                                                <span id="summaryTime">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span>Price:</span>
+                                                <span class="text-primary" id="summaryPrice">-</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check mb-4">
+                                    <input class="form-check-input" type="checkbox" id="termsCheck">
+                                    <label class="form-check-label" for="termsCheck">
+                                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Cancellation Policy</a>.
+                                    </label>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-outline-primary" id="backToStep2">Back</button>
+                                    <button type="submit" class="btn btn-primary" id="confirmBooking" disabled="disabled">Book Appointment</button>
+                                </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-outline-primary" id="backToStep1">Back</button>
+                                    <button type="button" class="btn btn-primary" id="nextToStep3">Continue to Your Details</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3: Personal Information -->
+                            <div class="booking-step d-none" id="step3">
+                                <h3 class="mb-4">Your Information</h3>
+                                <div class="mb-3">
+                                    <label for="{{ form.name.id_for_label }}" class="form-label">Full Name</label>
+                                    {{ form.name|add_class:"form-control" }}
+                                    {% if form.name.errors %}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.name.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                <div class="booking-summary mb-4">
+                                    <h4 class="mb-3">Booking Summary</h4>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Service:</span>
+                                                <span id="summaryService">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Date:</span>
+                                                <span id="summaryDate">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Time:</span>
+                                                <span id="summaryTime">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span>Price:</span>
+                                                <span class="text-primary" id="summaryPrice">-</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check mb-4">
+                                    <input class="form-check-input" type="checkbox" id="termsCheck">
+                                    <label class="form-check-label" for="termsCheck">
+                                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Cancellation Policy</a>.
+                                    </label>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-outline-primary" id="backToStep2">Back</button>
+                                    <button type="submit" class="btn btn-primary" id="confirmBooking" disabled="disabled">Book Appointment</button>
+                                </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="{{ form.email.id_for_label }}" class="form-label">Email Address</label>
+                                    {{ form.email|add_class:"form-control" }}
+                                    {% if form.email.errors %}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.email.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                <div class="booking-summary mb-4">
+                            </div>
+                        </form>
+                                    <h4 class="mb-3">Booking Summary</h4>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Service:</span>
+                                                <span id="summaryService">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Date:</span>
+                                                <span id="summaryDate">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Time:</span>
+                                                <span id="summaryTime">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span>Price:</span>
+                                                <span class="text-primary" id="summaryPrice">-</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check mb-4">
+                                    <input class="form-check-input" type="checkbox" id="termsCheck">
+                                    <label class="form-check-label" for="termsCheck">
+                                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Cancellation Policy</a>.
+                                    </label>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-outline-primary" id="backToStep2">Back</button>
+                                    <button type="submit" class="btn btn-primary" id="confirmBooking" disabled="disabled">Book Appointment</button>
+                                </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="{{ form.phone.id_for_label }}" class="form-label">Phone Number</label>
+                                    {{ form.phone|add_class:"form-control" }}
+                                    {% if form.phone.errors %}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.phone.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                <div class="booking-summary mb-4">
+                                    <h4 class="mb-3">Booking Summary</h4>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Service:</span>
+                                                <span id="summaryService">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Date:</span>
+                                                <span id="summaryDate">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Time:</span>
+                                                <span id="summaryTime">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span>Price:</span>
+                                                <span class="text-primary" id="summaryPrice">-</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check mb-4">
+                                    <input class="form-check-input" type="checkbox" id="termsCheck">
+                                    <label class="form-check-label" for="termsCheck">
+                                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Cancellation Policy</a>.
+                                    </label>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-outline-primary" id="backToStep2">Back</button>
+                                    <button type="submit" class="btn btn-primary" id="confirmBooking" disabled="disabled">Book Appointment</button>
+                                </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="{{ form.notes.id_for_label }}" class="form-label">Notes (Optional)</label>
+                                    {{ form.notes|add_class:"form-control" }}
+                                    {% if form.notes.errors %}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.notes.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                <div class="booking-summary mb-4">
+                                    <h4 class="mb-3">Booking Summary</h4>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Service:</span>
+                                                <span id="summaryService">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Date:</span>
+                                                <span id="summaryDate">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Time:</span>
+                                                <span id="summaryTime">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span>Price:</span>
+                                                <span class="text-primary" id="summaryPrice">-</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check mb-4">
+                                    <input class="form-check-input" type="checkbox" id="termsCheck">
+                                    <label class="form-check-label" for="termsCheck">
+                                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Cancellation Policy</a>.
+                                    </label>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-outline-primary" id="backToStep2">Back</button>
+                                    <button type="submit" class="btn btn-primary" id="confirmBooking" disabled="disabled">Book Appointment</button>
+                                </div>
+                                </div>
+
+                                {% if not user.is_authenticated %}
+                                <div class="mb-4 form-check">
+                                    {{ form.create_account|add_class:"form-check-input" }}
+                                    <label for="{{ form.create_account.id_for_label }}" class="form-check-label">Create an account for faster bookings in the future</label>
+                                </div>
+                                {% endif %}
+                                <div class="booking-summary mb-4">
+                                    <h4 class="mb-3">Booking Summary</h4>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Service:</span>
+                                                <span id="summaryService">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Date:</span>
+                                                <span id="summaryDate">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Time:</span>
+                                                <span id="summaryTime">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span>Price:</span>
+                                                <span class="text-primary" id="summaryPrice">-</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check mb-4">
+                                    <input class="form-check-input" type="checkbox" id="termsCheck">
+                                    <label class="form-check-label" for="termsCheck">
+                                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Cancellation Policy</a>.
+                                    </label>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-outline-primary" id="backToStep2">Back</button>
+                                    <button type="submit" class="btn btn-primary" id="confirmBooking" disabled="disabled">Book Appointment</button>
+                                </div>
+
+                                                <span id="summaryService">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Date:</span>
+                                                <span id="summaryDate">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Time:</span>
+                                                <span id="summaryTime">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span>Price:</span>
+                                                <span class="text-primary" id="summaryPrice">-</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check mb-4">
+                                    <input class="form-check-input" type="checkbox" id="termsCheck">
+                                    <label class="form-check-label" for="termsCheck">
+                                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Cancellation Policy</a>.
+                                    </label>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-outline-primary" id="backToStep2">Back</button>
+                                    {% if form.submit %}{{ form.submit }}{% else %}<button type="submit" class="btn btn-primary" id="confirmBooking" disabled="disabled">Book Appointment</button>{% endif %}
+                                <div class="booking-summary mb-4">
+                                    <h4 class="mb-3">Booking Summary</h4>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Service:</span>
+                                                <span id="summaryService">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Date:</span>
+                                                <span id="summaryDate">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Time:</span>
+                                                <span id="summaryTime">-</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span>Price:</span>
+                                                <span class="text-primary" id="summaryPrice">-</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check mb-4">
+                                    <input class="form-check-input" type="checkbox" id="termsCheck">
+                                    <label class="form-check-label" for="termsCheck">
+                                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Cancellation Policy</a>.
+                                    </label>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-outline-primary" id="backToStep2">Back</button>
+                                    <button type="submit" class="btn btn-primary" id="confirmBooking" disabled="disabled">Book Appointment</button>
+                                </div>
                                 </div>
                             </div>
                         </form>
@@ -272,9 +651,212 @@
         </div>
     </div>
 </section>
-{% endblock %}
-
 {% block extra_js %}
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="{{ url_for('static', filename='js/booking.js') }}"></script>
-{% endblock %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Initialize variables
+        const serviceSelect = document.getElementById("{{ form.service.id_for_label }}");
+        const dateInput = document.getElementById("{{ form.date.id_for_label }}");
+        const timeInput = document.getElementById("{{ form.time.id_for_label }}");
+        const timeSlotsContainer = document.getElementById("timeSlots");
+        
+        // Service info elements
+        const serviceName = document.getElementById("serviceName");
+        const serviceDuration = document.getElementById("serviceDuration");
+        const servicePrice = document.getElementById("servicePrice");
+        const serviceDescription = document.getElementById("serviceDescription");
+        const serviceDetails = document.getElementById("serviceDetails");
+        
+        // Summary elements
+        const summaryService = document.getElementById("summaryService");
+        const summaryDate = document.getElementById("summaryDate");
+        const summaryTime = document.getElementById("summaryTime");
+        const summaryPrice = document.getElementById("summaryPrice");
+        
+        // Step navigation
+        const step1 = document.getElementById("step1");
+        const step2 = document.getElementById("step2");
+        const step3 = document.getElementById("step3");
+        const progressBar = document.querySelector(".progress-bar");
+        const stepCircles = document.querySelectorAll(".step-circle");
+        
+        const nextToStep2 = document.getElementById("nextToStep2");
+        const backToStep1 = document.getElementById("backToStep1");
+        const nextToStep3 = document.getElementById("nextToStep3");
+        const backToStep2 = document.getElementById("backToStep2");
+        const confirmBooking = document.getElementById("confirmBooking");
+        const termsCheck = document.getElementById("termsCheck");
+        
+        // Service data (populated from the form select)
+        let services = [];
+        {% for service in services %}
+        services.push({
+            id: "{{ service.id }}",
+            name: "{{ service.name }}",
+            price: {{ service.price }},
+            duration: {{ service.duration }},
+            description: "{{ service.short_description }}"
+        });
+        {% endfor %}
+        
+        // Initialize flatpickr for date selection
+        const today = new Date();
+        const flatpickrInstance = flatpickr(dateInput, {
+            minDate: "today",
+            dateFormat: "Y-m-d",
+            // Disable weekends or specific dates if needed
+            // disable: [function(date) { return date.getDay() === 0 || date.getDay() === 6; }],
+            onChange: function(selectedDates, dateStr) {
+                // Load available time slots when date changes
+                loadTimeSlots(dateStr);
+            }
+        });
+        
+        // Update service details when service selection changes
+        serviceSelect.addEventListener("change", function() {
+            const selectedServiceId = this.value;
+            if (selectedServiceId) {
+                const selectedService = services.find(s => s.id === selectedServiceId);
+                if (selectedService) {
+                    serviceName.textContent = selectedService.name;
+                    serviceDuration.textContent = `${selectedService.duration} minutes`;
+                    servicePrice.textContent = `£${selectedService.price}`;
+                    serviceDescription.textContent = selectedService.description;
+                    serviceDetails.classList.remove("d-none");
+                    
+                    // Update summary
+                    summaryService.textContent = selectedService.name;
+                    summaryPrice.textContent = `£${selectedService.price}`;
+                    
+                    // Enable next button
+                    nextToStep2.disabled = false;
+                }
+            } else {
+                serviceDetails.classList.add("d-none");
+                nextToStep2.disabled = true;
+            }
+        });
+        
+        // Load available time slots for the selected date and service
+        function loadTimeSlots(date) {
+            const serviceId = serviceSelect.value;
+            if (!serviceId || !date) {
+                timeSlotsContainer.innerHTML = "<p class=\"text-muted\">Please select a service and date to view available time slots.</p>";
+                return;
+            }
+            
+            timeSlotsContainer.innerHTML = "<p class=\"text-center\"><i class=\"fas fa-spinner fa-spin\"></i> Loading available slots...</p>";
+            
+            // Make an AJAX call to get available time slots
+            fetch(`{% url "astrology:get_time_slots" %}?date=${date}&service_id=${serviceId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        timeSlotsContainer.innerHTML = `<p class="text-danger">${data.error}</p>`;
+                        return;
+                    }
+                    
+                    if (data.slots && data.slots.length > 0) {
+                        let slotsHtml = "";
+                        data.slots.forEach(slot => {
+                            slotsHtml += `<div class="time-slot" data-time="${slot}">${slot}</div>`;
+                        });
+                        timeSlotsContainer.innerHTML = slotsHtml;
+                        
+                        // Add click event to time slots
+                        const timeSlots = document.querySelectorAll(".time-slot");
+                        timeSlots.forEach(slot => {
+                            slot.addEventListener("click", function() {
+                                timeSlots.forEach(s => s.classList.remove("selected"));
+                                this.classList.add("selected");
+                                const selectedTime = this.getAttribute("data-time");
+                                timeInput.value = selectedTime;
+                                
+                                // Update summary
+                                summaryTime.textContent = selectedTime;
+                                
+                                // Enable next button
+                                nextToStep3.disabled = false;
+                            });
+                        });
+                    } else {
+                        timeSlotsContainer.innerHTML = "<p class=\"text-muted\">No available time slots for this date. Please select another date.</p>";
+                        timeInput.value = "";
+                        nextToStep3.disabled = true;
+                    }
+                })
+                .catch(error => {
+                    console.error("Error loading time slots:", error);
+                    timeSlotsContainer.innerHTML = "<p class=\"text-danger\">Error loading available time slots. Please try again.</p>";
+                });
+        }
+        
+        // Step navigation
+        nextToStep2.addEventListener("click", function() {
+            step1.classList.add("d-none");
+            step2.classList.remove("d-none");
+            progressBar.style.width = "66%";
+            progressBar.setAttribute("aria-valuenow", "66");
+            stepCircles[0].classList.remove("active");
+            stepCircles[1].classList.add("active");
+            
+            // Load time slots for current selections
+            if (dateInput.value) {
+                loadTimeSlots(dateInput.value);
+            }
+        });
+        
+        backToStep1.addEventListener("click", function() {
+            step2.classList.add("d-none");
+            step1.classList.remove("d-none");
+            progressBar.style.width = "33%";
+            progressBar.setAttribute("aria-valuenow", "33");
+            stepCircles[1].classList.remove("active");
+            stepCircles[0].classList.add("active");
+        });
+        
+        nextToStep3.addEventListener("click", function() {
+            if (!timeInput.value) {
+                alert("Please select a time slot.");
+                return;
+            }
+            
+            step2.classList.add("d-none");
+            step3.classList.remove("d-none");
+            progressBar.style.width = "100%";
+            progressBar.setAttribute("aria-valuenow", "100");
+            stepCircles[1].classList.remove("active");
+            stepCircles[2].classList.add("active");
+            
+            // Update summary
+            const selectedDate = dateInput.value;
+            summaryDate.textContent = new Date(selectedDate).toLocaleDateString("en-GB");
+        });
+        
+        backToStep2.addEventListener("click", function() {
+            step3.classList.add("d-none");
+            step2.classList.remove("d-none");
+            progressBar.style.width = "66%";
+            progressBar.setAttribute("aria-valuenow", "66");
+            stepCircles[2].classList.remove("active");
+            stepCircles[1].classList.add("active");
+        });
+        
+        // Terms checkbox controls submit button
+        termsCheck.addEventListener("change", function() {
+            confirmBooking.disabled = !this.checked;
+        });
+        
+        // Check if service is already selected (e.g., when coming back to form with errors)
+        if (serviceSelect.value) {
+            serviceSelect.dispatchEvent(new Event("change"));
+        }
+        
+        // Check if date is already selected
+        if (dateInput.value) {
+            loadTimeSlots(dateInput.value);
+        }
+    });
+</script>
+{% endblock extra_css %}
