@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 from .models import (
     Profile, OTP, Service, Booking, BlogPost, CartItem, 
     Order, OrderItem, Contact, Coupon, UserReading,
-    AvailabilitySlot, BlockedDate, ConsultationReport
+    AvailabilitySlot, BlockedDate, ConsultationReport,
+    WhatsAppConfig
 )
 
 # Profile Admin
@@ -126,3 +127,12 @@ class BlockedDateAdmin(admin.ModelAdmin):
     list_display = ('date', 'reason')
     list_filter = ('date',)
     ordering = ('date',)
+
+# WhatsApp Config Admin
+@admin.register(WhatsAppConfig)
+class WhatsAppConfigAdmin(admin.ModelAdmin):
+    list_display = ('phone_number', 'display_name', 'is_active', 'updated_at')
+    list_filter = ('is_active',)
+    search_fields = ('phone_number', 'display_name')
+    ordering = ('-updated_at',)
+    readonly_fields = ('created_at', 'updated_at')

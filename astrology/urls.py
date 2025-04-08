@@ -65,4 +65,7 @@ urlpatterns = [
     
     # Email Testing (Admin only)
     path('admin/test-email/', views.test_email, name='test_email'),
+    
+    # API Endpoints
+    path('api/whatsapp-config/', views.get_whatsapp_config, name='get_whatsapp_config'),
 ]

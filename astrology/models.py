@@ -351,3 +351,37 @@ class ConsultationReport(models.Model):
         
     def get_filename(self):
         return os.path.basename(self.report_file.name)
+        
+class WhatsAppConfig(models.Model):
+    """
+    WhatsApp configuration for chat integration
+    """
+    phone_number = PhoneNumberField(help_text="WhatsApp phone number with country code (e.g., +447123456789)")
+    default_message = models.CharField(max_length=255, default="Hello, I'd like to book an astrology consultation.", 
+                                     help_text="Default message that will be pre-filled when users click to contact via WhatsApp")
+    display_name = models.CharField(max_length=100, default="MetaMystic Astrology",
+                                  help_text="Name to display in the chat widget")
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"WhatsApp Config: {self.phone_number}"
+    
+    def save(self, *args, **kwargs):
+        # Ensure only one active configuration exists
+        if self.is_active:
+            WhatsAppConfig.objects.exclude(pk=self.pk).update(is_active=False)
+        super().save(*args, **kwargs)
+    
+    @classmethod
+    def get_active(cls):
+        """Get the active WhatsApp configuration"""
+        try:
+            return cls.objects.filter(is_active=True).first()
+        except cls.DoesNotExist:
+            return None
+    
+    class Meta:
+        verbose_name = "WhatsApp Configuration"
+        verbose_name_plural = "WhatsApp Configurations"

@@ -23,7 +23,8 @@ from datetime import datetime, timedelta
 from .models import (
     Profile, OTP, Service, Booking, BlogPost, CartItem, 
     Order, OrderItem, Contact, Coupon, UserReading,
-    AvailabilitySlot, BlockedDate, ConsultationReport
+    AvailabilitySlot, BlockedDate, ConsultationReport,
+    WhatsAppConfig
 )
 from .forms import (
     OTPVerificationForm, ContactForm, BookingForm, CouponForm,
@@ -1097,3 +1098,25 @@ def test_email(request):
             messages.error(request, "Please provide a valid email address.")
     
     return render(request, 'admin/test_email.html', {'success': success})
+    
+def get_whatsapp_config(request):
+    """API endpoint to get the active WhatsApp configuration for the chat widget"""
+    whatsapp_config = WhatsAppConfig.get_active()
+    
+    if whatsapp_config:
+        result = {
+            'success': True,
+            'phone_number': str(whatsapp_config.phone_number),
+            'default_message': whatsapp_config.default_message,
+            'display_name': whatsapp_config.display_name
+        }
+    else:
+        # Fallback to default values if no configuration exists
+        result = {
+            'success': False,
+            'phone_number': '',
+            'default_message': "Hello, I'd like to book an astrology consultation.",
+            'display_name': "MetaMystic Astrology"
+        }
+    
+    return JsonResponse(result)
