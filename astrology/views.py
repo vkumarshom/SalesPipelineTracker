@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_GET
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages, auth
 from django.utils import timezone
@@ -22,7 +22,8 @@ from datetime import datetime, timedelta
 
 from .models import (
     Profile, OTP, Service, Booking, BlogPost, CartItem, 
-    Order, OrderItem, Contact, Coupon, UserReading
+    Order, OrderItem, Contact, Coupon, UserReading,
+    AvailabilitySlot, BlockedDate
 )
 from .forms import (
     OTPVerificationForm, ContactForm, BookingForm, CouponForm,
@@ -453,9 +454,43 @@ def booking(request):
                 notes=form.cleaned_data['notes']
             )
             
-            # Link to user if logged in
+            # Handle guest or logged-in user booking
             if request.user.is_authenticated:
                 booking.user = request.user
+                booking.is_guest_booking = False
+            else:
+                booking.is_guest_booking = True
+                
+                # Create a new user account if requested
+                if form.cleaned_data.get('create_account'):
+                    try:
+                        # Generate a random username if needed
+                        username = form.cleaned_data['email'].split('@')[0]
+                        if User.objects.filter(username=username).exists():
+                            username = f"{username}_{random.randint(1000, 9999)}"
+                            
+                        # Generate a random password
+                        temp_password = ''.join(random.choices(string.ascii_letters + string.digits, k=12))
+                        
+                        # Create the user
+                        user = User.objects.create_user(
+                            username=username,
+                            email=form.cleaned_data['email'],
+                            password=temp_password,
+                            first_name=form.cleaned_data['name'].split(' ')[0],
+                            last_name=' '.join(form.cleaned_data['name'].split(' ')[1:]) if len(form.cleaned_data['name'].split(' ')) > 1 else ''
+                        )
+                        
+                        # Link the booking to the new user
+                        booking.user = user
+                        booking.is_guest_booking = False
+                        
+                        # Send welcome email with login details
+                        # TODO: Implement email sending with the temp password
+                        
+                    except Exception as e:
+                        # Log the error but continue with guest booking
+                        print(f"Error creating user account: {str(e)}")
             
             booking.save()
             
@@ -464,13 +499,96 @@ def booking(request):
         initial = {}
         if request.user.is_authenticated:
             initial = {
-                'name': f"{request.user.first_name} {request.user.last_name}".strip(),
+                'name': f"{request.user.first_name} {request.user.last_name}".strip() or request.user.username,
                 'email': request.user.email,
                 'phone': request.user.profile.phone_number if hasattr(request.user, 'profile') else None
             }
         form = BookingForm(services=services, initial=initial)
     
     return render(request, 'booking/calendar.html', {'form': form, 'services': services})
+
+@require_GET
+def get_available_time_slots(request):
+    """Get available time slots for a specific date and service"""
+    date_str = request.GET.get('date')
+    service_id = request.GET.get('service_id')
+    
+    if not date_str or not service_id:
+        return JsonResponse({'error': 'Date and service ID are required'}, status=400)
+    
+    try:
+        # Parse date
+        date = timezone.datetime.strptime(date_str, '%Y-%m-%d').date()
+        
+        # Check if date is blocked
+        if BlockedDate.objects.filter(date=date).exists():
+            return JsonResponse({'slots': []})
+        
+        # Get the service for duration
+        try:
+            service = Service.objects.get(id=service_id)
+        except Service.DoesNotExist:
+            return JsonResponse({'error': 'Service not found'}, status=404)
+        
+        # Get all existing bookings for this date to check for conflicts
+        existing_bookings = Booking.objects.filter(
+            booking_date=date, 
+            status__in=['pending', 'confirmed']
+        ).values_list('booking_time', 'service__duration')
+        
+        # Convert to list of (start_time, end_time) tuples for conflict checking
+        booked_slots = []
+        for booking_time, duration in existing_bookings:
+            start = timezone.datetime.combine(date, booking_time)
+            end = start + timezone.timedelta(minutes=duration)
+            booked_slots.append((booking_time, end.time()))
+        
+        # Get day of week (0=Monday, 6=Sunday)
+        day_of_week = date.weekday()
+        
+        # Get availability slots for this day
+        availability = AvailabilitySlot.objects.filter(
+            day_of_week=day_of_week,
+            is_active=True
+        )
+        
+        # If no specific availability set for this day, use default business hours (9 AM - 5 PM)
+        if not availability.exists():
+            today = timezone.datetime.today().date()
+            
+            # Only show future slots if booking for today
+            if date == today:
+                current_time = timezone.now().time()
+                start_time = max(timezone.datetime.strptime('09:00', '%H:%M').time(), current_time)
+            else:
+                start_time = timezone.datetime.strptime('09:00', '%H:%M').time()
+                
+            end_time = timezone.datetime.strptime('17:00', '%H:%M').time()
+            available_times = get_available_booking_slots(service.duration, date, booked_slots)
+        else:
+            # Generate slots for each availability period
+            available_times = []
+            for slot in availability:
+                # For today, don't show past slots
+                if date == timezone.datetime.today().date() and timezone.now().time() > slot.start_time:
+                    start_time = timezone.now().time()
+                else:
+                    start_time = slot.start_time
+                
+                # Get slots for this availability period
+                period_slots = get_available_booking_slots(
+                    service.duration, 
+                    date, 
+                    booked_slots,
+                    start_time=start_time,
+                    end_time=slot.end_time
+                )
+                available_times.extend(period_slots)
+        
+        return JsonResponse({'slots': available_times})
+        
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)
 
 def booking_confirmation(request, booking_id):
     """Booking confirmation page view"""

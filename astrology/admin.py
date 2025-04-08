@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 
 from .models import (
     Profile, OTP, Service, Booking, BlogPost, CartItem, 
-    Order, OrderItem, Contact, Coupon, UserReading
+    Order, OrderItem, Contact, Coupon, UserReading,
+    AvailabilitySlot, BlockedDate
 )
 
 # Profile Admin
@@ -98,3 +99,17 @@ class UserReadingAdmin(admin.ModelAdmin):
     list_filter = ('is_public', 'created_at')
     search_fields = ('title', 'content', 'user__username')
     ordering = ('-created_at',)
+
+# Availability Slot Admin
+@admin.register(AvailabilitySlot)
+class AvailabilitySlotAdmin(admin.ModelAdmin):
+    list_display = ('get_day_of_week_display', 'start_time', 'end_time', 'is_active')
+    list_filter = ('day_of_week', 'is_active')
+    ordering = ('day_of_week', 'start_time')
+
+# Blocked Date Admin
+@admin.register(BlockedDate)
+class BlockedDateAdmin(admin.ModelAdmin):
+    list_display = ('date', 'reason')
+    list_filter = ('date',)
+    ordering = ('date',)

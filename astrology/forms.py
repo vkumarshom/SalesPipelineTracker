@@ -2,9 +2,12 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 from phonenumber_field.formfields import PhoneNumberField
 import random
 import string
+
+from .models import BlockedDate
 
 def generate_otp():
     """Generate a 6-digit OTP code"""
@@ -82,15 +85,40 @@ class BookingForm(forms.Form):
                           widget=forms.TextInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(label=_('Email Address'),
                             widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    phone = PhoneNumberField(label=_('Phone Number'),
+    phone = PhoneNumberField(label=_('Phone Number'), required=True,
                             widget=forms.TextInput(attrs={'class': 'form-control'}))
     notes = forms.CharField(label=_('Special Requests or Notes'), required=False,
                            widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 3}))
+    create_account = forms.BooleanField(label=_('Create an account'), required=False, 
+                                       initial=True,
+                                       widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}))
     
     def __init__(self, *args, **kwargs):
         services = kwargs.pop('services', [])
+        time_slots = kwargs.pop('time_slots', [])
         super(BookingForm, self).__init__(*args, **kwargs)
+        
+        # Populate service choices
         self.fields['service'].choices = [(s.id, f"{s.name} (£{s.price})") for s in services]
+        
+        # Populate time slot choices if provided
+        if time_slots:
+            self.fields['time'].choices = [(slot, slot) for slot in time_slots]
+        else:
+            self.fields['time'].choices = [('', _('Select a date first'))]
+            
+    def clean_date(self):
+        date = self.cleaned_data.get('date')
+        today = timezone.now().date()
+        
+        if date < today:
+            raise forms.ValidationError(_("You cannot book appointments in the past."))
+            
+        # Check if date is blocked
+        if BlockedDate.objects.filter(date=date).exists():
+            raise forms.ValidationError(_("This date is not available for booking."))
+            
+        return date
 
 class CouponForm(forms.Form):
     """

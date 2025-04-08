@@ -18,7 +18,7 @@ def generate_order_number() -> str:
     random_chars = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
     return f"AST{timestamp}{random_chars}"
 
-def get_available_booking_slots(service_duration: int, date, booked_slots=None) -> list:
+def get_available_booking_slots(service_duration: int, date, booked_slots=None, start_time=None, end_time=None) -> list:
     """
     Generate available time slots for a given date, accounting for service duration and already booked slots.
     
@@ -26,6 +26,8 @@ def get_available_booking_slots(service_duration: int, date, booked_slots=None) 
         service_duration (int): Duration of the service in minutes
         date (datetime.date): The date to get slots for
         booked_slots (list): List of already booked slots as (start_time, end_time) tuples
+        start_time (datetime.time, optional): Custom start time for availability
+        end_time (datetime.time, optional): Custom end time for availability
         
     Returns:
         list: List of available time slots as strings in 'HH:MM' format
@@ -33,31 +35,44 @@ def get_available_booking_slots(service_duration: int, date, booked_slots=None) 
     if booked_slots is None:
         booked_slots = []
     
-    # Business hours: 9 AM to 5 PM
-    start_hour = 9
-    end_hour = 17
+    # Default business hours if not provided: 9 AM to 5 PM
+    if start_time is None:
+        start_time = datetime.min.time().replace(hour=9)
+    
+    if end_time is None:
+        end_time = datetime.min.time().replace(hour=17)
     
     # Create time slots
-    slot_interval = 30  # minutes
+    slot_interval = 30  # minutes - always divide slots into 30-minute intervals
     all_slots = []
     
-    current_time = datetime.combine(date, datetime.min.time().replace(hour=start_hour))
-    end_time = datetime.combine(date, datetime.min.time().replace(hour=end_hour))
+    current_datetime = datetime.combine(date, start_time)
+    end_datetime = datetime.combine(date, end_time)
     
-    while current_time < end_time:
-        slot_end = current_time + timedelta(minutes=service_duration)
+    while current_datetime < end_datetime:
+        slot_end_datetime = current_datetime + timedelta(minutes=service_duration)
+        
+        # Skip if there's not enough time remaining for the full service duration
+        if slot_end_datetime > end_datetime:
+            break
         
         # Check if slot overlaps with any booked slot
         is_available = True
         for booked_start, booked_end in booked_slots:
-            if (current_time < booked_end and slot_end > booked_start):
+            booked_start_datetime = datetime.combine(date, booked_start)
+            booked_end_datetime = datetime.combine(date, booked_end)
+            
+            if (current_datetime < booked_end_datetime and 
+                slot_end_datetime > booked_start_datetime):
                 is_available = False
                 break
         
-        if is_available and slot_end <= end_time:
-            all_slots.append(current_time.strftime('%H:%M'))
+        if is_available:
+            # Only add the slot if it's available
+            all_slots.append(current_datetime.strftime('%H:%M'))
         
-        current_time += timedelta(minutes=slot_interval)
+        # Always increment by the slot interval (30 minutes)
+        current_datetime += timedelta(minutes=slot_interval)
     
     return all_slots
 

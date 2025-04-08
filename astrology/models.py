@@ -89,6 +89,48 @@ class Service(models.Model):
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
+class AvailabilitySlot(models.Model):
+    """
+    Model for defining available time slots for bookings
+    """
+    DAY_CHOICES = (
+        (0, 'Monday'),
+        (1, 'Tuesday'),
+        (2, 'Wednesday'),
+        (3, 'Thursday'),
+        (4, 'Friday'),
+        (5, 'Saturday'),
+        (6, 'Sunday'),
+    )
+    
+    day_of_week = models.IntegerField(choices=DAY_CHOICES, help_text="Day of week (0=Monday, 6=Sunday)")
+    start_time = models.TimeField(help_text="Start time for availability (e.g., 09:00)")
+    end_time = models.TimeField(help_text="End time for availability (e.g., 17:00)")
+    is_active = models.BooleanField(default=True)
+    
+    def __str__(self):
+        return f"{self.get_day_of_week_display()}: {self.start_time.strftime('%H:%M')} - {self.end_time.strftime('%H:%M')}"
+    
+    class Meta:
+        ordering = ['day_of_week', 'start_time']
+        verbose_name = "Availability Slot"
+        verbose_name_plural = "Availability Slots"
+
+class BlockedDate(models.Model):
+    """
+    Model for blocked dates when no bookings are allowed
+    """
+    date = models.DateField(unique=True)
+    reason = models.CharField(max_length=255, blank=True)
+    
+    def __str__(self):
+        return f"Blocked: {self.date.strftime('%Y-%m-%d')}"
+    
+    class Meta:
+        ordering = ['date']
+        verbose_name = "Blocked Date"
+        verbose_name_plural = "Blocked Dates"
+
 class Booking(models.Model):
     """
     Booking model for astrology consultations
@@ -111,6 +153,8 @@ class Booking(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_guest_booking = models.BooleanField(default=False, help_text="Whether this booking was made by a guest (non-registered user)")
+    registration_link_sent = models.BooleanField(default=False, help_text="Whether a registration link has been sent to this guest user")
     
     def __str__(self):
         return f"{self.customer_name} - {self.service.name} on {self.booking_date} at {self.booking_time}"

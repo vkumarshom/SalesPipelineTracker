@@ -42,6 +42,7 @@ urlpatterns = [
     
     # Booking
     path('booking/', views.booking, name='booking'),
+    path('booking/get-time-slots/', views.get_available_time_slots, name='get_time_slots'),
     path('booking/confirmation/<int:booking_id>/', views.booking_confirmation, name='booking_confirmation'),
     
     # User Profile
