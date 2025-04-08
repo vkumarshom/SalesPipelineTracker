@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'crispy_forms',
     'crispy_bootstrap5',
+    'widget_tweaks',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -208,3 +209,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
 STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY', '')
 STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET', '')
+
+# Replit domain settings for Stripe integration
+REPLIT_DEV_DOMAIN = os.environ.get('REPLIT_DEV_DOMAIN', 'localhost:8000')
+REPLIT_DOMAINS = os.environ.get('REPLIT_DOMAINS', 'localhost:8000')

@@ -1,6 +1,5 @@
-{% extends "base.html" %}
 {% load static %}
-{% load widget_tweaks %}
+{% extends 'base.html' %}
 
 {% block title %}Book a Consultation - MetaMystic Astrology{% endblock %}
 
@@ -88,8 +87,8 @@
                             <div class="booking-step d-none" id="step2">
                                 <h3 class="mb-4">Select Date & Time</h3>
                                 <div class="mb-4">
-                                    <label for="{{ form.booking_date.id_for_label }}" class="form-label">Date</label>
-                                    {{ form.booking_date|add_class:"form-control" }}
+                                    <label for="{{ form.booking_date.id }}" class="form-label">Date</label>
+                                    {{ form.booking_date(class="form-control" + (" is-invalid" if form.booking_date.errors else ""), id="datePicker") }}
                                     {% if form.booking_date.errors %}
                                         <div class="invalid-feedback">
                                             {% for error in form.booking_date.errors %}
@@ -103,7 +102,7 @@
                                     <div id="timeSlots" class="time-slots-container">
                                         <p class="text-muted">Please select a date to view available time slots.</p>
                                     </div>
-                                    {{ form.booking_time|add_class:"form-control" }}
+                                    {{ form.booking_time(class="d-none" + (" is-invalid" if form.booking_time.errors else "")) }}
                                     {% if form.booking_time.errors %}
                                         <div class="invalid-feedback">
                                             {% for error in form.booking_time.errors %}
@@ -123,7 +122,7 @@
                                 <h3 class="mb-4">Your Information</h3>
                                 <div class="mb-3">
                                     <label for="{{ form.customer_name.id }}" class="form-label">Full Name</label>
-                                    {{ form.customer_name|add_class:"form-control" }}
+                                    {{ form.customer_name(class="form-control" + (" is-invalid" if form.customer_name.errors else ""), placeholder="Enter your full name") }}
                                     {% if form.customer_name.errors %}
                                         <div class="invalid-feedback">
                                             {% for error in form.customer_name.errors %}
@@ -134,7 +133,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="{{ form.customer_email.id }}" class="form-label">Email Address</label>
-                                    {{ form.customer_email|add_class:"form-control" }}
+                                    {{ form.customer_email(class="form-control" + (" is-invalid" if form.customer_email.errors else ""), placeholder="Enter your email") }}
                                     {% if form.customer_email.errors %}
                                         <div class="invalid-feedback">
                                             {% for error in form.customer_email.errors %}
@@ -145,7 +144,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="{{ form.customer_phone.id }}" class="form-label">Phone Number (Optional)</label>
-                                    {{ form.customer_phone|add_class:"form-control" }}
+                                    {{ form.customer_phone(class="form-control" + (" is-invalid" if form.customer_phone.errors else ""), placeholder="Enter your phone number") }}
                                     {% if form.customer_phone.errors %}
                                         <div class="invalid-feedback">
                                             {% for error in form.customer_phone.errors %}
@@ -156,7 +155,7 @@
                                 </div>
                                 <div class="mb-4">
                                     <label for="{{ form.notes.id }}" class="form-label">Notes (Optional)</label>
-                                    {{ form.notes|add_class:"form-control" }}
+                                    {{ form.notes(class="form-control" + (" is-invalid" if form.notes.errors else ""), rows="3", placeholder="Any specific topics or questions you'd like to address in your reading?") }}
                                     {% if form.notes.errors %}
                                         <div class="invalid-feedback">
                                             {% for error in form.notes.errors %}
@@ -196,7 +195,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <button type="button" class="btn btn-outline-primary" id="backToStep2">Back</button>
-                                    {% if form.submit %}{{ form.submit }}{% else %}<button type="submit" class="btn btn-primary" id="confirmBooking" disabled="disabled">Book Appointment</button>{% endif %}
+                                    {{ form.submit(class="btn btn-primary", id="confirmBooking", disabled="disabled") }}
                                 </div>
                             </div>
                         </form>

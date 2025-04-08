@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Payment Successful - MetaMystic Astrology{% endblock %}
+
+{% block content %}
+<!-- Success Hero -->
+<section class="py-5 bg-success text-white text-center">
+    <div class="container">
+        <div class="py-4">
+            <i class="fas fa-check-circle fa-5x mb-3"></i>
+            <h1 class="display-4 mb-4">Payment Successful!</h1>
+            <p class="lead">Thank you for your purchase. Your order has been confirmed.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Order Details -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <h2 class="mb-4">Order Details</h2>
+                        
+                        <div class="alert alert-success mb-4">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-info-circle me-3 fa-2x"></i>
+                                <div>
+                                    <p class="mb-0">A confirmation email has been sent to your email address.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h5>Order Number: <span class="text-muted">{{ order.order_number }}</span></h5>
+                            <p class="text-muted">Order Date: {{ order.created_at|date:"F j, Y" }}</p>
+                        </div>
+                        
+                        <h5 class="mb-3">Items Purchased</h5>
+                        <div class="list-group mb-4">
+                            {% for item in order.items.all %}
+                            <div class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-0">{{ item.service_name }}</h6>
+                                        <small class="text-muted">Qty: {{ item.quantity }}</small>
+                                    </div>
+                                    <span>£{{ item.price|floatformat:2 }}</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Subtotal</span>
+                                    <span>£{{ order.subtotal_amount|floatformat:2 }}</span>
+                                </div>
+                                
+                                {% if order.discount_amount > 0 %}
+                                <div class="d-flex justify-content-between text-success">
+                                    <span>Discount</span>
+                                    <span>-£{{ order.discount_amount|floatformat:2 }}</span>
+                                </div>
+                                {% endif %}
+                                
+                                <hr>
+                                <div class="d-flex justify-content-between fw-bold">
+                                    <span>Total</span>
+                                    <span class="text-primary">£{{ order.total_amount|floatformat:2 }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'astrology:profile' %}" class="btn btn-primary">
+                                <i class="fas fa-user me-2"></i>Go to My Account
+                            </a>
+                            {% endif %}
+                            <a href="{% url 'astrology:index' %}" class="btn btn-outline-primary">
+                                <i class="fas fa-home me-2"></i>Return to Homepage
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- What's Next Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">What's Next?</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-calendar-alt fa-3x text-primary"></i>
+                        </div>
+                        <h4>Schedule Your Session</h4>
+                        <p>If you purchased a reading or consultation, book your session at a time that works for you.</p>
+                        <a href="{% url 'astrology:booking' %}" class="btn btn-outline-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-star fa-3x text-primary"></i>
+                        </div>
+                        <h4>Explore More Services</h4>
+                        <p>Discover our other astrological services and products to enhance your spiritual journey.</p>
+                        <a href="{% url 'astrology:services' %}" class="btn btn-outline-primary">View Services</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-book fa-3x text-primary"></i>
+                        </div>
+                        <h4>Read Our Blog</h4>
+                        <p>Learn more about astrology and spirituality through our insightful articles.</p>
+                        <a href="{% url 'astrology:blog_list' %}" class="btn btn-outline-primary">Visit Blog</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

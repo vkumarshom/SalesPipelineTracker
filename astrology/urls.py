@@ -32,6 +32,7 @@ urlpatterns = [
     
     # Payment
     path('stripe-checkout/', views.stripe_checkout, name='stripe_checkout'),
+    path('create-checkout-session/', views.create_checkout_session, name='create_checkout_session'),
     path('stripe-success/', views.stripe_success, name='stripe_success'),
     path('stripe-cancel/', views.stripe_cancel, name='stripe_cancel'),
     path('stripe-webhook/', views.stripe_webhook, name='stripe_webhook'),

@@ -28,6 +28,10 @@ from .forms import (
     OTPVerificationForm, ContactForm, BookingForm, CouponForm,
     CustomRegisterForm, CustomLoginForm
 )
+from .utils import (
+    get_session_id, generate_order_number, get_available_booking_slots,
+    format_price, get_cart_total
+)
 
 # OTP Generation and Verification
 def generate_otp():
@@ -189,11 +193,6 @@ def blog_detail(request, slug):
     })
 
 # E-commerce Views
-def get_session_id(request):
-    """Get or create a session ID for the cart"""
-    if not request.session.get('cart_id'):
-        request.session['cart_id'] = str(uuid.uuid4())
-    return request.session['cart_id']
 
 def cart(request):
     """Shopping cart view"""
@@ -348,9 +347,11 @@ def checkout(request):
     
     # Apply coupon if exists
     coupon = None
+    coupon_id = None
     if request.session.get('coupon_id'):
         try:
             coupon = Coupon.objects.get(id=request.session['coupon_id'])
+            coupon_id = coupon.id
             if coupon.discount_percentage:
                 discount = subtotal * (coupon.discount_percentage / Decimal('100.0'))
             elif coupon.discount_amount:
@@ -360,13 +361,78 @@ def checkout(request):
     
     total = subtotal - discount
     
+    # Store order details in session for later use
+    order_number = generate_order_number()
+    order_details = {
+        'order_number': order_number,
+        'subtotal': float(subtotal),
+        'discount': float(discount),
+        'total': float(total),
+        'coupon_id': coupon_id
+    }
+    request.session['order_details'] = order_details
+    
     return render(request, 'shop/checkout.html', {
         'cart_items': cart_items,
         'subtotal': subtotal,
         'discount': discount,
         'total': total,
-        'coupon': coupon
+        'coupon': coupon,
+        'stripe_publishable_key': settings.STRIPE_PUBLISHABLE_KEY,
+        'order_number': order_number
     })
+
+@require_POST
+def create_checkout_session(request):
+    """Create Stripe checkout session and redirect user to Stripe's hosted checkout page"""
+    import stripe
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    
+    order_details = request.session.get('order_details', {})
+    if not order_details:
+        messages.error(request, "Invalid order information.")
+        return redirect('astrology:checkout')
+    
+    order_number = order_details.get('order_number')
+    total_amount = order_details.get('total', 0)
+    
+    # Get cart items to create line items
+    session_id = get_session_id(request)
+    cart_items = CartItem.objects.filter(session_id=session_id)
+    
+    # Format items for Stripe
+    line_items = []
+    for item in cart_items:
+        line_items.append({
+            'price_data': {
+                'currency': 'gbp',
+                'product_data': {
+                    'name': item.service.name,
+                    'description': item.service.short_description,
+                },
+                'unit_amount': int(item.service.price * 100),  # Stripe needs amount in pennies
+            },
+            'quantity': item.quantity,
+        })
+    
+    # Set domain based on environment
+    domain_url = f"https://{settings.REPLIT_DEV_DOMAIN}"
+    
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=line_items,
+            mode='payment',
+            success_url=domain_url + reverse('astrology:stripe_success') + f'?order_number={order_number}',
+            cancel_url=domain_url + reverse('astrology:stripe_cancel'),
+            metadata={
+                'order_number': order_number,
+            }
+        )
+        return redirect(checkout_session.url, code=303)
+    except Exception as e:
+        messages.error(request, f"Error creating checkout session: {str(e)}")
+        return redirect('astrology:checkout')
 
 # Booking Views
 def booking(request):
@@ -592,13 +658,14 @@ def stripe_success(request):
     request.session.pop('order_details', None)
     request.session.pop('coupon_id', None)
     
-    messages.success(request, "Payment successful! Your order has been placed.")
-    return redirect('astrology:order_detail', order_number=order_number)
+    # Return payment success page with order details
+    return render(request, "shop/payment_success.html", {"order": order})
+
 
 def stripe_cancel(request):
     """Stripe payment cancel view"""
-    messages.warning(request, "Payment was cancelled.")
-    return redirect('astrology:checkout')
+    return render(request, "shop/payment_cancel.html")
+
 
 @csrf_exempt
 def stripe_webhook(request):
