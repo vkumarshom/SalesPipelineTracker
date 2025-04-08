@@ -62,4 +62,7 @@ urlpatterns = [
     # OTP Verification
     path('verify-otp/', views.verify_otp, name='verify_otp'),
     path('resend-otp/', views.resend_otp, name='resend_otp'),
+    
+    # Email Testing (Admin only)
+    path('admin/test-email/', views.test_email, name='test_email'),
 ]

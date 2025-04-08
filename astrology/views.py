@@ -32,7 +32,7 @@ from .forms import (
 )
 from .utils import (
     get_session_id, generate_order_number, get_available_booking_slots,
-    format_price, get_cart_total
+    format_price, get_cart_total, send_email_notification
 )
 
 # OTP Generation and Verification
@@ -1058,3 +1058,42 @@ def admin_report_delete(request, report_id):
         return redirect('astrology:admin_reports')
     
     return render(request, 'admin/report_confirm_delete.html', {'report': report})
+
+
+def test_email(request):
+    """View to test email functionality with SendGrid"""
+    if not request.user.is_superuser:
+        messages.error(request, "You don't have permission to access this page.")
+        return redirect('astrology:index')
+        
+    success = False
+    if request.method == 'POST':
+        recipient = request.POST.get('email')
+        if recipient:
+            subject = "MetaMystic - Email Test"
+            message = "This is a test email from MetaMystic to verify the email functionality is working correctly."
+            html_message = """
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 5px;">
+                <h2 style="color: #6d1b7b;">MetaMystic Email Test</h2>
+                <p>Hello,</p>
+                <p>This is a test email from MetaMystic to verify that the email functionality is working correctly with SendGrid.</p>
+                <p>If you received this email, it means our email system is configured properly and ready to send password reset emails and other notifications.</p>
+                <p style="margin-top: 30px;">Best regards,<br>The MetaMystic Team</p>
+            </div>
+            """
+            
+            success = send_email_notification(
+                subject=subject,
+                message=message,
+                recipient_list=[recipient],
+                html_message=html_message
+            )
+            
+            if success:
+                messages.success(request, f"Test email sent successfully to {recipient}!")
+            else:
+                messages.error(request, f"Failed to send email to {recipient}. Please check the server logs.")
+        else:
+            messages.error(request, "Please provide a valid email address.")
+    
+    return render(request, 'admin/test_email.html', {'success': success})

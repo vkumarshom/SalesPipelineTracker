@@ -4,6 +4,10 @@ import uuid
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.http import HttpRequest
+from django.core.mail import send_mail
+import logging
+
+logger = logging.getLogger(__name__)
 
 def get_session_id(request: HttpRequest) -> str:
     """Get or create a session ID for the cart."""
@@ -83,3 +87,36 @@ def format_price(amount: float) -> str:
 def get_cart_total(cart_items) -> float:
     """Calculate the total price of all items in the cart."""
     return sum(item.service.price * item.quantity for item in cart_items)
+
+
+def send_email_notification(subject: str, message: str, recipient_list: list, html_message: str = None, fail_silently: bool = False) -> bool:
+    """
+    Send an email using SendGrid.
+    
+    Args:
+        subject (str): Email subject
+        message (str): Plain text email content
+        recipient_list (list): List of recipient email addresses
+        html_message (str, optional): HTML version of the email content
+        fail_silently (bool, optional): Whether to suppress exceptions if sending fails
+        
+    Returns:
+        bool: True if email was sent successfully, False otherwise
+    """
+    try:
+        # Using Django's send_mail which will use the SendGrid backend
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=recipient_list,
+            html_message=html_message,
+            fail_silently=fail_silently
+        )
+        logger.info(f"Email sent successfully to {', '.join(recipient_list)}")
+        return True
+    except Exception as e:
+        logger.error(f"Failed to send email: {str(e)}")
+        if not fail_silently:
+            raise
+        return False

@@ -213,3 +213,13 @@ STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET', '')
 # Replit domain settings for Stripe integration
 REPLIT_DEV_DOMAIN = os.environ.get('REPLIT_DEV_DOMAIN', 'localhost:8000')
 REPLIT_DOMAINS = os.environ.get('REPLIT_DOMAINS', 'localhost:8000')
+
+# Email settings with SendGrid
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey'  # this is exactly the value 'apikey'
+EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_API_KEY')
+DEFAULT_FROM_EMAIL = 'noreply@metamystic.in'  # Change to your sender email
+SERVER_EMAIL = 'admin@metamystic.in'  # Change to your server email
