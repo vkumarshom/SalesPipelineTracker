@@ -103,8 +103,8 @@
                 </div>
                 
                 <div class="text-center mt-4">
-                    <a href="{{ url_for('index') }}" class="btn btn-outline-primary me-2">Back to Home</a>
-                    <a href="{{ url_for('services') }}" class="btn btn-primary">Explore More Services</a>
+                    <a href="{% url 'astrology:index' %}" class="btn btn-outline-primary me-2">Back to Home</a>
+                    <a href="{% url 'astrology:services' %}" class="btn btn-primary">Explore More Services</a>
                 </div>
             </div>
         </div>

@@ -20,7 +20,7 @@
                     <div class="card-body p-4 p-md-5">
                         <h2 class="text-center mb-4">Send Us a Message</h2>
                         <form method="POST" action="{{ url_for('contact') }}">
-                            {{ form.hidden_tag() }}
+                            {% csrf_token %}
                             <div class="mb-3">
                                 <label for="{{ form.name.id }}" class="form-label">Your Name</label>
                                 {{ form.name(class="form-control" + (" is-invalid" if form.name.errors else ""), placeholder="Enter your name") }}

@@ -56,11 +56,11 @@
                             <div class="booking-step" id="step1">
                                 <h3 class="mb-4">Select a Service</h3>
                                 <div class="mb-4">
-                                    <label for="{{ form.service_id.id }}" class="form-label">Choose an Astrology Service</label>
-                                    {{ form.service_id(class="form-select" + (" is-invalid" if form.service_id.errors else "")) }}
-                                    {% if form.service_id.errors %}
+                                    <label for="{{ form.service.id_for_label }}" class="form-label">Choose an Astrology Service</label>
+                                    {{ form.service }}
+                                    {% if form.service.errors %}
                                         <div class="invalid-feedback">
-                                            {% for error in form.service_id.errors %}
+                                            {% for error in form.service.errors %}
                                                 {{ error }}
                                             {% endfor %}
                                         </div>
@@ -87,25 +87,25 @@
                             <div class="booking-step d-none" id="step2">
                                 <h3 class="mb-4">Select Date & Time</h3>
                                 <div class="mb-4">
-                                    <label for="{{ form.booking_date.id }}" class="form-label">Date</label>
-                                    {{ form.booking_date(class="form-control" + (" is-invalid" if form.booking_date.errors else ""), id="datePicker") }}
-                                    {% if form.booking_date.errors %}
+                                    <label for="{{ form.date.id_for_label }}" class="form-label">Date</label>
+                                    {{ form.date }}
+                                    {% if form.date.errors %}
                                         <div class="invalid-feedback">
-                                            {% for error in form.booking_date.errors %}
+                                            {% for error in form.date.errors %}
                                                 {{ error }}
                                             {% endfor %}
                                         </div>
                                     {% endif %}
                                 </div>
                                 <div class="mb-4">
-                                    <label for="{{ form.booking_time.id }}" class="form-label">Available Time Slots</label>
+                                    <label for="{{ form.time.id_for_label }}" class="form-label">Available Time Slots</label>
                                     <div id="timeSlots" class="time-slots-container">
                                         <p class="text-muted">Please select a date to view available time slots.</p>
                                     </div>
-                                    {{ form.booking_time(class="d-none" + (" is-invalid" if form.booking_time.errors else "")) }}
-                                    {% if form.booking_time.errors %}
+                                    {{ form.time }}
+                                    {% if form.time.errors %}
                                         <div class="invalid-feedback">
-                                            {% for error in form.booking_time.errors %}
+                                            {% for error in form.time.errors %}
                                                 {{ error }}
                                             {% endfor %}
                                         </div>
@@ -121,41 +121,41 @@
                             <div class="booking-step d-none" id="step3">
                                 <h3 class="mb-4">Your Information</h3>
                                 <div class="mb-3">
-                                    <label for="{{ form.customer_name.id }}" class="form-label">Full Name</label>
-                                    {{ form.customer_name(class="form-control" + (" is-invalid" if form.customer_name.errors else ""), placeholder="Enter your full name") }}
-                                    {% if form.customer_name.errors %}
+                                    <label for="{{ form.name.id_for_label }}" class="form-label">Full Name</label>
+                                    {{ form.name }}
+                                    {% if form.name.errors %}
                                         <div class="invalid-feedback">
-                                            {% for error in form.customer_name.errors %}
+                                            {% for error in form.name.errors %}
                                                 {{ error }}
                                             {% endfor %}
                                         </div>
                                     {% endif %}
                                 </div>
                                 <div class="mb-3">
-                                    <label for="{{ form.customer_email.id }}" class="form-label">Email Address</label>
-                                    {{ form.customer_email(class="form-control" + (" is-invalid" if form.customer_email.errors else ""), placeholder="Enter your email") }}
-                                    {% if form.customer_email.errors %}
+                                    <label for="{{ form.email.id_for_label }}" class="form-label">Email Address</label>
+                                    {{ form.email }}
+                                    {% if form.email.errors %}
                                         <div class="invalid-feedback">
-                                            {% for error in form.customer_email.errors %}
+                                            {% for error in form.email.errors %}
                                                 {{ error }}
                                             {% endfor %}
                                         </div>
                                     {% endif %}
                                 </div>
                                 <div class="mb-3">
-                                    <label for="{{ form.customer_phone.id }}" class="form-label">Phone Number (Optional)</label>
-                                    {{ form.customer_phone(class="form-control" + (" is-invalid" if form.customer_phone.errors else ""), placeholder="Enter your phone number") }}
-                                    {% if form.customer_phone.errors %}
+                                    <label for="{{ form.phone.id_for_label }}" class="form-label">Phone Number (Optional)</label>
+                                    {{ form.phone }}
+                                    {% if form.phone.errors %}
                                         <div class="invalid-feedback">
-                                            {% for error in form.customer_phone.errors %}
+                                            {% for error in form.phone.errors %}
                                                 {{ error }}
                                             {% endfor %}
                                         </div>
                                     {% endif %}
                                 </div>
                                 <div class="mb-4">
-                                    <label for="{{ form.notes.id }}" class="form-label">Notes (Optional)</label>
-                                    {{ form.notes(class="form-control" + (" is-invalid" if form.notes.errors else ""), rows="3", placeholder="Any specific topics or questions you'd like to address in your reading?") }}
+                                    <label for="{{ form.notes.id_for_label }}" class="form-label">Notes (Optional)</label>
+                                    {{ form.notes }}
                                     {% if form.notes.errors %}
                                         <div class="invalid-feedback">
                                             {% for error in form.notes.errors %}
@@ -195,7 +195,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <button type="button" class="btn btn-outline-primary" id="backToStep2">Back</button>
-                                    {{ form.submit(class="btn btn-primary", id="confirmBooking", disabled="disabled") }}
+                                    <button type="submit" class="btn btn-primary" id="confirmBooking" disabled="disabled">Confirm Booking</button>
                                 </div>
                             </div>
                         </form>
@@ -242,28 +242,30 @@
                             <div class="accordion-body">
                                 <p>We understand that schedules change. Our cancellation policy is as follows:</p>
                                 <ul>
-                                    <li>Cancellations made 24+ hours before your appointment: Full refund or reschedule</li>
-                                    <li>Cancellations within 24 hours: 50% fee applies</li>
-                                    <li>No-shows: Full payment required</li>
+                                    <li>Cancellations more than 24 hours in advance: Full refund</li>
+                                    <li>Cancellations within 24 hours: 50% refund</li>
+                                    <li>No-shows: No refund</li>
                                 </ul>
-                                <p>To cancel or reschedule, please contact us at bookings@celestialinsights.com or call (098) 765-4321.</p>
+                                <p>To cancel or reschedule, please contact us at <a href="mailto:support@metamystic.in">support@metamystic.in</a>.</p>
                             </div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingThree">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                Online vs. In-Person Readings
+                                Technical Requirements
                             </button>
                         </h2>
                         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#bookingAccordion">
                             <div class="accordion-body">
-                                <p>We offer both online and in-person consultations:</p>
+                                <p>For online consultations, you'll need:</p>
                                 <ul>
-                                    <li><strong>Online:</strong> Conducted via Zoom, Skype, or Google Meet. A link will be sent to your email after booking.</li>
-                                    <li><strong>In-Person:</strong> Available at our office located at 123 Cosmic Lane, Starville. Please arrive 10 minutes before your appointment.</li>
+                                    <li>A stable internet connection</li>
+                                    <li>Video conferencing capability (webcam recommended)</li>
+                                    <li>A working microphone</li>
+                                    <li>A quiet environment free from distractions</li>
                                 </ul>
-                                <p>Both formats provide the same quality of reading and insight. The difference is purely in your preference and convenience.</p>
+                                <p>You'll receive a Zoom link via email 30 minutes before your scheduled reading.</p>
                             </div>
                         </div>
                     </div>
@@ -276,5 +278,145 @@
 
 {% block extra_js %}
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="{% url "astrology:booking" %}"></script>
+<script>
+    // Service details object
+    const serviceDetails = {
+        {% for service in services %}
+        "{{ service.id }}": {
+            "name": "{{ service.name }}",
+            "price": "£{{ service.price }}",
+            "duration": "{{ service.duration }} min",
+            "description": "{{ service.short_description }}"
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    };
+    
+    // Booking form steps
+    $(document).ready(function() {
+        // Initialize datepicker
+        flatpickr("#id_date", {
+            minDate: "today",
+            dateFormat: "Y-m-d",
+            disable: [
+                function(date) {
+                    // Disable Sundays
+                    return (date.getDay() === 0);
+                }
+            ],
+            onChange: function(selectedDates, dateStr) {
+                // Show available time slots
+                showTimeSlots(dateStr);
+                // Update summary
+                $("#summaryDate").text(dateStr);
+            }
+        });
+        
+        // Service selection
+        $("#id_service").change(function() {
+            const serviceId = $(this).val();
+            if (serviceId && serviceDetails[serviceId]) {
+                const service = serviceDetails[serviceId];
+                $("#serviceName").text(service.name);
+                $("#servicePrice").text(service.price);
+                $("#serviceDuration").html(`<i class="far fa-clock me-1"></i>${service.duration}`);
+                $("#serviceDescription").text(service.description);
+                $("#serviceDetails").removeClass("d-none");
+                
+                // Update summary
+                $("#summaryService").text(service.name);
+                $("#summaryPrice").text(service.price);
+            } else {
+                $("#serviceDetails").addClass("d-none");
+            }
+        });
+        
+        // Time slot selection
+        $(document).on("click", ".time-slot", function() {
+            $(".time-slot").removeClass("selected");
+            $(this).addClass("selected");
+            const time = $(this).data("time");
+            $("#id_time").val(time);
+            
+            // Update summary
+            $("#summaryTime").text(time);
+        });
+        
+        // Multi-step form navigation
+        $("#nextToStep2").click(function() {
+            if ($("#id_service").val()) {
+                $("#step1").addClass("d-none");
+                $("#step2").removeClass("d-none");
+                $(".progress-bar").css("width", "66%");
+                $(".step-circle").eq(1).addClass("active");
+            } else {
+                alert("Please select a service to continue.");
+            }
+        });
+        
+        $("#nextToStep3").click(function() {
+            if ($("#id_date").val() && $("#id_time").val()) {
+                $("#step2").addClass("d-none");
+                $("#step3").removeClass("d-none");
+                $(".progress-bar").css("width", "100%");
+                $(".step-circle").eq(2).addClass("active");
+            } else {
+                alert("Please select both date and time to continue.");
+            }
+        });
+        
+        $("#backToStep1").click(function() {
+            $("#step2").addClass("d-none");
+            $("#step1").removeClass("d-none");
+            $(".progress-bar").css("width", "33%");
+            $(".step-circle").eq(1).removeClass("active");
+        });
+        
+        $("#backToStep2").click(function() {
+            $("#step3").addClass("d-none");
+            $("#step2").removeClass("d-none");
+            $(".progress-bar").css("width", "66%");
+            $(".step-circle").eq(2).removeClass("active");
+        });
+        
+        // Terms agreement
+        $("#termsCheck").change(function() {
+            if ($(this).is(":checked")) {
+                $("#confirmBooking").prop("disabled", false);
+            } else {
+                $("#confirmBooking").prop("disabled", true);
+            }
+        });
+    });
+    
+    // Function to show available time slots
+    function showTimeSlots(date) {
+        // In a real application, this would fetch available slots from the server
+        // For demo, we're showing fixed slots
+        const morningSlots = ["09:00", "10:00", "11:00"];
+        const afternoonSlots = ["13:00", "14:00", "15:00", "16:00", "17:00"];
+        
+        let slotsHtml = `
+            <div class="time-slots-header mb-2">Morning</div>
+            <div class="time-slots-group mb-3">
+        `;
+        
+        morningSlots.forEach(time => {
+            slotsHtml += `<div class="time-slot" data-time="${time}">${time}</div>`;
+        });
+        
+        slotsHtml += `
+            </div>
+            <div class="time-slots-header mb-2">Afternoon</div>
+            <div class="time-slots-group">
+        `;
+        
+        afternoonSlots.forEach(time => {
+            slotsHtml += `<div class="time-slot" data-time="${time}">${time}</div>`;
+        });
+        
+        slotsHtml += `</div>`;
+        
+        $("#timeSlots").html(slotsHtml);
+    }
+</script>
 {% endblock %}

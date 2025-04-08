@@ -276,5 +276,5 @@
 
 {% block extra_js %}
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="{% url "astrology:booking" %}"></script>
+<script src="{{ url_for('static', filename='js/booking.js') }}"></script>
 {% endblock %}
