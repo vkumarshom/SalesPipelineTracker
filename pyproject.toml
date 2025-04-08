@@ -20,4 +20,10 @@ dependencies = [
     "djangorestframework>=3.16.0",
     "pillow>=11.1.0",
     "crispy-bootstrap5>=2025.4",
+    "oauthlib>=3.2.2",
+    "django-phonenumber-field>=8.0.0",
+    "phonenumbers>=9.0.2",
+    "requests>=2.32.3",
+    "pyjwt>=2.10.1",
+    "cryptography>=44.0.2",
 ]

@@ -1,5 +1,9 @@
 {pkgs}: {
   deps = [
+    pkgs.rustc
+    pkgs.pkg-config
+    pkgs.libiconv
+    pkgs.cargo
     pkgs.zlib
     pkgs.tk
     pkgs.tcl

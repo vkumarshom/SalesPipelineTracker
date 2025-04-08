@@ -47,6 +47,10 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.instagram',
+    'phonenumber_field',
     
     # Local apps
     'astrology',
@@ -63,9 +67,47 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 LOGIN_REDIRECT_URL = '/'
-ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
-ACCOUNT_LOGIN_METHODS = {'email', 'username'}
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
+LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_USERNAME_REQUIRED = True
+
+# Social Auth Providers
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    },
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email', 'public_profile'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'picture',
+        ],
+        'EXCHANGE_TOKEN': True,
+    },
+    'instagram': {
+        'SCOPE': ['user_profile', 'user_media'],
+    },
+}
+
+# Social account auto signup
+SOCIALACCOUNT_AUTO_SIGNUP = False
+
+# OTP Authentication
+OTP_TIMEOUT = 300  # 5 minutes
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,6 +118,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'astrology.middleware.PhoneVerificationMiddleware',
 ]
 
 ROOT_URLCONF = 'metamystic.urls'
@@ -160,3 +203,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Stripe Settings
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY', '')

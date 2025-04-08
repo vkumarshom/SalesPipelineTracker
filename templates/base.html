@@ -36,7 +36,7 @@
                         <a class="nav-link {% if '/services' in request.path %}active{% endif %}" href="{% url 'astrology:services' %}">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if '/blog' in request.path %}active{% endif %}" href="{% url 'astrology:blog' %}">Blog</a>
+                        <a class="nav-link {% if '/blog' in request.path %}active{% endif %}" href="{% url 'astrology:blog_list' %}">Blog</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/booking/' %}active{% endif %}" href="{% url 'astrology:booking' %}">Book Now</a>
@@ -81,7 +81,7 @@
                         <li><a href="{% url 'astrology:index' %}" class="text-decoration-none text-white-50">Home</a></li>
                         <li><a href="{% url 'astrology:about' %}" class="text-decoration-none text-white-50">About</a></li>
                         <li><a href="{% url 'astrology:services' %}" class="text-decoration-none text-white-50">Services</a></li>
-                        <li><a href="{% url 'astrology:blog' %}" class="text-decoration-none text-white-50">Blog</a></li>
+                        <li><a href="{% url 'astrology:blog_list' %}" class="text-decoration-none text-white-50">Blog</a></li>
                         <li><a href="{% url 'astrology:contact' %}" class="text-decoration-none text-white-50">Contact</a></li>
                     </ul>
                 </div>

@@ -1,14 +1,23 @@
 /* Custom CSS for MetaMystic Astrology Consultancy */
 
-/* Chakra Colors */
+/* Chakra Colors - More vibrant */
 :root {
-    --chakra-1-color: #ff0000; /* Root - Red */
-    --chakra-2-color: #ff8000; /* Sacral - Orange */
-    --chakra-3-color: #ffff00; /* Solar Plexus - Yellow */
-    --chakra-4-color: #00ff00; /* Heart - Green */
-    --chakra-5-color: #00ffff; /* Throat - Blue */
-    --chakra-6-color: #0000ff; /* Third Eye - Indigo */
-    --chakra-7-color: #8000ff; /* Crown - Violet */
+    --chakra-1-color: #ff1a1a; /* Root - Vibrant Red */
+    --chakra-2-color: #ff9100; /* Sacral - Vibrant Orange */
+    --chakra-3-color: #ffea00; /* Solar Plexus - Vibrant Yellow */
+    --chakra-4-color: #33cc33; /* Heart - Vibrant Green */
+    --chakra-5-color: #00bfff; /* Throat - Vibrant Blue */
+    --chakra-6-color: #4d4dff; /* Third Eye - Vibrant Indigo */
+    --chakra-7-color: #9933ff; /* Crown - Vibrant Violet */
+    
+    /* Chakra glow colors with higher saturation */
+    --chakra-1-glow: rgba(255, 26, 26, 0.6);
+    --chakra-2-glow: rgba(255, 145, 0, 0.6);
+    --chakra-3-glow: rgba(255, 234, 0, 0.6);
+    --chakra-4-glow: rgba(51, 204, 51, 0.6);
+    --chakra-5-glow: rgba(0, 191, 255, 0.6);
+    --chakra-6-glow: rgba(77, 77, 255, 0.6);
+    --chakra-7-glow: rgba(153, 51, 255, 0.6);
 }
 
 /* General Styles */
@@ -99,13 +108,13 @@ body {
     width: 100%;
     height: 100%;
     background: linear-gradient(45deg, 
-        rgba(255, 0, 0, 0.1), 
-        rgba(255, 128, 0, 0.1), 
-        rgba(255, 255, 0, 0.1), 
-        rgba(0, 255, 0, 0.1), 
-        rgba(0, 255, 255, 0.1), 
-        rgba(0, 0, 255, 0.1), 
-        rgba(128, 0, 255, 0.1));
+        var(--chakra-1-glow), 
+        var(--chakra-2-glow), 
+        var(--chakra-3-glow), 
+        var(--chakra-4-glow), 
+        var(--chakra-5-glow), 
+        var(--chakra-6-glow), 
+        var(--chakra-7-glow));
     animation: chakraGlow 10s infinite alternate;
 }
 
@@ -132,11 +141,30 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: none;
     background-color: #1e1e1e;
+    border-radius: 15px;
+    overflow: hidden;
 }
 
 .service-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.service-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.service-image img {
+    transition: transform 0.5s ease;
+}
+
+.service-card:hover .service-image img {
+    transform: scale(1.1);
+}
+
+.service-card .card-body {
+    padding: 1.5rem;
 }
 
 .service-icon {
@@ -148,10 +176,11 @@ body {
     align-items: center;
     justify-content: center;
     background: radial-gradient(circle, rgba(40, 40, 40, 1) 0%, rgba(30, 30, 30, 1) 100%);
-    box-shadow: 0 0 15px rgba(var(--chakra-7-color), 0.3);
+    box-shadow: 0 0 20px rgba(153, 51, 255, 0.4);
 }
 
 .service-icon i {
+    font-size: 2.5rem;
     background: linear-gradient(to right, 
         var(--chakra-1-color), 
         var(--chakra-4-color), 
@@ -160,15 +189,60 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
+.service-title {
+    color: #fff;
+    font-weight: 600;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+}
+
+.service-price {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--chakra-3-color);
+    margin-top: 0.5rem;
+}
+
+.service-duration {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-bottom: 1rem;
+}
+
 /* Testimonial Cards */
 .testimonial-card {
     border: none;
     background-color: #1e1e1e;
     transition: transform 0.3s ease;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+.testimonial-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, 
+        var(--chakra-1-color), 
+        var(--chakra-4-color), 
+        var(--chakra-7-color));
 }
 
 .testimonial-card:hover {
     transform: translateY(-5px);
+}
+
+.testimonial-quote {
+    font-size: 4rem;
+    opacity: 0.1;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: var(--chakra-7-color);
 }
 
 .testimonial-author {
@@ -177,16 +251,31 @@ body {
     margin-top: 15px;
 }
 
+.testimonial-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+    border: 3px solid var(--chakra-6-color);
+}
+
 /* Blog Cards */
 .blog-card {
     border: none;
     background-color: #1e1e1e;
     transition: transform 0.3s ease;
     overflow: hidden;
+    border-radius: 15px;
 }
 
 .blog-card:hover {
     transform: translateY(-5px);
+}
+
+.blog-image {
+    height: 200px;
+    overflow: hidden;
 }
 
 .blog-card img {
@@ -197,78 +286,110 @@ body {
     transform: scale(1.05);
 }
 
+.blog-category {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--chakra-7-color);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+.blog-date {
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
 /* Chakra Cards */
 .chakra-card {
     border: none;
     color: #fff;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 15px;
+    overflow: hidden;
 }
 
 .chakra-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .chakra-root {
-    background-color: #3a0000;
+    background: linear-gradient(135deg, #500, #a00);
 }
 .chakra-sacral {
-    background-color: #3a2000;
+    background: linear-gradient(135deg, #520, #fa0);
 }
 .chakra-solar {
-    background-color: #3a3a00;
+    background: linear-gradient(135deg, #550, #ff0);
 }
 .chakra-heart {
-    background-color: #003a00;
+    background: linear-gradient(135deg, #050, #0a0);
 }
 .chakra-throat {
-    background-color: #003a3a;
+    background: linear-gradient(135deg, #055, #0aa);
 }
 .chakra-third-eye {
-    background-color: #00003a;
+    background: linear-gradient(135deg, #005, #00a);
 }
 .chakra-crown {
-    background-color: #2a003a;
+    background: linear-gradient(135deg, #505, #a0a);
 }
 
 .chakra-symbol {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     margin: 0 auto;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
 }
 
 .chakra-1 {
     background-color: var(--chakra-1-color);
-    box-shadow: 0 0 15px var(--chakra-1-color);
+    box-shadow: 0 0 25px var(--chakra-1-color);
 }
 .chakra-2 {
     background-color: var(--chakra-2-color);
-    box-shadow: 0 0 15px var(--chakra-2-color);
+    box-shadow: 0 0 25px var(--chakra-2-color);
 }
 .chakra-3 {
     background-color: var(--chakra-3-color);
-    box-shadow: 0 0 15px var(--chakra-3-color);
+    box-shadow: 0 0 25px var(--chakra-3-color);
 }
 .chakra-4 {
     background-color: var(--chakra-4-color);
-    box-shadow: 0 0 15px var(--chakra-4-color);
+    box-shadow: 0 0 25px var(--chakra-4-color);
 }
 .chakra-5 {
     background-color: var(--chakra-5-color);
-    box-shadow: 0 0 15px var(--chakra-5-color);
+    box-shadow: 0 0 25px var(--chakra-5-color);
 }
 .chakra-6 {
     background-color: var(--chakra-6-color);
-    box-shadow: 0 0 15px var(--chakra-6-color);
+    box-shadow: 0 0 25px var(--chakra-6-color);
 }
 .chakra-7 {
     background-color: var(--chakra-7-color);
-    box-shadow: 0 0 15px var(--chakra-7-color);
+    box-shadow: 0 0 25px var(--chakra-7-color);
 }
 
 /* Team Cards */
@@ -277,10 +398,16 @@ body {
     background-color: #1e1e1e;
     transition: transform 0.3s ease;
     overflow: hidden;
+    border-radius: 15px;
 }
 
 .team-card:hover {
     transform: translateY(-5px);
+}
+
+.team-image {
+    height: 250px;
+    overflow: hidden;
 }
 
 .team-card img {
@@ -289,6 +416,20 @@ body {
 
 .team-card:hover img {
     transform: scale(1.05);
+}
+
+.team-social {
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    background: rgba(0,0,0,0.8);
+    transition: bottom 0.3s ease;
+}
+
+.team-card:hover .team-social {
+    bottom: 0;
 }
 
 .social-icons a {
@@ -316,6 +457,8 @@ body {
     background: linear-gradient(45deg, #1a0033, #330033);
     position: relative;
     overflow: hidden;
+    border-radius: 15px;
+    padding: 50px 0;
 }
 
 .cta-section::before {
@@ -326,19 +469,33 @@ body {
     width: 100%;
     height: 100%;
     background: linear-gradient(45deg, 
-        rgba(255, 0, 0, 0.1), 
-        rgba(255, 128, 0, 0.1), 
-        rgba(255, 255, 0, 0.1), 
-        rgba(0, 255, 0, 0.1), 
-        rgba(0, 255, 255, 0.1), 
-        rgba(0, 0, 255, 0.1), 
-        rgba(128, 0, 255, 0.1));
+        var(--chakra-1-glow), 
+        var(--chakra-2-glow), 
+        var(--chakra-3-glow), 
+        var(--chakra-4-glow), 
+        var(--chakra-5-glow), 
+        var(--chakra-6-glow), 
+        var(--chakra-7-glow));
     animation: chakraGlow 10s infinite alternate;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 1;
 }
 
 /* Footer */
 footer {
     background-color: #121212;
+    border-top: 5px solid;
+    border-image: linear-gradient(to right, 
+        var(--chakra-1-color), 
+        var(--chakra-2-color), 
+        var(--chakra-3-color), 
+        var(--chakra-4-color), 
+        var(--chakra-5-color), 
+        var(--chakra-6-color), 
+        var(--chakra-7-color)) 1;
 }
 
 footer .social-icons a {
@@ -351,45 +508,95 @@ footer .social-icons a:hover {
         var(--chakra-7-color));
 }
 
+.footer-link {
+    color: #aaa;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: var(--chakra-7-color);
+    text-decoration: none;
+}
+
 /* Contact Form */
 .contact-form {
     background-color: #1e1e1e;
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .form-control {
     background-color: #333;
     border: 1px solid #444;
     color: #fff;
+    border-radius: 10px;
+    padding: 12px 15px;
+    margin-bottom: 15px;
 }
 
 .form-control:focus {
     background-color: #333;
     border-color: var(--chakra-7-color);
-    box-shadow: 0 0 0 0.25rem rgba(128, 0, 255, 0.25);
+    box-shadow: 0 0 0 0.25rem rgba(153, 51, 255, 0.25);
     color: #fff;
 }
 
+.form-label {
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
 /* Buttons */
+.btn {
+    padding: 10px 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
 .btn-primary {
-    background: linear-gradient(to right, #6a0dad, #8a2be2);
+    background: linear-gradient(to right, #6a0dad, #9933ff);
     border: none;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #9933ff, #b366ff);
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.btn-primary:hover::before {
+    left: 0;
 }
 
 .btn-primary:hover, .btn-primary:focus {
     background: linear-gradient(to right, #8a2be2, #9b30ff);
     border: none;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(153, 51, 255, 0.3);
 }
 
 .btn-outline-primary {
-    border-color: #8a2be2;
-    color: #8a2be2;
+    border: 2px solid #9933ff;
+    color: #9933ff;
+    background: transparent;
 }
 
 .btn-outline-primary:hover {
-    background-color: #8a2be2;
-    border-color: #8a2be2;
+    background-color: #9933ff;
+    border-color: #9933ff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(153, 51, 255, 0.3);
 }
 
 /* Custom Animations */
@@ -409,6 +616,242 @@ footer .social-icons a:hover {
     animation: float 5s ease-in-out infinite;
 }
 
+/* Login & Registration Form Styles */
+.auth-form {
+    background: rgba(30, 30, 30, 0.8);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.auth-form .form-title {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #fff;
+    font-weight: 700;
+}
+
+.auth-form .form-title::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(to right, 
+        var(--chakra-1-color), 
+        var(--chakra-7-color));
+    margin: 15px auto 0;
+}
+
+.auth-social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    color: #fff;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.auth-social-btn i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.auth-social-btn.google {
+    background-color: #DB4437;
+}
+
+.auth-social-btn.facebook {
+    background-color: #3b5998;
+}
+
+.auth-social-btn.instagram {
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+.auth-social-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    text-decoration: none;
+}
+
+.auth-separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+    color: #aaa;
+}
+
+.auth-separator::before,
+.auth-separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #444;
+}
+
+.auth-separator::before {
+    margin-right: 10px;
+}
+
+.auth-separator::after {
+    margin-left: 10px;
+}
+
+/* Shopping Cart & Checkout Styles */
+.cart-table {
+    background-color: #1e1e1e;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.cart-table th {
+    background-color: #333;
+    color: #fff;
+    border-bottom: none;
+}
+
+.cart-table td {
+    vertical-align: middle;
+    border-color: #333;
+}
+
+.cart-product-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.cart-quantity {
+    width: 100px;
+}
+
+.cart-remove-btn {
+    color: var(--chakra-1-color);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.cart-remove-btn:hover {
+    color: var(--chakra-1-glow);
+    transform: scale(1.1);
+}
+
+.cart-summary {
+    background-color: #1e1e1e;
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.summary-total {
+    font-weight: 700;
+    font-size: 1.2rem;
+    border-top: 1px solid #333;
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+.coupon-form {
+    display: flex;
+    margin-top: 20px;
+}
+
+.coupon-input {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+/* Payment Method Selection */
+.payment-method {
+    background-color: #1e1e1e;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.payment-option {
+    display: block;
+    position: relative;
+    padding: 15px;
+    background-color: #333;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.payment-option:hover {
+    background-color: #444;
+}
+
+.payment-option input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.payment-option-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+.payment-option-icon {
+    margin-right: 15px;
+    font-size: 1.5rem;
+}
+
+.payment-option input:checked ~ .payment-check {
+    background-color: var(--chakra-7-color);
+}
+
+.payment-check {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    height: 20px;
+    width: 20px;
+    background-color: #666;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.payment-check:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.payment-option input:checked ~ .payment-check:after {
+    display: block;
+}
+
+.payment-option .payment-check:after {
+    left: 7px;
+    top: 3px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
 /* Media Queries */
 @media (max-width: 767.98px) {
     .hero-section, .about-hero-section {
@@ -417,5 +860,14 @@ footer .social-icons a:hover {
     
     .section-title {
         font-size: 1.8rem;
+    }
+    
+    .coupon-form {
+        flex-direction: column;
+    }
+    
+    .coupon-input {
+        margin-right: 0;
+        margin-bottom: 10px;
     }
 }
