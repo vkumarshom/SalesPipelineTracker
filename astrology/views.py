@@ -23,11 +23,12 @@ from datetime import datetime, timedelta
 from .models import (
     Profile, OTP, Service, Booking, BlogPost, CartItem, 
     Order, OrderItem, Contact, Coupon, UserReading,
-    AvailabilitySlot, BlockedDate
+    AvailabilitySlot, BlockedDate, ConsultationReport
 )
 from .forms import (
     OTPVerificationForm, ContactForm, BookingForm, CouponForm,
-    CustomRegisterForm, CustomLoginForm
+    CustomRegisterForm, CustomLoginForm, ConsultationReportForm,
+    UserReadingForm
 )
 from .utils import (
     get_session_id, generate_order_number, get_available_booking_slots,
@@ -623,7 +624,17 @@ def profile(request):
 def user_readings(request):
     """User readings page"""
     readings = UserReading.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'astrology/readings.html', {'readings': readings})
+    consultation_reports = ConsultationReport.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'astrology/readings.html', {
+        'readings': readings,
+        'consultation_reports': consultation_reports
+    })
+    
+@login_required
+def consultation_reports(request):
+    """User consultation reports page"""
+    reports = ConsultationReport.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'astrology/consultation_reports.html', {'reports': reports})
 
 @login_required
 def order_list(request):
@@ -954,3 +965,96 @@ def user_logout(request):
     logout(request)
     messages.success(request, "You have been logged out successfully.")
     return redirect('astrology:index')
+
+# Admin Views
+@login_required
+def admin_dashboard(request):
+    """Admin dashboard view"""
+    if not request.user.is_staff:
+        messages.error(request, "You don't have permission to access this page.")
+        return redirect('astrology:index')
+    
+    # Get statistics for dashboard
+    total_users = User.objects.count()
+    total_orders = Order.objects.count()
+    total_bookings = Booking.objects.count()
+    total_services = Service.objects.count()
+    recent_orders = Order.objects.order_by('-created_at')[:5]
+    recent_bookings = Booking.objects.order_by('-created_at')[:5]
+    
+    context = {
+        'total_users': total_users,
+        'total_orders': total_orders,
+        'total_bookings': total_bookings,
+        'total_services': total_services,
+        'recent_orders': recent_orders,
+        'recent_bookings': recent_bookings,
+    }
+    
+    return render(request, 'admin/dashboard.html', context)
+
+@login_required
+def admin_reports(request):
+    """Admin consultation reports list view"""
+    if not request.user.is_staff:
+        messages.error(request, "You don't have permission to access this page.")
+        return redirect('astrology:index')
+    
+    reports = ConsultationReport.objects.all().order_by('-created_at')
+    
+    return render(request, 'admin/reports.html', {'reports': reports})
+
+@login_required
+def admin_report_create(request):
+    """Admin view to create a new consultation report"""
+    if not request.user.is_staff:
+        messages.error(request, "You don't have permission to access this page.")
+        return redirect('astrology:index')
+    
+    if request.method == 'POST':
+        form = ConsultationReportForm(request.POST, request.FILES)
+        if form.is_valid():
+            report = form.save()
+            messages.success(request, f"Report '{report.title}' created successfully.")
+            return redirect('astrology:admin_reports')
+    else:
+        form = ConsultationReportForm()
+    
+    return render(request, 'admin/report_form.html', {'form': form, 'action': 'Create'})
+
+@login_required
+def admin_report_edit(request, report_id):
+    """Admin view to edit a consultation report"""
+    if not request.user.is_staff:
+        messages.error(request, "You don't have permission to access this page.")
+        return redirect('astrology:index')
+    
+    report = get_object_or_404(ConsultationReport, id=report_id)
+    
+    if request.method == 'POST':
+        form = ConsultationReportForm(request.POST, request.FILES, instance=report)
+        if form.is_valid():
+            report = form.save()
+            messages.success(request, f"Report '{report.title}' updated successfully.")
+            return redirect('astrology:admin_reports')
+    else:
+        form = ConsultationReportForm(instance=report)
+    
+    return render(request, 'admin/report_form.html', {'form': form, 'report': report, 'action': 'Edit'})
+
+@login_required
+def admin_report_delete(request, report_id):
+    """Admin view to delete a consultation report"""
+    if not request.user.is_staff:
+        messages.error(request, "You don't have permission to access this page.")
+        return redirect('astrology:index')
+    
+    report = get_object_or_404(ConsultationReport, id=report_id)
+    
+    if request.method == 'POST':
+        report_title = report.title
+        report.delete()
+        messages.success(request, f"Report '{report_title}' deleted successfully.")
+        return redirect('astrology:admin_reports')
+    
+    return render(request, 'admin/report_confirm_delete.html', {'report': report})

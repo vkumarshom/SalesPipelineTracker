@@ -1,95 +1,98 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load static %}
 
 {% block title %}Admin Dashboard - MetaMystic Astrology{% endblock %}
 
 {% block content %}
-<!-- Admin Header -->
-<div class="bg-dark py-3">
+<!-- Header -->
+<section class="py-5 bg-dark text-center">
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-            <h1 class="h3 mb-0">Admin Dashboard</h1>
-            <div>
-                <a href="{{ url_for('index') }}" class="btn btn-outline-light btn-sm me-2">View Site</a>
-                <a href="{{ url_for('admin_logout') }}" class="btn btn-outline-danger btn-sm">Logout</a>
-            </div>
-        </div>
+        <h1 class="display-4 mb-4">Admin Dashboard</h1>
+        <p class="lead">Manage your astrology business</p>
     </div>
-</div>
+</section>
 
-<!-- Admin Navigation -->
-<div class="bg-secondary py-2">
+<!-- Dashboard Section -->
+<section class="py-5">
     <div class="container">
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link active" href="{{ url_for('admin_dashboard') }}">Dashboard</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('admin_blog_posts') }}">Blog Posts</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('admin_services') }}">Services</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('admin_bookings') }}">Bookings</a>
-            </li>
-        </ul>
-    </div>
-</div>
-
-<!-- Dashboard Content -->
-<section class="py-4">
-    <div class="container">
-        <!-- Stats Cards -->
-        <div class="row mb-4">
-            <div class="col-md-3 mb-3 mb-md-0">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-calendar-check fa-2x text-primary mb-3"></i>
-                        <h3 class="card-title h5">Today's Bookings</h3>
-                        <p class="card-text display-6">{{ recent_bookings|selectattr('booking_date', 'eq', now().date())|list|length }}</p>
+        <div class="row">
+            <div class="col-lg-3">
+                <!-- Admin Navigation -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Admin Panel
                     </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item active">
+                            <a href="{% url 'astrology:admin_dashboard' %}" class="text-decoration-none text-white">Dashboard</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{% url 'astrology:admin_reports' %}" class="text-decoration-none">Consultation Reports</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/admin/astrology/booking/" class="text-decoration-none">Bookings</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/admin/astrology/service/" class="text-decoration-none">Services</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/admin/astrology/order/" class="text-decoration-none">Orders</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/admin/astrology/blogpost/" class="text-decoration-none">Blog Posts</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/admin/auth/user/" class="text-decoration-none">Users</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="col-md-3 mb-3 mb-md-0">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-shopping-cart fa-2x text-primary mb-3"></i>
-                        <h3 class="card-title h5">Recent Orders</h3>
-                        <p class="card-text display-6">{{ recent_orders|length }}</p>
+            
+            <div class="col-lg-9">
+                <!-- Stats Cards -->
+                <div class="row mb-4">
+                    <div class="col-md-3 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <h3 class="card-title">{{ total_users }}</h3>
+                                <p class="card-text text-muted">Users</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <h3 class="card-title">{{ total_bookings }}</h3>
+                                <p class="card-text text-muted">Bookings</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <h3 class="card-title">{{ total_orders }}</h3>
+                                <p class="card-text text-muted">Orders</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <h3 class="card-title">{{ total_services }}</h3>
+                                <p class="card-text text-muted">Services</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3 mb-3 mb-md-0">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
-                        <h3 class="card-title h5">Unread Messages</h3>
-                        <p class="card-text display-6">{{ unread_contacts }}</p>
+                
+                <!-- Recent Bookings -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">Recent Bookings</h5>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-file-alt fa-2x text-primary mb-3"></i>
-                        <h3 class="card-title h5">Blog Posts</h3>
-                        <p class="card-text display-6">{{ blog_posts_count }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Recent Bookings -->
-        <div class="row mb-4">
-            <div class="col-md-6 mb-4 mb-md-0">
-                <div class="card h-100">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Recent Bookings</h5>
-                        <a href="{{ url_for('admin_bookings') }}" class="btn btn-sm btn-outline-primary">View All</a>
-                    </div>
-                    <div class="card-body p-0">
+                    <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover mb-0">
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>Customer</th>
@@ -103,14 +106,14 @@
                                     <tr>
                                         <td>{{ booking.customer_name }}</td>
                                         <td>{{ booking.service.name }}</td>
-                                        <td>{{ booking.booking_date.strftime('%m/%d/%Y') }}</td>
+                                        <td>{{ booking.booking_date }} at {{ booking.booking_time }}</td>
                                         <td>
-                                            <span class="badge bg-{{ 'success' if booking.status == 'confirmed' else 'warning' if booking.status == 'pending' else 'danger' }}">
-                                                {{ booking.status }}
+                                            <span class="badge {% if booking.status == 'confirmed' %}bg-success{% elif booking.status == 'pending' %}bg-warning{% elif booking.status == 'cancelled' %}bg-danger{% else %}bg-secondary{% endif %}">
+                                                {{ booking.status|title }}
                                             </span>
                                         </td>
                                     </tr>
-                                    {% else %}
+                                    {% empty %}
                                     <tr>
                                         <td colspan="4" class="text-center">No recent bookings</td>
                                     </tr>
@@ -118,20 +121,20 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="text-end">
+                            <a href="/admin/astrology/booking/" class="btn btn-sm btn-outline-primary">View All Bookings</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Recent Orders -->
-            <div class="col-md-6">
-                <div class="card h-100">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Recent Orders</h5>
-                        <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+                
+                <!-- Recent Orders -->
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">Recent Orders</h5>
                     </div>
-                    <div class="card-body p-0">
+                    <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover mb-0">
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>Order #</th>
@@ -145,14 +148,14 @@
                                     <tr>
                                         <td>{{ order.order_number }}</td>
                                         <td>{{ order.customer_name }}</td>
-                                        <td>${{ order.total_amount }}</td>
+                                        <td>£{{ order.total_amount }}</td>
                                         <td>
-                                            <span class="badge bg-{{ 'success' if order.status == 'paid' else 'warning' if order.status == 'pending' else 'danger' }}">
-                                                {{ order.status }}
+                                            <span class="badge {% if order.status == 'paid' %}bg-success{% elif order.status == 'pending' %}bg-warning{% elif order.status == 'cancelled' %}bg-danger{% elif order.status == 'refunded' %}bg-info{% else %}bg-secondary{% endif %}">
+                                                {{ order.status|title }}
                                             </span>
                                         </td>
                                     </tr>
-                                    {% else %}
+                                    {% empty %}
                                     <tr>
                                         <td colspan="4" class="text-center">No recent orders</td>
                                     </tr>
@@ -160,40 +163,8 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Quick Actions -->
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="mb-0">Quick Actions</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row g-3">
-                            <div class="col-6">
-                                <a href="{{ url_for('admin_new_post') }}" class="btn btn-outline-primary w-100">
-                                    <i class="fas fa-plus-circle me-2"></i>New Blog Post
-                                </a>
-                            </div>
-                            <div class="col-6">
-                                <a href="{{ url_for('admin_new_service') }}" class="btn btn-outline-primary w-100">
-                                    <i class="fas fa-plus-circle me-2"></i>New Service
-                                </a>
-                            </div>
-                            <div class="col-6">
-                                <a href="#" class="btn btn-outline-primary w-100">
-                                    <i class="fas fa-envelope me-2"></i>View Messages
-                                </a>
-                            </div>
-                            <div class="col-6">
-                                <a href="#" class="btn btn-outline-primary w-100">
-                                    <i class="fas fa-cog me-2"></i>Site Settings
-                                </a>
-                            </div>
+                        <div class="text-end">
+                            <a href="/admin/astrology/order/" class="btn btn-sm btn-outline-primary">View All Orders</a>
                         </div>
                     </div>
                 </div>

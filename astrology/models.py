@@ -1,3 +1,6 @@
+import os
+import random
+import string
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -6,8 +9,6 @@ from django.utils.text import slugify
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from phonenumber_field.modelfields import PhoneNumberField
-import random
-import string
 from datetime import timedelta
 
 class Profile(models.Model):
@@ -315,6 +316,7 @@ class UserReading(models.Model):
     content = models.TextField()
     reading_date = models.DateField(default=timezone.now)
     is_public = models.BooleanField(default=False)
+    pdf_report = models.FileField(upload_to='reports/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -323,3 +325,29 @@ class UserReading(models.Model):
     
     class Meta:
         ordering = ['-created_at']
+        
+    def get_pdf_filename(self):
+        if self.pdf_report:
+            return os.path.basename(self.pdf_report.name)
+        return None
+        
+class ConsultationReport(models.Model):
+    """
+    Consultation reports model for PDF uploads
+    """
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='consultation_reports')
+    title = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+    report_file = models.FileField(upload_to='consultation_reports/')
+    consultation_date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.title}"
+    
+    class Meta:
+        ordering = ['-created_at']
+        
+    def get_filename(self):
+        return os.path.basename(self.report_file.name)

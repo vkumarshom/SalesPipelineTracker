@@ -7,7 +7,7 @@ from phonenumber_field.formfields import PhoneNumberField
 import random
 import string
 
-from .models import BlockedDate
+from .models import BlockedDate, ConsultationReport, UserReading
 
 def generate_otp():
     """Generate a 6-digit OTP code"""
@@ -145,3 +145,34 @@ class CustomLoginForm(AuthenticationForm):
         label=_('Remember Me'),
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )
+    
+class ConsultationReportForm(forms.ModelForm):
+    """
+    Form for creating/editing consultation reports
+    """
+    class Meta:
+        model = ConsultationReport
+        fields = ['user', 'title', 'description', 'report_file', 'consultation_date']
+        widgets = {
+            'user': forms.Select(attrs={'class': 'form-select'}),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'report_file': forms.FileInput(attrs={'class': 'form-control'}),
+            'consultation_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        }
+        
+class UserReadingForm(forms.ModelForm):
+    """
+    Form for creating/editing user readings
+    """
+    class Meta:
+        model = UserReading
+        fields = ['user', 'title', 'content', 'reading_date', 'is_public', 'pdf_report']
+        widgets = {
+            'user': forms.Select(attrs={'class': 'form-select'}),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+            'reading_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'is_public': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'pdf_report': forms.FileInput(attrs={'class': 'form-control'}),
+        }

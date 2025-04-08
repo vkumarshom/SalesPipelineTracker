@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from .models import (
     Profile, OTP, Service, Booking, BlogPost, CartItem, 
     Order, OrderItem, Contact, Coupon, UserReading,
-    AvailabilitySlot, BlockedDate
+    AvailabilitySlot, BlockedDate, ConsultationReport
 )
 
 # Profile Admin
@@ -95,9 +95,22 @@ class ContactAdmin(admin.ModelAdmin):
 # User Reading Admin
 @admin.register(UserReading)
 class UserReadingAdmin(admin.ModelAdmin):
-    list_display = ('user', 'title', 'created_at', 'is_public')
-    list_filter = ('is_public', 'created_at')
+    list_display = ('user', 'title', 'reading_date', 'has_pdf', 'is_public', 'created_at')
+    list_filter = ('is_public', 'created_at', 'reading_date')
     search_fields = ('title', 'content', 'user__username')
+    ordering = ('-created_at',)
+    
+    def has_pdf(self, obj):
+        return bool(obj.pdf_report)
+    has_pdf.boolean = True
+    has_pdf.short_description = 'PDF Report'
+    
+# Consultation Report Admin
+@admin.register(ConsultationReport)
+class ConsultationReportAdmin(admin.ModelAdmin):
+    list_display = ('user', 'title', 'consultation_date', 'created_at')
+    list_filter = ('consultation_date', 'created_at')
+    search_fields = ('title', 'description', 'user__username', 'user__email')
     ordering = ('-created_at',)
 
 # Availability Slot Admin

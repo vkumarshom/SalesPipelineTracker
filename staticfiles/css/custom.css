@@ -1,0 +1,285 @@
+/* 
+Seven Chakras Theme - Custom Styles
+Colors:
+- Root (Red): #FF0000
+- Sacral (Orange): #FF7F00
+- Solar Plexus (Yellow): #FFFF00
+- Heart (Green): #00FF00
+- Throat (Blue): #0000FF
+- Third Eye (Indigo): #4B0082
+- Crown (Violet): #8A2BE2
+*/
+
+:root {
+  --chakra-root: #FF0000;
+  --chakra-sacral: #FF7F00;
+  --chakra-solar: #FFFF00;
+  --chakra-heart: #00FF00;
+  --chakra-throat: #0000FF;
+  --chakra-third-eye: #4B0082;
+  --chakra-crown: #8A2BE2;
+}
+
+/* Navbar Styling */
+.navbar {
+  background: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0.8),
+    rgba(255, 127, 0, 0.8),
+    rgba(255, 255, 0, 0.8),
+    rgba(0, 255, 0, 0.8),
+    rgba(0, 0, 255, 0.8),
+    rgba(75, 0, 130, 0.8),
+    rgba(138, 43, 226, 0.8)
+  );
+  padding: 1rem 0;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+/* Hero Section */
+.hero-section {
+  height: 80vh;
+  min-height: 500px;
+  background: 
+    linear-gradient(
+      rgba(0, 0, 0, 0.7), 
+      rgba(0, 0, 0, 0.7)
+    ),
+    url('/static/assets/placeholder.jpg') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(
+      circle at center,
+      rgba(138, 43, 226, 0.2) 0%,
+      rgba(75, 0, 130, 0.2) 20%,
+      rgba(0, 0, 255, 0.2) 40%,
+      rgba(0, 255, 0, 0.2) 60%,
+      rgba(255, 255, 0, 0.2) 70%,
+      rgba(255, 127, 0, 0.2) 80%,
+      rgba(255, 0, 0, 0.2) 100%
+    );
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Card Styling */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 1.5rem;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+/* Service Cards */
+.service-card .card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.service-price {
+  font-weight: bold;
+  color: var(--chakra-heart);
+}
+
+/* Blog Cards */
+.blog-card .card-img-top {
+  height: 180px;
+  object-fit: cover;
+}
+
+.blog-card .card-footer {
+  background-color: transparent;
+  border-top: none;
+}
+
+/* Call to Action Sections */
+.cta-section {
+  background-color: var(--bs-dark);
+  padding: 3rem 0;
+  margin: 2rem 0;
+}
+
+/* Button Styling */
+.btn-chakra-primary {
+  background-color: var(--chakra-crown);
+  border-color: var(--chakra-crown);
+  color: white;
+}
+
+.btn-chakra-primary:hover {
+  background-color: var(--chakra-third-eye);
+  border-color: var(--chakra-third-eye);
+  color: white;
+}
+
+.btn-chakra-secondary {
+  background-color: var(--chakra-throat);
+  border-color: var(--chakra-throat);
+  color: white;
+}
+
+.btn-chakra-secondary:hover {
+  background-color: var(--chakra-heart);
+  border-color: var(--chakra-heart);
+  color: white;
+}
+
+/* Footer Styling */
+footer {
+  background: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0.9),
+    rgba(255, 127, 0, 0.9),
+    rgba(255, 255, 0, 0.9),
+    rgba(0, 255, 0, 0.9),
+    rgba(0, 0, 255, 0.9),
+    rgba(75, 0, 130, 0.9),
+    rgba(138, 43, 226, 0.9)
+  );
+  color: white;
+  padding: 2rem 0 1rem;
+}
+
+footer h5 {
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.social-icons a {
+  color: white;
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.social-icons a:hover {
+  transform: translateY(-3px);
+}
+
+/* Form styling */
+.form-control:focus {
+  border-color: var(--chakra-crown);
+  box-shadow: 0 0 0 0.25rem rgba(138, 43, 226, 0.25);
+}
+
+.btn-outline-light:hover {
+  background-color: var(--chakra-crown);
+  border-color: var(--chakra-crown);
+}
+
+/* Authentication pages */
+.auth-form-container {
+  max-width: 450px;
+  margin: 3rem auto;
+}
+
+.social-login-buttons .btn {
+  margin-right: 0.5rem;
+}
+
+/* Profile page */
+.profile-header {
+  background-color: var(--bs-dark);
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+}
+
+.avatar-upload {
+  position: relative;
+  max-width: 150px;
+  margin: 0 auto;
+}
+
+.avatar-upload .avatar-edit {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  bottom: 0;
+}
+
+.avatar-upload .avatar-preview {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 6px solid rgba(138, 43, 226, 0.2);
+}
+
+.avatar-upload .avatar-preview > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+  .hero-section {
+    height: 60vh;
+  }
+  
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Booking calendar */
+.booking-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.time-slot {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.time-slot:hover {
+  background-color: var(--chakra-crown);
+  color: white;
+}
+
+.time-slot.selected {
+  background-color: var(--chakra-crown);
+  color: white;
+}
+
+.time-slot.unavailable {
+  background-color: #f8f9fa;
+  color: #adb5bd;
+  cursor: not-allowed;
+}

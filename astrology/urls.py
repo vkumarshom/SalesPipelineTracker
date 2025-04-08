@@ -48,8 +48,16 @@ urlpatterns = [
     # User Profile
     path('profile/', views.profile, name='profile'),
     path('profile/readings/', views.user_readings, name='user_readings'),
+    path('profile/consultation-reports/', views.consultation_reports, name='consultation_reports'),
     path('profile/orders/', views.order_list, name='order_list'),
     path('profile/orders/<str:order_number>/', views.order_detail, name='order_detail'),
+    
+    # Admin Dashboard
+    path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
+    path('admin/reports/', views.admin_reports, name='admin_reports'),
+    path('admin/reports/create/', views.admin_report_create, name='admin_report_create'),
+    path('admin/reports/edit/<int:report_id>/', views.admin_report_edit, name='admin_report_edit'),
+    path('admin/reports/delete/<int:report_id>/', views.admin_report_delete, name='admin_report_delete'),
     
     # OTP Verification
     path('verify-otp/', views.verify_otp, name='verify_otp'),
