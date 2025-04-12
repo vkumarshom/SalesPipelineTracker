@@ -54,6 +54,10 @@ urlpatterns = [
     
     # Admin Dashboard
     path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
+    path('admin/services/', views.admin_services, name='admin_services'),
+    path('admin/services/create/', views.admin_service_create, name='admin_service_create'),
+    path('admin/services/edit/<int:service_id>/', views.admin_service_edit, name='admin_service_edit'),
+    path('admin/services/delete/<int:service_id>/', views.admin_service_delete, name='admin_service_delete'),
     path('admin/reports/', views.admin_reports, name='admin_reports'),
     path('admin/reports/create/', views.admin_report_create, name='admin_report_create'),
     path('admin/reports/edit/<int:report_id>/', views.admin_report_edit, name='admin_report_edit'),

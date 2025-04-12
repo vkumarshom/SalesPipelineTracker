@@ -29,7 +29,7 @@ from .models import (
 from .forms import (
     OTPVerificationForm, ContactForm, BookingForm, CouponForm,
     CustomRegisterForm, CustomLoginForm, ConsultationReportForm,
-    UserReadingForm
+    UserReadingForm, ServiceForm
 )
 from .utils import (
     get_session_id, generate_order_number, get_available_booking_slots,
@@ -993,6 +993,84 @@ def admin_dashboard(request):
     }
     
     return render(request, 'admin/dashboard.html', context)
+
+@login_required
+def admin_services(request):
+    """Admin services management view"""
+    if not request.user.is_staff:
+        messages.error(request, "You don't have permission to access this page.")
+        return redirect('astrology:index')
+    
+    services = Service.objects.all().order_by('name')
+    
+    return render(request, 'admin/services.html', {'services': services})
+
+@login_required
+def admin_service_create(request):
+    """Admin create service view"""
+    if not request.user.is_staff:
+        messages.error(request, "You don't have permission to access this page.")
+        return redirect('astrology:index')
+    
+    if request.method == 'POST':
+        form = ServiceForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Service created successfully.")
+            return redirect('astrology:admin_services')
+    else:
+        form = ServiceForm()
+    
+    return render(request, 'admin/service_form.html', {
+        'form': form,
+        'title': 'Create New Service'
+    })
+
+@login_required
+def admin_service_edit(request, service_id):
+    """Admin edit service view"""
+    if not request.user.is_staff:
+        messages.error(request, "You don't have permission to access this page.")
+        return redirect('astrology:index')
+    
+    service = get_object_or_404(Service, id=service_id)
+    
+    if request.method == 'POST':
+        form = ServiceForm(request.POST, request.FILES, instance=service)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Service updated successfully.")
+            return redirect('astrology:admin_services')
+    else:
+        form = ServiceForm(instance=service)
+    
+    return render(request, 'admin/service_form.html', {
+        'form': form,
+        'service': service,
+        'title': f'Edit Service: {service.name}'
+    })
+
+@login_required
+def admin_service_delete(request, service_id):
+    """Admin delete service view"""
+    if not request.user.is_staff:
+        messages.error(request, "You don't have permission to access this page.")
+        return redirect('astrology:index')
+    
+    service = get_object_or_404(Service, id=service_id)
+    
+    # Check if service has associated bookings
+    if Booking.objects.filter(service=service).exists():
+        messages.error(request, "Cannot delete this service as it has associated bookings.")
+        return redirect('astrology:admin_services')
+    
+    if request.method == 'POST':
+        service_name = service.name
+        service.delete()
+        messages.success(request, f"Service '{service_name}' deleted successfully.")
+        return redirect('astrology:admin_services')
+    
+    return render(request, 'admin/service_confirm_delete.html', {'service': service})
 
 @login_required
 def admin_reports(request):

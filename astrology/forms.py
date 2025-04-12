@@ -7,7 +7,7 @@ from phonenumber_field.formfields import PhoneNumberField
 import random
 import string
 
-from .models import BlockedDate, ConsultationReport, UserReading
+from .models import BlockedDate, ConsultationReport, UserReading, Service
 
 def generate_otp():
     """Generate a 6-digit OTP code"""
@@ -175,4 +175,26 @@ class UserReadingForm(forms.ModelForm):
             'reading_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'is_public': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'pdf_report': forms.FileInput(attrs={'class': 'form-control'}),
+        }
+
+class ServiceForm(forms.ModelForm):
+    """
+    Form for creating/editing astrology services
+    """
+    class Meta:
+        model = Service
+        fields = ['name', 'slug', 'description', 'short_description', 'price', 'duration', 'image', 'is_available']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'slug': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+            'short_description': forms.TextInput(attrs={'class': 'form-control'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control', 'min': '0', 'step': '0.01'}),
+            'duration': forms.NumberInput(attrs={'class': 'form-control', 'min': '15', 'step': '15'}),
+            'image': forms.FileInput(attrs={'class': 'form-control'}),
+            'is_available': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+        help_texts = {
+            'duration': _('Duration in minutes'),
+            'slug': _('URL-friendly name (auto-generated if left blank)'),
         }
