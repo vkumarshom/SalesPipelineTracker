@@ -1,0 +1,104 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | MetaMystic Administration{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        <img src="{% static 'assets/metamystic_logo.svg' %}" alt="MetaMystic Logo" height="30" style="margin-right: 10px; vertical-align: middle;">
+        MetaMystic Administration
+    </a>
+</h1>
+{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    :root {
+        --primary: #9C27B0;
+        --secondary: #673AB7;
+        --accent: #3F51B5;
+        --primary-fg: #fff;
+        
+        --body-fg: #333;
+        --body-bg: #f8f8f8;
+        --body-quiet-color: #666;
+        --body-loud-color: #000;
+        
+        --header-color: #fff;
+        --header-branding-color: #fff;
+        --header-bg: #9C27B0;
+        --header-link-color: #fff;
+        
+        --breadcrumbs-fg: #9C27B0;
+        --breadcrumbs-link-fg: #673AB7;
+        --breadcrumbs-bg: #f8f8f8;
+        
+        --link-fg: #9C27B0;
+        --link-hover-color: #673AB7;
+        --link-selected-fg: #3F51B5;
+        
+        --button-fg: #fff;
+        --button-bg: #9C27B0;
+        --button-hover-bg: #7B1FA2;
+        
+        --default-button-fg: #9C27B0;
+        --default-button-bg: #fff;
+        --default-button-hover-bg: #f2f2f2;
+        --default-button-border-color: #9C27B0;
+        
+        --close-button-bg: #9C27B0;
+        --close-button-hover-bg: #7B1FA2;
+    }
+    
+    #header {
+        background: linear-gradient(135deg, #9C27B0, #673AB7);
+        color: white;
+    }
+    
+    #site-name a {
+        display: flex;
+        align-items: center;
+        color: white !important;
+    }
+    
+    .module h2, .module caption, .inline-group h2 {
+        background: #9C27B0;
+    }
+    
+    div.breadcrumbs {
+        background: #673AB7;
+    }
+    
+    .button, input[type=submit], input[type=button], .submit-row input, a.button {
+        background: #9C27B0;
+    }
+    
+    .button:hover, input[type=submit]:hover, input[type=button]:hover, .submit-row input:hover {
+        background: #7B1FA2;
+    }
+    
+    .button.default, input[type=submit].default, .submit-row input.default {
+        background: #3F51B5;
+    }
+    
+    .button.default:hover, input[type=submit].default:hover, .submit-row input.default:hover {
+        background: #303F9F;
+    }
+    
+    /* Seven Chakras color theme */
+    .dashboard .module table th {
+        background: linear-gradient(to right, 
+            #FF0000, /* Root Chakra */
+            #FF7F00, /* Sacral Chakra */
+            #FFFF00, /* Solar Plexus Chakra */
+            #00FF00, /* Heart Chakra */
+            #0000FF, /* Throat Chakra */
+            #4B0082, /* Third Eye Chakra */
+            #9400D3  /* Crown Chakra */
+        );
+        color: white;
+    }
+</style>
+{% endblock %}
